@@ -29,18 +29,53 @@
         str = [NSString stringWithString:string];
     }
     NSArray *components = [str componentsSeparatedByString:@","];
-    NSUInteger count = [components count] / 2;
-    if (coordinateCount != NULL) {
-        *coordinateCount = count;
+    
+    NSInteger componentCount = [components count];
+    if (componentCount < 5000) {
+        *coordinateCount = 0;
+        return NULL;
     }
-    CLLocationCoordinate2D *coordinates = (CLLocationCoordinate2D*)malloc(count * sizeof(CLLocationCoordinate2D));
+    NSInteger count = 200;
+    NSInteger times = componentCount/count/2*2;
+    if (coordinateCount != NULL) {
+        *coordinateCount = count+1;
+    }
+    CLLocationCoordinate2D *coordinates = (CLLocationCoordinate2D*)malloc((count+1) * sizeof(CLLocationCoordinate2D));
     
     for (int i = 0; i < count; i++) {
-        coordinates[i].longitude = [[components objectAtIndex:2 * i]     doubleValue];
-        coordinates[i].latitude  = [[components objectAtIndex:2 * i + 1] doubleValue];
+        coordinates[i].longitude = [[components objectAtIndex:times * i]     doubleValue];
+        coordinates[i].latitude  = [[components objectAtIndex:times * i + 1] doubleValue];
     }
+    coordinates[count].longitude = [[components objectAtIndex:0]     doubleValue];
+    coordinates[count].latitude  = [[components objectAtIndex:1] doubleValue];
     
     return coordinates;
+}
+
+
+
+
++ (MAPolygon *)polygonForCoordinateString:(NSString *)coordinateString
+{
+    if (coordinateString.length == 0)
+    {
+        return nil;
+    }
+    
+    NSUInteger count = 0;
+    
+    CLLocationCoordinate2D *coordinates = [self coordinatesForString:coordinateString
+                                                     coordinateCount:&count
+                                                          parseToken:@";"];
+    if (!coordinates) {
+        return nil;
+    }
+    
+    MAPolygon *polygon = [MAPolygon polygonWithCoordinates:coordinates count:count];
+    
+    free(coordinates), coordinates = NULL;
+    
+    return polygon;
 }
 
 + (MAPolyline *)polylineForCoordinateString:(NSString *)coordinateString
@@ -55,6 +90,9 @@
     CLLocationCoordinate2D *coordinates = [self coordinatesForString:coordinateString
                                                      coordinateCount:&count
                                                           parseToken:@";"];
+    if (!coordinates) {
+        return nil;
+    }
     
     MAPolyline *polyline = [MAPolyline polylineWithCoordinates:coordinates count:count];
     

@@ -18,6 +18,8 @@
 
 + (MAPolyline *)polylineForCoordinateString:(NSString *)coordinateString;
 
++ (MAPolygon *)polygonForCoordinateString:(NSString *)coordinateString;
+
 + (MAPolyline *)polylineForStep:(AMapStep *)step;
 
 + (MAPolyline *)polylineForBusLine:(AMapBusLine *)busLine;

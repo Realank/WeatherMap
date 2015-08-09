@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C958B8B1B7747F1004AB2DD /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C958B8A1B7747F1004AB2DD /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8CF22FB91B76EB7D00611895 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF22FB81B76EB7D00611895 /* main.m */; };
 		8CF22FBC1B76EB7D00611895 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF22FBB1B76EB7D00611895 /* AppDelegate.m */; };
 		8CF22FBF1B76EB7D00611895 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF22FBE1B76EB7D00611895 /* ViewController.m */; };
@@ -47,6 +48,8 @@
 /* Begin PBXFileReference section */
 		235543AA800BC322877319E2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		439339594C5807B3E19B2F05 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		8C958B891B7747F1004AB2DD /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		8C958B8A1B7747F1004AB2DD /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		8CF22FB31B76EB7D00611895 /* WeatherMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CF22FB71B76EB7D00611895 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CF22FB81B76EB7D00611895 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 		8CF22FE31B77036F00611895 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				8C958B891B7747F1004AB2DD /* JSONKit.h */,
+				8C958B8A1B7747F1004AB2DD /* JSONKit.m */,
 				8CF22FE41B77036F00611895 /* CommonUtility.h */,
 				8CF22FE51B77036F00611895 /* CommonUtility.m */,
 			);
@@ -384,6 +389,7 @@
 				8CF2300B1B77037700611895 /* CustomAnnotationView.m in Sources */,
 				8CF230131B77037700611895 /* MANaviAnnotationView.m in Sources */,
 				8CF230121B77037700611895 /* MANaviAnnotation.m in Sources */,
+				8C958B8B1B7747F1004AB2DD /* JSONKit.m in Sources */,
 				8CF2300D1B77037700611895 /* CustomOverlay.m in Sources */,
 				8CF230161B77037700611895 /* POIAnnotation.m in Sources */,
 				8CF230111B77037700611895 /* LocalTileOverlay.m in Sources */,
