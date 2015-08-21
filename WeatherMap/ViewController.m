@@ -12,47 +12,19 @@
 #import "CommonUtility.h"
 #import "CustomCalloutView.h"
 #import "JSONKit.h"
-#import <objc/runtime.h>
+#import "MAPolygon+PolygenColor.h"
+#import "WeatherData.h"
 
-@interface MAPolygon (PolygenColor)
 
-- (void) setStrokeColor:(UIColor *)color;
-- (UIColor *) strokeColor;
-- (void) setFillColor:(UIColor *)color;
-- (UIColor *) fillColor;
-
-@end
-
-@implementation MAPolygon (PolygenColor)
-
-static const void * strokeColorKey;
-static const void * fillColorKey;
-
-- (void)setStrokeColor:(UIColor *)color {
-    objc_setAssociatedObject(self, strokeColorKey, color, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (UIColor *)strokeColor {
-    return objc_getAssociatedObject(self, strokeColorKey);
-}
-
-- (void)setFillColor:(UIColor *)color {
-    objc_setAssociatedObject(self, fillColorKey, color, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (UIColor *)fillColor {
-    return objc_getAssociatedObject(self, fillColorKey);
-}
-
-@end
-
-@interface ViewController ()<MAMapViewDelegate,AMapSearchDelegate>
+@interface ViewController ()<MAMapViewDelegate,AMapSearchDelegate,WeatherDataLoadSuccessDelegate>
 {
     AMapSearchAPI *_search;
     MAMapView *_mapView;
+    WeatherData *_weatherData;
+    NSMutableDictionary *_weatherStatus;
 }
-
-@property (nonatomic,strong) NSMutableDictionary *weatherDict;
+//
+//@property (nonatomic,strong) NSMutableDictionary *weatherDict;
 
 @end
 
@@ -62,34 +34,43 @@ static const void * fillColorKey;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    [self requestWeatherInfo];
+    
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"WeatherStatusMapping" ofType:@"plist"];
+    _weatherStatus = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    
     [self setupMapAndSearch];
-    [self searchDistricts:@"滨海新区"];
+    
+    _weatherData = [[WeatherData alloc]init];
+    _weatherData.delegate = self;
+    [_weatherData loadWeatherInfo];
+
 }
 
 
-
-# pragma mark - 获取天气信息
-
-- (void)requestWeatherInfo {
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://182.92.183.168/weatherRequest.php?101031100"]];
-    //将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary *resultDict = [response objectFromJSONData];
-    if (!resultDict) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"错误" message:@"读取天气信息失败" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil];
-        [alert show];
+#pragma mark - 天气读取完毕代理
+- (void)weatherDataDidLoad {
+    //NSLog(@"%@",_weatherData.weatherInfo);
+    for (NSString* city in [_weatherData.weatherInfo allKeys]) {
+        
+        [self weatherDataDidLoadForCity:city];
+        
+    }
+    
+}
+- (void)weatherDataDidLoadForCity:(NSString *)city {
+    
+    if (![_weatherData.weatherInfo objectForKey:city]) {
         return;
     }
-    NSString *city = resultDict[@"c"][@"c3"];
-    NSString *tomorrowWeather = resultDict[@"f"][@"f1"][1][@"fa"];
-    NSString *tomorrowHighestTemp = resultDict[@"f"][@"f1"][1][@"fc"];
-    NSString *tomorrowLowestTemp = resultDict[@"f"][@"f1"][1][@"fd"];
-    NSLog(@"%@ %@ %@ %@",city,tomorrowWeather,tomorrowHighestTemp,tomorrowLowestTemp);
-    NSArray *cityWeather = [[NSArray alloc]initWithObjects:tomorrowWeather, tomorrowHighestTemp, tomorrowLowestTemp, nil];
-    self.weatherDict = [[NSMutableDictionary alloc] init];
-    [self.weatherDict setObject:cityWeather forKey:city];
+
+    NSLog(@"[地理]搜索区域%@",city);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10* NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+        [self searchDistricts:city];
+    });
+
+    
 }
+
 
 # pragma mark -  初始化地图和搜索
 
@@ -103,21 +84,19 @@ static const void * fillColorKey;
     _mapView.showsScale = NO;
     _mapView.showsUserLocation = YES;    //YES 为打开定位，NO为关闭定位
     [_mapView setUserTrackingMode: MAUserTrackingModeFollow animated:YES];
+    [self.view addSubview:_mapView];
     
     //搜索配置
     _search = [[AMapSearchAPI alloc] initWithSearchKey:@"e0ad39f24cfdda6b72bcd826252c96ae" Delegate:self];
-    
-    
-    [self.view addSubview:_mapView];
+
 }
 
 # pragma mark -  搜索行政区域
-- (void)searchDistricts:(NSString*)disctrict {
+- (void)searchDistricts:(NSString*)district {
     //构造AMapDistrictSearchRequest对象，keywords为必选项
     AMapDistrictSearchRequest *districtRequest = [[AMapDistrictSearchRequest alloc] init];
-    districtRequest.keywords = disctrict;
+    districtRequest.keywords = district;
     districtRequest.requireExtension = YES;
-    
     //发起行政区划查询
     [_search AMapDistrictSearch:districtRequest];
 }
@@ -126,50 +105,50 @@ static const void * fillColorKey;
 //实现行政区划查询的回调函数
 - (void)onDistrictSearchDone:(AMapDistrictSearchRequest *)request response:(AMapDistrictSearchResponse *)response
 {
-    //NSLog(@"response: %@", response);
-    [self handleDistrictResponse:response];
-}
-- (void)handleDistrictResponse:(AMapDistrictSearchResponse *)response
-{
     if (response == nil)
     {
+        NSLog(@"[地理]请求失败");
         return;
     }
     //通过AMapDistrictSearchResponse对象处理搜索结果
     for (AMapDistrict *dist in response.districts)
     {
+        //天气信息别针
         MAPointAnnotation *poiAnnotation = [[MAPointAnnotation alloc] init];
-        
         poiAnnotation.coordinate = CLLocationCoordinate2DMake(dist.center.latitude, dist.center.longitude);
         poiAnnotation.title      = dist.name;
-        NSArray *weatherArray = [[self.weatherDict objectForKey:dist.name] copy];
+        NSArray *weatherArray = [[_weatherData.weatherInfo objectForKey:dist.name] copy];
+        NSArray *weatherStautsToColor = [[_weatherStatus objectForKey:weatherArray[0]] copy];
         if (weatherArray && weatherArray.count >=3 ) {
-            NSString *weatherStatus = [NSString stringWithFormat:@"%@ %@~%@℃",weatherArray[0],weatherArray[1],weatherArray[2]];
-            poiAnnotation.subtitle   = weatherStatus;
+            
+            NSString *weather = [NSString stringWithFormat:@"%@ %@~%@℃",weatherStautsToColor[0],weatherArray[1],weatherArray[2]];
+            poiAnnotation.subtitle   = weather;
         }
-        
         [_mapView addAnnotation:poiAnnotation];
         
+        
+        //增加城市轮廓多边形
         if (dist.polylines.count > 0)
         {
-            MAMapRect bounds = MAMapRectZero;
-            
+            //MAMapRect bounds = MAMapRectZero;
+            NSLog(@"[地理]正在渲染 %@",dist.name);
             for (NSString *polylineStr in dist.polylines)
             {
                 MAPolygon *polygon = [CommonUtility polygonForCoordinateString:polylineStr];
                 if (!polygon) {
                     continue;
                 }
-                
-                polygon.strokeColor = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.5];
-                polygon.fillColor   = [UIColor colorWithRed:0 green:0 blue:1 alpha:0.5];
+                NSUInteger rgbColor = [weatherStautsToColor[1] integerValue];
+                //NSLog(@"color : %ld",rgbColor);
+                polygon.strokeColor = [UIColor colorWithRed:rgbColor/0x10000/255.0 green:rgbColor%0x10000/0x100/255.0 blue:rgbColor%0x100/255.0 alpha:0.8];
+                polygon.fillColor   = [UIColor colorWithRed:rgbColor/0x10000/255.0 green:rgbColor%0x10000/0x100/255.0 blue:rgbColor%0x100/255.0 alpha:0.6];
                 
                 [_mapView addOverlay:polygon];
                 
-                bounds = MAMapRectUnion(bounds, polygon.boundingMapRect);
+                //bounds = MAMapRectUnion(bounds, polygon.boundingMapRect);
             }
             
-            [_mapView setVisibleMapRect:bounds animated:YES];
+            //[_mapView setVisibleMapRect:bounds animated:YES];
         }
         
 //        // sub
@@ -186,21 +165,6 @@ static const void * fillColorKey;
 //        }
     }
 }
-//- (MAOverlayView *)mapView:(MAMapView *)mapView viewForOverlay:(id <MAOverlay>)overlay
-//{
-//    if ([overlay isKindOfClass:[MAPolygon class]])
-//    {
-//        MAPolygonView *polygonView = [[MAPolygonView alloc] initWithPolygon:overlay];
-//        
-//        polygonView.lineWidth = 5.f;
-//        polygonView.strokeColor = [UIColor colorWithRed:0.6 green:0.6 blue:0.6 alpha:0.8];
-//        polygonView.fillColor = [UIColor colorWithRed:0.77 green:0.88 blue:0.94 alpha:0.8];
-//        //polygonView.lineJoinType = kMALineJoinMiter;//连接类型
-//        
-//        return polygonView;
-//    }
-//    return nil;
-//}
 
 
 #pragma mark - MAMapViewDelegate 地图附加层显示

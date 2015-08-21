@@ -31,7 +31,7 @@
     NSArray *components = [str componentsSeparatedByString:@","];
     
     NSInteger componentCount = [components count];
-    if (componentCount < 5000) {
+    if (componentCount < 1000) {
         *coordinateCount = 0;
         return NULL;
     }

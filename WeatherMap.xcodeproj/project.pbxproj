@@ -7,7 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C5F16061B86BEB0002C96E2 /* MAPolygon+PolygenColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F16051B86BEB0002C96E2 /* MAPolygon+PolygenColor.m */; };
+		8C5F16091B86C103002C96E2 /* CutlineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F16081B86C103002C96E2 /* CutlineTableViewController.m */; };
+		8C5F160C1B86D273002C96E2 /* CutlineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F160B1B86D273002C96E2 /* CutlineTableViewCell.m */; };
 		8C958B8B1B7747F1004AB2DD /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C958B8A1B7747F1004AB2DD /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		8CC2F89D1B786ED70094762A /* WeatherData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC2F89C1B786ED70094762A /* WeatherData.m */; };
+		8CC2F89F1B788D360094762A /* WeatherStatusMapping.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CC2F89E1B788D360094762A /* WeatherStatusMapping.plist */; };
 		8CF22FB91B76EB7D00611895 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF22FB81B76EB7D00611895 /* main.m */; };
 		8CF22FBC1B76EB7D00611895 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF22FBB1B76EB7D00611895 /* AppDelegate.m */; };
 		8CF22FBF1B76EB7D00611895 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CF22FBE1B76EB7D00611895 /* ViewController.m */; };
@@ -48,8 +53,17 @@
 /* Begin PBXFileReference section */
 		235543AA800BC322877319E2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		439339594C5807B3E19B2F05 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		8C5F16041B86BEB0002C96E2 /* MAPolygon+PolygenColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MAPolygon+PolygenColor.h"; sourceTree = "<group>"; };
+		8C5F16051B86BEB0002C96E2 /* MAPolygon+PolygenColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MAPolygon+PolygenColor.m"; sourceTree = "<group>"; };
+		8C5F16071B86C103002C96E2 /* CutlineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutlineTableViewController.h; sourceTree = "<group>"; };
+		8C5F16081B86C103002C96E2 /* CutlineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CutlineTableViewController.m; sourceTree = "<group>"; };
+		8C5F160A1B86D273002C96E2 /* CutlineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutlineTableViewCell.h; sourceTree = "<group>"; };
+		8C5F160B1B86D273002C96E2 /* CutlineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CutlineTableViewCell.m; sourceTree = "<group>"; };
 		8C958B891B7747F1004AB2DD /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		8C958B8A1B7747F1004AB2DD /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		8CC2F89B1B786ED70094762A /* WeatherData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherData.h; sourceTree = "<group>"; };
+		8CC2F89C1B786ED70094762A /* WeatherData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherData.m; sourceTree = "<group>"; };
+		8CC2F89E1B788D360094762A /* WeatherStatusMapping.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WeatherStatusMapping.plist; sourceTree = "<group>"; };
 		8CF22FB31B76EB7D00611895 /* WeatherMap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherMap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CF22FB71B76EB7D00611895 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8CF22FB81B76EB7D00611895 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -155,7 +169,15 @@
 				8CF22FBB1B76EB7D00611895 /* AppDelegate.m */,
 				8CF22FBD1B76EB7D00611895 /* ViewController.h */,
 				8CF22FBE1B76EB7D00611895 /* ViewController.m */,
+				8C5F16041B86BEB0002C96E2 /* MAPolygon+PolygenColor.h */,
+				8C5F16051B86BEB0002C96E2 /* MAPolygon+PolygenColor.m */,
+				8CC2F89B1B786ED70094762A /* WeatherData.h */,
+				8CC2F89C1B786ED70094762A /* WeatherData.m */,
 				8CF22FC01B76EB7D00611895 /* Main.storyboard */,
+				8C5F160A1B86D273002C96E2 /* CutlineTableViewCell.h */,
+				8C5F160B1B86D273002C96E2 /* CutlineTableViewCell.m */,
+				8C5F16071B86C103002C96E2 /* CutlineTableViewController.h */,
+				8C5F16081B86C103002C96E2 /* CutlineTableViewController.m */,
 				8CF22FC31B76EB7D00611895 /* Images.xcassets */,
 				8CF22FC51B76EB7D00611895 /* LaunchScreen.xib */,
 				8CF22FE71B77037700611895 /* Models */,
@@ -169,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				8CF22FB71B76EB7D00611895 /* Info.plist */,
+				8CC2F89E1B788D360094762A /* WeatherStatusMapping.plist */,
 				8CF22FB81B76EB7D00611895 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -331,6 +354,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CC2F89F1B788D360094762A /* WeatherStatusMapping.plist in Resources */,
 				8CF22FC21B76EB7D00611895 /* Main.storyboard in Resources */,
 				8CF22FC71B76EB7D00611895 /* LaunchScreen.xib in Resources */,
 				8CF22FC41B76EB7D00611895 /* Images.xcassets in Resources */,
@@ -386,18 +410,22 @@
 			files = (
 				8CF22FBF1B76EB7D00611895 /* ViewController.m in Sources */,
 				8CF22FBC1B76EB7D00611895 /* AppDelegate.m in Sources */,
+				8C5F16091B86C103002C96E2 /* CutlineTableViewController.m in Sources */,
 				8CF2300B1B77037700611895 /* CustomAnnotationView.m in Sources */,
 				8CF230131B77037700611895 /* MANaviAnnotationView.m in Sources */,
 				8CF230121B77037700611895 /* MANaviAnnotation.m in Sources */,
 				8C958B8B1B7747F1004AB2DD /* JSONKit.m in Sources */,
+				8C5F160C1B86D273002C96E2 /* CutlineTableViewCell.m in Sources */,
 				8CF2300D1B77037700611895 /* CustomOverlay.m in Sources */,
 				8CF230161B77037700611895 /* POIAnnotation.m in Sources */,
 				8CF230111B77037700611895 /* LocalTileOverlay.m in Sources */,
 				8CF2300C1B77037700611895 /* CustomCalloutView.m in Sources */,
 				8CF230091B77037700611895 /* AnimatedAnnotationView.m in Sources */,
 				8CF230151B77037700611895 /* MANaviRoute.m in Sources */,
+				8C5F16061B86BEB0002C96E2 /* MAPolygon+PolygenColor.m in Sources */,
 				8CF2300A1B77037700611895 /* BusStopAnnotation.m in Sources */,
 				8CF22FB91B76EB7D00611895 /* main.m in Sources */,
+				8CC2F89D1B786ED70094762A /* WeatherData.m in Sources */,
 				8CF230101B77037700611895 /* LineDashPolyline.m in Sources */,
 				8CF230081B77037700611895 /* AnimatedAnnotation.m in Sources */,
 				8CF2300E1B77037700611895 /* CustomOverlayRenderer.m in Sources */,
