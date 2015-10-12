@@ -1,1 +1,1 @@
-../../../../AMapSearch/AMapSearchKit.framework/Versions/2.6.0.29103c6/Headers/AMapSearchAPI.h
+../../../../AMapSearch/AMapSearchKit.framework/Headers/AMapSearchAPI.h

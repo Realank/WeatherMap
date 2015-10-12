@@ -1,1 +1,1 @@
-../../../../AMap2DMap/MAMapKit.framework/Versions/2.6.0.e9e21b6/Headers/MAOverlayPathView.h
+../../../../AMap2DMap/MAMapKit.framework/Versions/3.1.0.56231a5/Headers/MAOverlayPathView.h

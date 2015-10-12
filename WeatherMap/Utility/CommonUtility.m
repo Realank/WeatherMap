@@ -10,7 +10,6 @@
 #import "LineDashPolyline.h"
 
 @implementation CommonUtility
-
 + (CLLocationCoordinate2D *)coordinatesForString:(NSString *)string
                                  coordinateCount:(NSUInteger *)coordinateCount
                                       parseToken:(NSString *)token
@@ -35,7 +34,7 @@
         *coordinateCount = 0;
         return NULL;
     }
-    NSInteger count = 200;
+    NSInteger count = 180;
     NSInteger times = componentCount/count/2*2;
     if (coordinateCount != NULL) {
         *coordinateCount = count+1;
@@ -51,10 +50,6 @@
     
     return coordinates;
 }
-
-
-
-
 + (MAPolygon *)polygonForCoordinateString:(NSString *)coordinateString
 {
     if (coordinateString.length == 0)
@@ -223,7 +218,6 @@
         [polylines addObjectsFromArray:walkingPolylines];
     }
     
-    MAPolyline *busLinePolyline = [self polylineForBusLine:segment.busline];
     if (busLinePolyline != nil)
     {
         [polylines addObject:busLinePolyline];
@@ -294,7 +288,6 @@
         CLLocationCoordinate2D startCoor;
         CLLocationCoordinate2D endCoor;
         
-        MAPolyline *busLinePolyline = [self polylineForBusLine:(lastSegment).busline];
         if (busLinePolyline != nil)
         {
             [busLinePolyline getCoordinates:&startCoor range:NSMakeRange(busLinePolyline.pointCount-1, 1)];
@@ -322,7 +315,6 @@
         else
         {
             
-            MAPolyline *busLinePolyline = [self polylineForBusLine:(segment).busline];
             if (busLinePolyline != nil)
             {
                 [busLinePolyline getCoordinates:&endCoor range:NSMakeRange(0 , 1)];

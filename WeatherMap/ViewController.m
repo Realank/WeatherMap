@@ -9,8 +9,8 @@
 #import "ViewController.h"
 #import "MAMapKit/MAMapKit.h"
 #import <AMapSearchKit/AMapSearchAPI.h>
+#import <AMapSearchKit/AMapSearchServices.h>
 #import "CommonUtility.h"
-#import "CustomCalloutView.h"
 #import "JSONKit.h"
 #import "MAPolygon+PolygenColor.h"
 #import "WeatherData.h"
@@ -87,7 +87,13 @@
     [self.view addSubview:_mapView];
     
     //搜索配置
-    _search = [[AMapSearchAPI alloc] initWithSearchKey:@"e0ad39f24cfdda6b72bcd826252c96ae" Delegate:self];
+//    _search = [[AMapSearchAPI alloc] initWithSearchKey:@"e0ad39f24cfdda6b72bcd826252c96ae" Delegate:self];
+    //配置用户Key
+    [AMapSearchServices sharedServices].apiKey = @"e0ad39f24cfdda6b72bcd826252c96ae";
+    
+    //初始化检索对象
+    _search = [[AMapSearchAPI alloc] init];
+    _search.delegate = self;
 
 }
 

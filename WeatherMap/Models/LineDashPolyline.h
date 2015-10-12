@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 songjian. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import <MAMapKit/MAPolyline.h>
 #import <MAMapKit/MAOverlay.h>
 

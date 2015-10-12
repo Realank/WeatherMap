@@ -19,25 +19,26 @@
 @synthesize reGeocode  = _reGeocode;
 @synthesize coordinate = _coordinate;
 
-#pragma mark - MAAnnotation Protocol
-
-- (NSString *)title
+- (void)setAMapReGeocode:(AMapReGeocode *)reGerocode
 {
-    /* 包含 省, 市, 区以及乡镇.  */
-    return [NSString stringWithFormat:@"%@%@%@%@",
-            self.reGeocode.addressComponent.province,
-            self.reGeocode.addressComponent.city,
-            self.reGeocode.addressComponent.district,
-            self.reGeocode.addressComponent.township];
+    self.reGeocode = reGerocode;
     
+    [self updateContent];
 }
 
-- (NSString *)subtitle
+- (void)updateContent
 {
+    /* 包含 省, 市, 区以及乡镇.  */
+    self.title = [NSString stringWithFormat:@"%@%@%@%@",
+                  self.reGeocode.addressComponent.province?: @"",
+                  self.reGeocode.addressComponent.city ?: @"",
+                  self.reGeocode.addressComponent.district?: @"",
+                  self.reGeocode.addressComponent.township?: @""];
+
     /* 包含 社区，建筑. */
-    return [NSString stringWithFormat:@"%@%@",
-            self.reGeocode.addressComponent.neighborhood,
-            self.reGeocode.addressComponent.building];
+    self.subtitle = [NSString stringWithFormat:@"%@%@",
+                     self.reGeocode.addressComponent.neighborhood?: @"",
+                     self.reGeocode.addressComponent.building?: @""];
 }
 
 #pragma mark - Life Cycle
@@ -48,6 +49,7 @@
     {
         self.coordinate = coordinate;
         self.reGeocode  = reGeocode;
+        [self updateContent];
     }
     
     return self;

@@ -46,23 +46,22 @@
                 cityCode = 101090402;
             }
             
-            NSString *city = [self requestWeatherInfoWithCityCode:cityCode];
-            if (!city) {
-                city = [self requestWeatherInfoWithCityCode:cityCode];
-                if (!city) {
-                    NSLog(@"[天气]%lu:获取失败",cityCode);
-                    continue;
-                }
-            }
-            if (self.delegate) {
-                [self.delegate weatherDataDidLoadForCity:city];
-            }
+//            NSString *city = [self requestWeatherInfoWithCityCode:cityCode];
+//            if (!city) {
+//                city = [self requestWeatherInfoWithCityCode:cityCode];
+//                if (!city) {
+//                    NSLog(@"[天气]%lu:获取失败",cityCode);
+//                    continue;
+//                }
+//            }
+//            if (self.delegate) {
+//                [self.delegate weatherDataDidLoadForCity:city];
+//            }
+            [self asyncRequestWeatherInfoWithCityCode:cityCode];
             
         }
         
-        //        if (self.delegate) {
-        //            [self.delegate weatherDataDidLoad];
-        //        }
+
     });
 }
 
@@ -86,12 +85,49 @@
     NSString *tomorrowWeather = resultDict[@"f"][@"f1"][1][@"fa"];
     NSString *tomorrowHighestTemp = resultDict[@"f"][@"f1"][1][@"fc"];
     NSString *tomorrowLowestTemp = resultDict[@"f"][@"f1"][1][@"fd"];
-   // NSLog(@"%@ %@ %@ %@",city,tomorrowWeather,tomorrowHighestTemp,tomorrowLowestTemp);
+ 
     NSArray *cityWeather = [[NSArray alloc]initWithObjects:tomorrowWeather, tomorrowHighestTemp, tomorrowLowestTemp, nil];
     [self.weatherInfo setObject:cityWeather forKey:city];
     
     NSLog(@"[天气]获取 %@ 信息：%@ %@~%@",city,tomorrowWeather,tomorrowHighestTemp,tomorrowLowestTemp);
     return city;
+}
+
+- (void)asyncRequestWeatherInfoWithCityCode:(NSUInteger)cityCode {
+    
+    __weak __typeof(self) weakSelf = self;
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://182.92.183.168/weatherRequest.php?%lu",(unsigned long)cityCode];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+        
+        NSDictionary *resultDict = [data objectFromJSONData];
+        if (!resultDict) {
+            NSLog(@"[天气]%lu:获取失败",cityCode);
+            return;
+        }
+        NSString *city = [resultDict[@"c"][@"c3"] stringByAppendingString:@"市"];
+        NSString *tomorrowWeather = resultDict[@"f"][@"f1"][1][@"fa"];
+        NSString *tomorrowHighestTemp = resultDict[@"f"][@"f1"][1][@"fc"];
+        NSString *tomorrowLowestTemp = resultDict[@"f"][@"f1"][1][@"fd"];
+        
+        NSArray *cityWeather = [[NSArray alloc]initWithObjects:tomorrowWeather, tomorrowHighestTemp, tomorrowLowestTemp, nil];
+        [self.weatherInfo setObject:cityWeather forKey:city];
+        
+        NSLog(@"[天气]获取 %@ 信息：%@ %@~%@",city,tomorrowWeather,tomorrowHighestTemp,tomorrowLowestTemp);
+        
+
+        if (!city) {
+            NSLog(@"[天气]%lu:获取失败",cityCode);
+            return;
+        }
+        if (weakSelf.delegate) {
+            [weakSelf.delegate weatherDataDidLoadForCity:city];
+        }
+        
+    }];
+    
 }
 
 

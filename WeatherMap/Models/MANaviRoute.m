@@ -140,8 +140,9 @@
     {
         [annotations addObjectsFromArray:walkingRoute.naviAnnotations];
     }
-    
-    MAPolyline *busLinePolyline = [MANaviRoute polylineForBusLine:segment.busline];
+
+    AMapBusLine *firstLine = [segment.buslines firstObject];
+    MAPolyline *busLinePolyline = [MANaviRoute polylineForBusLine:firstLine];
     if (busLinePolyline != nil)
     {
         MANaviPolyline *naviPolyline = [[MANaviPolyline alloc] initWithPolyline:busLinePolyline];
@@ -152,7 +153,7 @@
         MANaviAnnotation * bus = [[MANaviAnnotation alloc] init];
         bus.coordinate = MACoordinateForMapPoint(busLinePolyline.points[0]);
         bus.type = MANaviAnnotationTypeBus;
-        bus.title = segment.busline.name;
+        bus.title = firstLine.name;
         [annotations addObject:bus];
     }
     
@@ -246,8 +247,8 @@
     {
         CLLocationCoordinate2D startCoor;
         CLLocationCoordinate2D endCoor;
-        
-        MAPolyline *busLinePolyline = [self polylineForBusLine:(lastSegment).busline];
+
+        MAPolyline *busLinePolyline = [self polylineForBusLine:[(lastSegment).buslines firstObject]];
         if (busLinePolyline != nil)
         {
             [busLinePolyline getCoordinates:&startCoor range:NSMakeRange(busLinePolyline.pointCount-1, 1)];
@@ -274,8 +275,8 @@
         }
         else
         {
-            
-            MAPolyline *busLinePolyline = [self polylineForBusLine:(segment).busline];
+            AMapBusLine *firstLine = [segment.buslines firstObject];
+            MAPolyline *busLinePolyline = [self polylineForBusLine:firstLine];
             if (busLinePolyline != nil)
             {
                 [busLinePolyline getCoordinates:&endCoor range:NSMakeRange(0 , 1)];
@@ -468,7 +469,7 @@
     {
         self.anntationVisible = YES;
         self.routeColor = [UIColor blueColor];
-        self.walkingColor = [UIColor greenColor];
+        self.walkingColor = [UIColor blueColor];
     }
     
     return self;
