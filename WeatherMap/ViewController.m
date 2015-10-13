@@ -62,11 +62,9 @@
     }
 
     NSLog(@"[地理]搜索区域%@",city);
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10* NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, arc4random_uniform(10)* NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
         [self searchDistricts:city];
     });
-
-    
 }
 
 
@@ -118,17 +116,17 @@
     //通过AMapDistrictSearchResponse对象处理搜索结果
     for (AMapDistrict *dist in response.districts)
     {
+        //获取某个城市的天气信息
+        WeatherModel* model = [_weatherData.weatherInfo objectForKey:dist.name];
+        WeatherForcast *tomorrowWeather = model.forcast[1];
+        NSString *weatherString = [NSString stringWithFormat:@"%@ %@~%@℃",[[WeatherStatusMappingModel sharedInstance] stringForKeycode:tomorrowWeather.daytimeStatus],tomorrowWeather.nightTemperature,tomorrowWeather.daytimeTemperature];
+        
+        
         //天气信息别针
         MAPointAnnotation *poiAnnotation = [[MAPointAnnotation alloc] init];
         poiAnnotation.coordinate = CLLocationCoordinate2DMake(dist.center.latitude, dist.center.longitude);
         poiAnnotation.title = dist.name;
-        WeatherModel* model = [_weatherData.weatherInfo objectForKey:dist.name];
-        WeatherForcast *tomorrowWeather = model.forcast[1];
-
-            
-        NSString *weatherString = [NSString stringWithFormat:@"%@ %@~%@℃",[[WeatherStatusMappingModel sharedInstance] stringForKeycode:tomorrowWeather.daytimeStatus],tomorrowWeather.nightTemperature,tomorrowWeather.daytimeTemperature];
         poiAnnotation.subtitle   = weatherString;
-
         [_mapView addAnnotation:poiAnnotation];
         
         
@@ -185,11 +183,12 @@
         {
             poiAnnotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation
                                                                 reuseIdentifier:busStopIdentifier];
+            //poiAnnotationView.pinColor = MAPinAnnotationColorGreen;
+            poiAnnotationView.canShowCallout = YES;
+            poiAnnotationView.image = [UIImage imageNamed:@"annotation"];
+            poiAnnotationView.calloutOffset = CGPointMake(0, 10);
         }
-        //poiAnnotationView.pinColor = MAPinAnnotationColorGreen;
-        poiAnnotationView.canShowCallout = YES;
-        poiAnnotationView.image = [UIImage imageNamed:@"annotation"];
-        poiAnnotationView.calloutOffset = CGPointMake(0, 10);
+        
         return poiAnnotationView;
     }
     
@@ -240,7 +239,6 @@
 
 
 # pragma mark - 定位更新
-
 
 -(void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation
 updatingLocation:(BOOL)updatingLocation

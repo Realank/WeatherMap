@@ -86,13 +86,7 @@
         //获取失败
         return nil;
     }
-//    NSString *city = [resultDict[@"c"][@"c3"] stringByAppendingString:@"市"];
-//    NSString *tomorrowWeather = resultDict[@"f"][@"f1"][1][@"fa"];
-//    NSString *tomorrowHighestTemp = resultDict[@"f"][@"f1"][1][@"fc"];
-//    NSString *tomorrowLowestTemp = resultDict[@"f"][@"f1"][1][@"fd"];
-// 
-//    NSArray *cityWeather = [[NSArray alloc]initWithObjects:tomorrowWeather, tomorrowHighestTemp, tomorrowLowestTemp, nil];
-//    [self.weatherInfo setObject:cityWeather forKey:city];
+
     WeatherModel *model = [[WeatherModel alloc]initWithDict:resultDict];
     WeatherForcast *tomorrowWeather = model.forcast[1];
     [self.weatherInfo setObject:model forKey:model.cityChineseName];
