@@ -14,6 +14,7 @@
 #import "JSONKit.h"
 #import "MAPolygon+PolygenColor.h"
 #import "WeatherData.h"
+#import "WeatherModel.h"
 
 
 @interface ViewController ()<MAMapViewDelegate,AMapSearchDelegate,WeatherDataLoadSuccessDelegate>
@@ -23,8 +24,6 @@
     WeatherData *_weatherData;
     NSMutableDictionary *_weatherStatus;
 }
-//
-//@property (nonatomic,strong) NSMutableDictionary *weatherDict;
 
 @end
 
@@ -86,11 +85,12 @@
     [_mapView setUserTrackingMode: MAUserTrackingModeFollow animated:YES];
     [self.view addSubview:_mapView];
     
-    //搜索配置
+    //搜索配置 高德地图SDK2.0配置
 //    _search = [[AMapSearchAPI alloc] initWithSearchKey:@"e0ad39f24cfdda6b72bcd826252c96ae" Delegate:self];
+    
+    //搜索配置 高德地图SDK3.0配置
     //配置用户Key
     [AMapSearchServices sharedServices].apiKey = @"e0ad39f24cfdda6b72bcd826252c96ae";
-    
     //初始化检索对象
     _search = [[AMapSearchAPI alloc] init];
     _search.delegate = self;
@@ -122,14 +122,15 @@
         //天气信息别针
         MAPointAnnotation *poiAnnotation = [[MAPointAnnotation alloc] init];
         poiAnnotation.coordinate = CLLocationCoordinate2DMake(dist.center.latitude, dist.center.longitude);
-        poiAnnotation.title      = dist.name;
-        NSArray *weatherArray = [[_weatherData.weatherInfo objectForKey:dist.name] copy];
-        NSArray *weatherStautsToColor = [[_weatherStatus objectForKey:weatherArray[0]] copy];
-        if (weatherArray && weatherArray.count >=3 ) {
+        poiAnnotation.title = dist.name;
+        WeatherModel* model = [_weatherData.weatherInfo objectForKey:dist.name];
+        WeatherForcast *tomorrowWeather = model.forcast[1];
+        NSArray *weatherStautsToColor = [[_weatherStatus objectForKey:tomorrowWeather.daytimeStatus] copy];
+
             
-            NSString *weather = [NSString stringWithFormat:@"%@ %@~%@℃",weatherStautsToColor[0],weatherArray[1],weatherArray[2]];
-            poiAnnotation.subtitle   = weather;
-        }
+        NSString *weatherString = [NSString stringWithFormat:@"%@ %@~%@℃",weatherStautsToColor[0],tomorrowWeather.nightTemperature,tomorrowWeather.daytimeTemperature];
+        poiAnnotation.subtitle   = weatherString;
+
         [_mapView addAnnotation:poiAnnotation];
         
         
@@ -182,13 +183,16 @@
         static NSString *busStopIdentifier = @"districtIdentifier";
         
         MAPinAnnotationView *poiAnnotationView = (MAPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:busStopIdentifier];
+        
         if (poiAnnotationView == nil)
         {
             poiAnnotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation
                                                                 reuseIdentifier:busStopIdentifier];
         }
-        
+        //poiAnnotationView.pinColor = MAPinAnnotationColorGreen;
         poiAnnotationView.canShowCallout = YES;
+        poiAnnotationView.image = [UIImage imageNamed:@"annotation"];
+        poiAnnotationView.calloutOffset = CGPointMake(0, 10);
         return poiAnnotationView;
     }
     
