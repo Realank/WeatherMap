@@ -15,6 +15,7 @@
 #import "MAPolygon+PolygenColor.h"
 #import "WeatherData.h"
 #import "WeatherModel.h"
+#import "WeatherStatusMappingModel.h"
 
 
 @interface ViewController ()<MAMapViewDelegate,AMapSearchDelegate,WeatherDataLoadSuccessDelegate>
@@ -22,7 +23,6 @@
     AMapSearchAPI *_search;
     MAMapView *_mapView;
     WeatherData *_weatherData;
-    NSMutableDictionary *_weatherStatus;
 }
 
 @end
@@ -34,8 +34,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"WeatherStatusMapping" ofType:@"plist"];
-    _weatherStatus = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+
     
     [self setupMapAndSearch];
     
@@ -125,10 +124,9 @@
         poiAnnotation.title = dist.name;
         WeatherModel* model = [_weatherData.weatherInfo objectForKey:dist.name];
         WeatherForcast *tomorrowWeather = model.forcast[1];
-        NSArray *weatherStautsToColor = [[_weatherStatus objectForKey:tomorrowWeather.daytimeStatus] copy];
 
             
-        NSString *weatherString = [NSString stringWithFormat:@"%@ %@~%@℃",weatherStautsToColor[0],tomorrowWeather.nightTemperature,tomorrowWeather.daytimeTemperature];
+        NSString *weatherString = [NSString stringWithFormat:@"%@ %@~%@℃",[[WeatherStatusMappingModel sharedInstance] stringForKeycode:tomorrowWeather.daytimeStatus],tomorrowWeather.nightTemperature,tomorrowWeather.daytimeTemperature];
         poiAnnotation.subtitle   = weatherString;
 
         [_mapView addAnnotation:poiAnnotation];
@@ -145,10 +143,9 @@
                 if (!polygon) {
                     continue;
                 }
-                NSUInteger rgbColor = [weatherStautsToColor[1] integerValue];
-                //NSLog(@"color : %ld",rgbColor);
-                polygon.strokeColor = [UIColor colorWithRed:rgbColor/0x10000/255.0 green:rgbColor%0x10000/0x100/255.0 blue:rgbColor%0x100/255.0 alpha:0.8];
-                polygon.fillColor   = [UIColor colorWithRed:rgbColor/0x10000/255.0 green:rgbColor%0x10000/0x100/255.0 blue:rgbColor%0x100/255.0 alpha:0.6];
+
+                polygon.strokeColor = [[WeatherStatusMappingModel sharedInstance] strokeColorForKeycode:tomorrowWeather.daytimeStatus];
+                polygon.fillColor   = [[WeatherStatusMappingModel sharedInstance] fillColorForKeycode:tomorrowWeather.daytimeStatus];
                 
                 [_mapView addOverlay:polygon];
                 

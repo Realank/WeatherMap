@@ -6,6 +6,8 @@
 //  Copyright © 2015年 Realank. All rights reserved.
 //
 
+//从中国气象台获取的天气信息
+
 #import "WeatherModel.h"
 
 @implementation WeatherForcast

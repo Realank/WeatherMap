@@ -24,10 +24,14 @@
 }
 
 - (void)loadWeatherInfo {
-    //山东
-    [self enumerCityInfoFrom:101120101 count:17];
+    //北京
+    [self enumerCityInfoFrom:101010100 count:1];
     //天津
     [self enumerCityInfoFrom:101030100 count:1];
+    //上海
+    [self enumerCityInfoFrom:101020100 count:1];
+    //山东
+    [self enumerCityInfoFrom:101120101 count:17];
     //江苏
     [self enumerCityInfoFrom:101190101 count:13];
     //河北
