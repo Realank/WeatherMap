@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 Realank. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "MapViewController.h"
 #import "MAMapKit/MAMapKit.h"
 #import <AMapSearchKit/AMapSearchAPI.h>
 #import <AMapSearchKit/AMapSearchServices.h>
@@ -16,39 +16,82 @@
 #import "WeatherData.h"
 #import "WeatherModel.h"
 #import "WeatherStatusMappingModel.h"
+#import "CityListModel.h"
 
 
-@interface ViewController ()<MAMapViewDelegate,AMapSearchDelegate,WeatherDataLoadSuccessDelegate>
-{
-    AMapSearchAPI *_search;
-    MAMapView *_mapView;
-    WeatherData *_weatherData;
-}
+@interface MapViewController ()<MAMapViewDelegate,AMapSearchDelegate,WeatherDataLoadSuccessDelegate>
+
+@property (nonatomic,strong) AMapSearchAPI *search;
+@property (nonatomic,strong) MAMapView *mapView;
+@property (nonatomic,strong) WeatherData *weatherData;
 
 @end
 
 
-@implementation ViewController
+@implementation MapViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-
-    
     [self setupMapAndSearch];
     
-    _weatherData = [[WeatherData alloc]init];
-    _weatherData.delegate = self;
-    [_weatherData loadWeatherInfo];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    if ([CityListModel sharedInstance].selectStatusChanged) {
+        [self updateWeatherMap:nil];
+    }
+    
+}
+
+# pragma mark -  初始化地图和搜索
+
+- (void)setupMapAndSearch {
+    //地图配置
+    //配置用户Key
+    [MAMapServices sharedServices].apiKey = @"e0ad39f24cfdda6b72bcd826252c96ae";
+    self.mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
+    self.mapView.delegate = self;
+    self.mapView.showsCompass = NO;
+    self.mapView.showsScale = NO;
+    self.mapView.showsUserLocation = YES;    //YES 为打开定位，NO为关闭定位
+    [self.mapView setUserTrackingMode: MAUserTrackingModeFollow animated:YES];
+    [self.view addSubview:self.mapView];
+    
+    //搜索配置 高德地图SDK2.0配置
+    //    self.search = [[AMapSearchAPI alloc] initWithSearchKey:@"e0ad39f24cfdda6b72bcd826252c96ae" Delegate:self];
+    
+    //搜索配置 高德地图SDK3.0配置
+    //配置用户Key
+    [AMapSearchServices sharedServices].apiKey = @"e0ad39f24cfdda6b72bcd826252c96ae";
+    //初始化检索对象
+    self.search = [[AMapSearchAPI alloc] init];
+    self.search.delegate = self;
+    
+}
+
+- (void)clearMapView
+{
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    [self.mapView removeOverlays:self.mapView.overlays];
+    
+    
+}
+
+- (IBAction)updateWeatherMap:(UIBarButtonItem *)sender {
+    [self clearMapView];
+    self.weatherData = [[WeatherData alloc]init];
+    self.weatherData.delegate = self;
+    [self.weatherData loadWeatherInfoFromProvincesList:[[CityListModel sharedInstance] selectedProvincesNameArray]];
 }
 
 
 #pragma mark - 天气读取完毕代理
 - (void)weatherDataDidLoad {
-    //NSLog(@"%@",_weatherData.weatherInfo);
-    for (NSString* city in [_weatherData.weatherInfo allKeys]) {
+    //NSLog(@"%@",self.weatherData.weatherInfo);
+    for (NSString* city in [self.weatherData.weatherInfo allKeys]) {
         
         [self weatherDataDidLoadForCity:city];
         
@@ -57,42 +100,17 @@
 }
 - (void)weatherDataDidLoadForCity:(NSString *)city {
     
-    if (![_weatherData.weatherInfo objectForKey:city]) {
+    if (![self.weatherData.weatherInfo objectForKey:city]) {
         return;
     }
 
     NSLog(@"[地理]搜索区域%@",city);
+    __weak __typeof(self) weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, arc4random_uniform(10)* NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-        [self searchDistricts:city];
+        [weakSelf searchDistricts:city];
     });
 }
 
-
-# pragma mark -  初始化地图和搜索
-
-- (void)setupMapAndSearch {
-    //地图配置
-    //配置用户Key
-    [MAMapServices sharedServices].apiKey = @"e0ad39f24cfdda6b72bcd826252c96ae";
-    _mapView = [[MAMapView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
-    _mapView.delegate = self;
-    _mapView.showsCompass = NO;
-    _mapView.showsScale = NO;
-    _mapView.showsUserLocation = YES;    //YES 为打开定位，NO为关闭定位
-    [_mapView setUserTrackingMode: MAUserTrackingModeFollow animated:YES];
-    [self.view addSubview:_mapView];
-    
-    //搜索配置 高德地图SDK2.0配置
-//    _search = [[AMapSearchAPI alloc] initWithSearchKey:@"e0ad39f24cfdda6b72bcd826252c96ae" Delegate:self];
-    
-    //搜索配置 高德地图SDK3.0配置
-    //配置用户Key
-    [AMapSearchServices sharedServices].apiKey = @"e0ad39f24cfdda6b72bcd826252c96ae";
-    //初始化检索对象
-    _search = [[AMapSearchAPI alloc] init];
-    _search.delegate = self;
-
-}
 
 # pragma mark -  搜索行政区域
 - (void)searchDistricts:(NSString*)district {
@@ -101,7 +119,7 @@
     districtRequest.keywords = district;
     districtRequest.requireExtension = YES;
     //发起行政区划查询
-    [_search AMapDistrictSearch:districtRequest];
+    [self.search AMapDistrictSearch:districtRequest];
 }
 
 
@@ -117,7 +135,10 @@
     for (AMapDistrict *dist in response.districts)
     {
         //获取某个城市的天气信息
-        WeatherModel* model = [_weatherData.weatherInfo objectForKey:dist.name];
+        WeatherModel* model = [self.weatherData.weatherInfo objectForKey:dist.name];
+        if (!model) {
+            continue;
+        }
         WeatherForcast *tomorrowWeather = model.forcast[1];
         NSString *weatherString = [NSString stringWithFormat:@"%@ %@~%@℃",[[WeatherStatusMappingModel sharedInstance] stringForKeycode:tomorrowWeather.daytimeStatus],tomorrowWeather.nightTemperature,tomorrowWeather.daytimeTemperature];
         
@@ -127,7 +148,7 @@
         poiAnnotation.coordinate = CLLocationCoordinate2DMake(dist.center.latitude, dist.center.longitude);
         poiAnnotation.title = dist.name;
         poiAnnotation.subtitle   = weatherString;
-        [_mapView addAnnotation:poiAnnotation];
+        [self.mapView addAnnotation:poiAnnotation];
         
         
         //增加城市轮廓多边形
@@ -145,12 +166,12 @@
                 polygon.strokeColor = [[WeatherStatusMappingModel sharedInstance] strokeColorForKeycode:tomorrowWeather.daytimeStatus];
                 polygon.fillColor   = [[WeatherStatusMappingModel sharedInstance] fillColorForKeycode:tomorrowWeather.daytimeStatus];
                 
-                [_mapView addOverlay:polygon];
+                [self.mapView addOverlay:polygon];
                 
                 //bounds = MAMapRectUnion(bounds, polygon.boundingMapRect);
             }
             
-            //[_mapView setVisibleMapRect:bounds animated:YES];
+            //[self.mapView setVisibleMapRect:bounds animated:YES];
         }
         
 //        // sub
@@ -162,7 +183,7 @@
 //            subAnnotation.title      = subdist.name;
 //            subAnnotation.subtitle   = subdist.adcode;
 //            
-//            [_mapView addAnnotation:subAnnotation];
+//            [self.mapView addAnnotation:subAnnotation];
 //            
 //        }
     }

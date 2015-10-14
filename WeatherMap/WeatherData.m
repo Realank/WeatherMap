@@ -9,6 +9,7 @@
 #import "WeatherData.h"
 #import "JSONKit.h"
 #import "WeatherModel.h"
+#import "CityListModel.h"
 
 @interface WeatherData ()
 
@@ -23,108 +24,95 @@
     return self;
 }
 
-- (void)loadWeatherInfo {
-    //北京
-    [self enumerCityInfoFrom:101010100 count:1];
-    //天津
-    [self enumerCityInfoFrom:101030100 count:1];
-    //上海
-    [self enumerCityInfoFrom:101020100 count:1];
-    //山东
-    [self enumerCityInfoFrom:101120101 count:17];
-    //江苏
-    [self enumerCityInfoFrom:101190101 count:13];
-    //河北
-    [self enumerCityInfoFrom:101090101 count:11];
+- (void)dealloc {
+    
+    NSLog(@"bye weatherData");
+
+}
+
+- (void)loadWeatherInfoFromProvincesList:(NSArray *)provinces {
+
+    NSDictionary *dict = [CityListModel sharedInstance].provinceDict;
+    for (NSString *provinceName in provinces) {
+        ProvinceInfo *province = [dict objectForKey:provinceName];
+        if (!province) {
+            continue;
+        }
+        NSDictionary *citysDict = province.citysDict;
+        if (!citysDict) {
+            continue;
+        }
+        for (NSString* cityCodeStr in [citysDict allKeys]) {
+            NSUInteger cityCode = [cityCodeStr integerValue];
+            if (cityCode < 100000000) {
+                continue;
+            }
+            [self asyncRequestWeatherInfoWithCityCode:cityCode];
+        }
+    }
     
 }
-
-- (void)enumerCityInfoFrom:(NSUInteger)fromNum count:(NSUInteger)cityCount {
-    dispatch_queue_t myQueue = dispatch_queue_create("myQueue", DISPATCH_QUEUE_CONCURRENT);
-    dispatch_async(myQueue, ^{
-        for (NSUInteger i = 0; i < cityCount; i++) {
-            NSUInteger cityCode = fromNum + i * 100;
-            
-            //特殊情况的判断
-            //承德
-            if (cityCode == 101090401) {
-                cityCode = 101090402;
-            }
-            
-//            NSString *city = [self requestWeatherInfoWithCityCode:cityCode];
-//            if (!city) {
-//                city = [self requestWeatherInfoWithCityCode:cityCode];
-//                if (!city) {
-//                    NSLog(@"[天气]%lu:获取失败",cityCode);
-//                    continue;
-//                }
-//            }
-//            if (self.delegate) {
-//                [self.delegate weatherDataDidLoadForCity:city];
-//            }
-            [self asyncRequestWeatherInfoWithCityCode:cityCode];
-            
-        }
-        
-
-    });
-}
-
 
 
 # pragma mark - 获取天气信息
 
-- (NSString *)requestWeatherInfoWithCityCode:(NSUInteger)cityCode {
-    
-    
-    NSString *urlString = [NSString stringWithFormat:@"http://182.92.183.168/weatherRequest.php?%lu",(unsigned long)cityCode];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    //将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSDictionary *resultDict = [response objectFromJSONData];
-    if (!resultDict) {
-        //获取失败
-        return nil;
-    }
-
-    WeatherModel *model = [[WeatherModel alloc]initWithDict:resultDict];
-    WeatherForcast *tomorrowWeather = model.forcast[1];
-    [self.weatherInfo setObject:model forKey:model.cityChineseName];
-    
-    
-    NSLog(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
-    return model.cityChineseName;
-}
+//- (NSString *)requestWeatherInfoWithCityCode:(NSUInteger)cityCode {
+//    
+//    
+//    NSString *urlString = [NSString stringWithFormat:@"http://182.92.183.168/weatherRequest.php?%lu",(unsigned long)cityCode];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+//    //将请求的url数据放到NSData对象中
+//    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+//    NSDictionary *resultDict = [response objectFromJSONData];
+//    if (!resultDict) {
+//        //获取失败
+//        return nil;
+//    }
+//
+//    WeatherModel *model = [[WeatherModel alloc]initWithDict:resultDict];
+//    WeatherForcast *tomorrowWeather = model.forcast[1];
+//    [self.weatherInfo setObject:model forKey:model.cityChineseName];
+//    
+//    
+//    NSLog(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
+//    return model.cityChineseName;
+//}
 
 - (void)asyncRequestWeatherInfoWithCityCode:(NSUInteger)cityCode {
     
     __weak __typeof(self) weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, arc4random_uniform(500)* NSEC_PER_USEC), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        
+        NSString *urlString = [NSString stringWithFormat:@"http://182.92.183.168/weatherRequest.php?%lu",(unsigned long)cityCode];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+        
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+            
+            NSDictionary *resultDict = [data objectFromJSONData];
+            if (!resultDict) {
+                NSLog(@"[天气]%lu:获取失败",(unsigned long)cityCode);
+                return;
+            }
+            WeatherModel *model = [[WeatherModel alloc]initWithDict:resultDict];
+            WeatherForcast *tomorrowWeather = model.forcast[1];
+            [weakSelf.weatherInfo setObject:model forKey:model.cityChineseName];
+            
+            NSLog(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
+            
+            if (!model) {
+                NSLog(@"[天气]%lu:获取失败",(unsigned long)cityCode);
+                return;
+            }
+            if (weakSelf.delegate) {
+                [weakSelf.delegate weatherDataDidLoadForCity:model.cityChineseName];
+            }
+            
+        }];
+        
+        
+    });
     
-    NSString *urlString = [NSString stringWithFormat:@"http://182.92.183.168/weatherRequest.php?%lu",(unsigned long)cityCode];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
-        
-        NSDictionary *resultDict = [data objectFromJSONData];
-        if (!resultDict) {
-            NSLog(@"[天气]%lu:获取失败",(unsigned long)cityCode);
-            return;
-        }
-        WeatherModel *model = [[WeatherModel alloc]initWithDict:resultDict];
-        WeatherForcast *tomorrowWeather = model.forcast[1];
-        [self.weatherInfo setObject:model forKey:model.cityChineseName];
-        
-        NSLog(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
-
-        if (!model) {
-            NSLog(@"[天气]%lu:获取失败",(unsigned long)cityCode);
-            return;
-        }
-        if (weakSelf.delegate) {
-            [weakSelf.delegate weatherDataDidLoadForCity:model.cityChineseName];
-        }
-        
-    }];
     
 }
 

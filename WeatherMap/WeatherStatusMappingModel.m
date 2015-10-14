@@ -53,7 +53,7 @@
         NSUInteger rgbColor = [mapping[1] integerValue];
         return [UIColor colorWithRed:rgbColor/0x10000/255.0 green:rgbColor%0x10000/0x100/255.0 blue:rgbColor%0x100/255.0 alpha:0.8];
     } else {
-        return [UIColor whiteColor];
+        return [UIColor clearColor];
     }
 }
 
@@ -63,7 +63,7 @@
         NSUInteger rgbColor = [mapping[1] integerValue];
         return [UIColor colorWithRed:rgbColor/0x10000/255.0 green:rgbColor%0x10000/0x100/255.0 blue:rgbColor%0x100/255.0 alpha:0.6];
     } else {
-        return [UIColor whiteColor];
+        return [UIColor clearColor];
     }
 }
 

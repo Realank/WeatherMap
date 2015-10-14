@@ -9,7 +9,7 @@
         <!--天气地图-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MapViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -20,12 +20,17 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="天气地图" image="map-marker" id="W8t-Mg-xBu"/>
-                    <navigationItem key="navigationItem" id="as3-NI-lB6"/>
+                    <navigationItem key="navigationItem" title="天气地图" id="as3-NI-lB6">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="J7v-XF-Wub">
+                            <connections>
+                                <action selector="updateWeatherMap:" destination="BYZ-38-t0r" id="s9c-IK-OQf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2477" y="203"/>
+            <point key="canvasLocation" x="3208" y="99"/>
         </scene>
         <!--Cutline Table View Controller-->
         <scene sceneID="dNK-x0-RE6">
@@ -87,7 +92,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ai1-HM-Szk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2477" y="848"/>
+            <point key="canvasLocation" x="3213" y="1524"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="TXr-dg-BT1">
@@ -102,7 +107,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="DQw-Tn-Bi5"/>
+                        <segue destination="X2Q-sV-9vU" kind="relationship" relationship="viewControllers" id="DQw-Tn-Bi5"/>
+                        <segue destination="uRV-Oz-TYZ" kind="relationship" relationship="viewControllers" id="nvn-mU-kpy"/>
                         <segue destination="Qhy-P2-hRV" kind="relationship" relationship="viewControllers" id="uN9-h9-bOR"/>
                     </connections>
                 </tabBarController>
@@ -128,7 +134,87 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Zc-Hd-0CR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1665" y="848"/>
+            <point key="canvasLocation" x="2396" y="1524"/>
+        </scene>
+        <!--请选择省份-->
+        <scene sceneID="H99-Rl-ZGH">
+            <objects>
+                <collectionViewController id="ITH-wx-sNq" customClass="CitySelectCollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="oib-oO-es3">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="5" id="N9B-DF-QZi">
+                            <size key="itemSize" width="100" height="100"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="5" minY="10" maxX="5" maxY="10"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCell" id="LiV-nJ-So5">
+                                <rect key="frame" x="5" y="74" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <animations/>
+                                <size key="customSize" width="100" height="100"/>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="ITH-wx-sNq" id="tUv-AY-s44"/>
+                            <outlet property="delegate" destination="ITH-wx-sNq" id="NX8-UD-JfP"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="请选择省份" id="t2p-NX-TTb"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OXq-Hh-EpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3200" y="830"/>
+        </scene>
+        <!--天气地图-->
+        <scene sceneID="P9v-Pm-FAq">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="X2Q-sV-9vU" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="天气地图" image="map-marker" id="W8t-Mg-xBu"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="L7F-8T-Nkb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="zbe-fo-ijL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vNk-6o-FZX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2377" y="99"/>
+        </scene>
+        <!--选择省份-->
+        <scene sceneID="ecC-6Z-Kud">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uRV-Oz-TYZ" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="选择省份" id="Dwc-ID-tjR"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="p5n-Lb-oSD">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ITH-wx-sNq" kind="relationship" relationship="rootViewController" id="8Lw-Pc-786"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c1h-Jh-3qB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2396" y="818"/>
         </scene>
     </scenes>
     <resources>

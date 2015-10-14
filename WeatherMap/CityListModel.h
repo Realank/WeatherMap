@@ -1,0 +1,37 @@
+//
+//  CityListModel.h
+//  WeatherMap
+//
+//  Created by Realank on 15/10/14.
+//  Copyright © 2015年 Realank. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface ProvinceInfo : NSObject
+
+@property (nonatomic, strong) NSString *shortCut;
+@property (nonatomic, strong) NSDictionary *citysDict;
+
+@end
+
+@interface CityListModel : NSObject
+
+
+@property (nonatomic ,strong) NSDictionary *provinceDict;
+@property (nonatomic ,strong) NSArray *provincesNameArray;
+@property (nonatomic ,strong, readonly) NSMutableArray *selectedProvincesNameArray;
+@property (nonatomic ,assign) BOOL selectStatusChanged;
+
++(instancetype) sharedInstance;
+-(void)changeProvinceSelectStatus:(NSString *)provinceName;
+-(BOOL)isInSelectedProvinces:(NSString *)provinceName;
+
+// clue for improper use (produces compile time error)
++(instancetype) alloc __attribute__((unavailable("alloc not available, call sharedInstance instead")));
+-(instancetype) init __attribute__((unavailable("init not available, call sharedInstance instead")));
++(instancetype) new __attribute__((unavailable("new not available, call sharedInstance instead")));
+
+
+
+@end

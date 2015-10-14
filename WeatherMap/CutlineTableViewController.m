@@ -44,8 +44,6 @@
         
     }];
     
-    
-    //NSLog(@"%@",_weatherIndex);
 }
 
 

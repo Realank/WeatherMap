@@ -22,6 +22,6 @@
 @property (nonatomic,strong) NSMutableDictionary *weatherInfo;
 @property (nonatomic,weak) id<WeatherDataLoadSuccessDelegate> delegate;
 
-- (void) loadWeatherInfo;
+- (void)loadWeatherInfoFromProvincesList:(NSArray *)provinces;
 
 @end
