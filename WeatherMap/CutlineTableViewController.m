@@ -44,6 +44,7 @@
             break;
         }
     }
+    [self.tableView reloadData];
 }
 
 

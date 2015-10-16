@@ -158,7 +158,7 @@
                                 <rect key="frame" x="130" y="145.5" width="200" height="29"/>
                                 <animations/>
                                 <segments>
-                                    <segment title="降水"/>
+                                    <segment title="天气"/>
                                     <segment title="气温"/>
                                     <segment title="风力"/>
                                 </segments>
