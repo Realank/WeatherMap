@@ -5,7 +5,7 @@
 	<key>00</key>
 	<array>
 		<string>晴</string>
-		<integer>7008128</integer>
+		<real>7008128</real>
 	</array>
 	<key>01</key>
 	<array>
@@ -20,7 +20,7 @@
 	<key>03</key>
 	<array>
 		<string>阵雨</string>
-		<integer>11399679</integer>
+		<real>11399679</real>
 	</array>
 	<key>04</key>
 	<array>

@@ -8,41 +8,42 @@
 
 #import "CutlineTableViewController.h"
 #import "CutlineTableViewCell.h"
+#import "WeatherStatusMappingModel.h"
+#import "SettingData.h"
+#import "WindMappingModel.h"
 #define CELL_HEIGHT 50.0
 
-
-@interface CutlineTableViewController (){
-    NSMutableDictionary *_weatherStatusDict;
-    NSArray *_weatherIndexArray;
-}
-
-@end
 
 @implementation CutlineTableViewController
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+
     
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"WeatherStatusMapping" ofType:@"plist"];
-    _weatherStatusDict = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
-    
-    _weatherIndexArray = [_weatherStatusDict.allKeys sortedArrayUsingComparator: ^(id obj1, id obj2) {
-        
-        
-        if ([obj1 integerValue] < [obj2 integerValue]) {
-            return (NSComparisonResult)NSOrderedAscending;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    switch ([SettingData sharedInstance].weatherContent) {
+        case WEA_RAIN:
+        {
+            self.title = @"天气图例";
+            break;
         }
-        
-        
-        if ([obj1 integerValue] > [obj2 integerValue]) {
-            return (NSComparisonResult)NSOrderedDescending;
+            
+        case WEA_TEMPERATURE:
+        {
+            self.title = @"气温图例";
+            break;
         }
-        return (NSComparisonResult)NSOrderedSame;
-        
-        
-    }];
-    
+            
+        case WEA_WIND:
+        {
+            self.title = @"风力图例";
+            break;
+        }
+    }
 }
 
 
@@ -56,9 +57,32 @@
     if (!cell) {
         NSLog(@"找不到cell");
     }
+    
+    switch ([SettingData sharedInstance].weatherContent) {
+        case WEA_RAIN:
+        {
+            NSString *keycode = [[[WeatherStatusMappingModel sharedInstance] sortedKeyCodes] objectAtIndex:row];
+            
+            NSArray *weatherStautsToColor = [NSArray arrayWithObjects:[[WeatherStatusMappingModel sharedInstance] stringForKeycode:keycode], [[[WeatherStatusMappingModel sharedInstance] colorForKeycode:keycode] colorWithAlphaComponent:0.6], nil];
+            cell.cutlineModel = weatherStautsToColor;
+            break;
+        }
+            
+        case WEA_TEMPERATURE:
+        {
 
-    NSArray *weatherStautsToColor = [_weatherStatusDict objectForKey:_weatherIndexArray[row]];
-    cell.cutlineModel = weatherStautsToColor;
+            break;
+        }
+            
+        case WEA_WIND:
+        {
+            NSString *keycode = [[[WindMappingModel sharedInstance] sortedKeyCodes] objectAtIndex:row];
+            
+            NSArray *weatherStautsToColor = [NSArray arrayWithObjects:[[WindMappingModel sharedInstance] windStrengthForKeycode:keycode], [[[WindMappingModel sharedInstance] colorForWindStrengthKeycode:keycode] colorWithAlphaComponent:0.6], nil];
+            cell.cutlineModel = weatherStautsToColor;
+            break;
+        }
+    }
     
     return cell;
 }
@@ -69,7 +93,23 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _weatherIndexArray.count;
+    
+    switch ([SettingData sharedInstance].weatherContent) {
+        case WEA_RAIN:
+        {
+            return [[WeatherStatusMappingModel sharedInstance] sortedKeyCodes].count;
+        }
+            
+        case WEA_TEMPERATURE:
+        {
+            return 0;
+        }
+            
+        case WEA_WIND:
+        {
+            return [[WindMappingModel sharedInstance] sortedKeyCodes].count;
+        }
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

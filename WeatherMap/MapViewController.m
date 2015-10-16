@@ -17,6 +17,8 @@
 #import "WeatherModel.h"
 #import "WeatherStatusMappingModel.h"
 #import "CityListModel.h"
+#import "SettingData.h"
+#import "WindMappingModel.h"
 
 
 @interface MapViewController ()<MAMapViewDelegate,AMapSearchDelegate,WeatherDataLoadSuccessDelegate>
@@ -39,7 +41,8 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    if ([CityListModel sharedInstance].selectStatusChanged) {
+    [super viewWillAppear:animated];
+    if ([CityListModel sharedInstance].selectStatusChanged || [SettingData sharedInstance].settingStatusChanged) {
         [self updateWeatherMap:nil];
     }
     
@@ -143,18 +146,71 @@
             NSLog(@"[地理]找不到%@的天气信息！",dist.name);
             continue;
         }
-        WeatherForcast *tomorrowWeather = model.forcast[1];
-        NSString *weatherString = [NSString stringWithFormat:@"%@ %@~%@℃",[[WeatherStatusMappingModel sharedInstance] stringForKeycode:tomorrowWeather.daytimeStatus],tomorrowWeather.nightTemperature,tomorrowWeather.daytimeTemperature];
+        WeatherForcast *dayWeather = model.forcast[1];
+        switch ([SettingData sharedInstance].weatherTime) {
+            case WEA_TODAY:
+                dayWeather = model.forcast[0];
+                break;
+            case WEA_TOMOTTOW:
+                dayWeather = model.forcast[1];
+                break;
+            case WEA_AFTERTOMORROW:
+                dayWeather = model.forcast[2];
+                break;
+        }
+        //大头针显示的内容
+        NSString *weatherString;
+        //轮廓多边形的颜色
+        UIColor *color;
+        //判断要显示的天气类型：降水情况、气温或者风力
+        switch ([SettingData sharedInstance].weatherContent) {
+            case WEA_RAIN: {
+                NSString* weatherStatus = dayWeather.daytimeStatus;
+                weatherString = [NSString stringWithFormat:@"%@ %@~%@℃",[[WeatherStatusMappingModel sharedInstance] stringForKeycode:weatherStatus],dayWeather.nightTemperature,dayWeather.daytimeTemperature];
+                if (weatherStatus.length <= 0) {
+                    weatherStatus = dayWeather.nightStatus;
+                    weatherString = [NSString stringWithFormat:@"%@ %@℃",[[WeatherStatusMappingModel sharedInstance] stringForKeycode:weatherStatus],dayWeather.nightTemperature];
+                }
+                
+                color = [[WeatherStatusMappingModel sharedInstance] colorForKeycode:weatherStatus];
+
+                break;
+            }
+    
+            case WEA_TEMPERATURE:
+            {
+                
+                break;
+            }
+                
+            case WEA_WIND:
+            {
+                weatherString = [NSString stringWithFormat:@"%@ %@",[[WindMappingModel sharedInstance] windDirectionForKeycode:dayWeather.daytimeWindDirection],[[WindMappingModel sharedInstance] windStrengthForKeycode:dayWeather.daytimeWindStrength]];
+                color = [[WindMappingModel sharedInstance]  colorForWindStrengthKeycode:dayWeather.daytimeWindStrength];
+                
+                if (dayWeather.daytimeStatus.length <= 0) {
+                    weatherString = [NSString stringWithFormat:@"%@ %@",[[WindMappingModel sharedInstance] windDirectionForKeycode:dayWeather.nightWindDirection],[[WindMappingModel sharedInstance] windStrengthForKeycode:dayWeather.nightWindStrength]];
+                    color = [[WindMappingModel sharedInstance]  colorForWindStrengthKeycode:dayWeather.nightWindStrength];
+                }
+                
+                break;
+            }
+
+        }
         
         
-        //天气信息别针
-        MAPointAnnotation *poiAnnotation = [[MAPointAnnotation alloc] init];
-        poiAnnotation.coordinate = CLLocationCoordinate2DMake(dist.center.latitude, dist.center.longitude);
-        poiAnnotation.title = dist.name;
-        poiAnnotation.subtitle   = weatherString;
-        [self.mapView addAnnotation:poiAnnotation];
+        if ([SettingData sharedInstance].showSpin) {
+            //天气信息别针
+            MAPointAnnotation *poiAnnotation = [[MAPointAnnotation alloc] init];
+            poiAnnotation.coordinate = CLLocationCoordinate2DMake(dist.center.latitude, dist.center.longitude);
+            poiAnnotation.title = dist.name;
+            poiAnnotation.subtitle   = weatherString;
+            [self.mapView addAnnotation:poiAnnotation];
+        }
         
         
+        UIColor *strokeColor = [color colorWithAlphaComponent:0.8];
+        UIColor *fillColor = [color colorWithAlphaComponent:0.6];
         //增加城市轮廓多边形
         if (dist.polylines.count > 0)
         {
@@ -166,10 +222,10 @@
                 if (!polygon) {
                     continue;
                 }
-
-                polygon.strokeColor = [[WeatherStatusMappingModel sharedInstance] strokeColorForKeycode:tomorrowWeather.daytimeStatus];
-                polygon.fillColor   = [[WeatherStatusMappingModel sharedInstance] fillColorForKeycode:tomorrowWeather.daytimeStatus];
                 
+                polygon.strokeColor = strokeColor;
+                polygon.fillColor   = fillColor;
+  
                 [self.mapView addOverlay:polygon];
                 
                 //bounds = MAMapRectUnion(bounds, polygon.boundingMapRect);

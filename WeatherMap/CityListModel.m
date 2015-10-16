@@ -73,7 +73,7 @@
         self.provinceDict = [provinceDictM copy];
         
         
-        _selectedProvincesNameArray = [NSMutableArray arrayWithArray: @[]];
+        _selectedProvincesNameArray = [NSMutableArray arrayWithArray: @[@"河北省"]];
         self.selectStatusChanged = YES;
         
         

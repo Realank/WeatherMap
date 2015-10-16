@@ -9,10 +9,15 @@
 //将天气状态码，转换为对应的文字和图例颜色的模型
 
 #import "WeatherStatusMappingModel.h"
+#import <UIKit/UIKit.h>
+@implementation WeatherStatusItem
+
+@end
 
 @interface WeatherStatusMappingModel ()
 
-@property (nonatomic,strong) NSDictionary *weatherStatus;
+@property (nonatomic,strong) NSMutableDictionary *weatherStatus;
+@property (nonatomic,strong) NSArray *sortedKeycodesArr;
 
 @end
 
@@ -31,37 +36,47 @@
     
     if (self = [super init]) {
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"WeatherStatusMapping" ofType:@"plist"];
-        self.weatherStatus = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+        NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+        for (NSString *key in [dict allKeys]) {
+            NSArray *mapping = [dict objectForKey:key];
+            if (mapping.count == 2) {
+                WeatherStatusItem *item = [[WeatherStatusItem alloc]init];
+                item.status = mapping[0];
+                NSUInteger rgbColor = [mapping[1] integerValue];
+                item.color = [UIColor colorWithRed:rgbColor/0x10000/255.0 green:rgbColor%0x10000/0x100/255.0 blue:rgbColor%0x100/255.0 alpha:1];
+                [self.weatherStatus setValue:item forKey:key];
+            }
+        }
+        NSArray *arr = [[self.weatherStatus allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString*  _Nonnull obj1, NSString*  _Nonnull obj2) {
+            NSUInteger num1 = [obj1 integerValue];
+            NSUInteger num2 = [obj2  integerValue];
+            return num1 > num2 ? NSOrderedDescending : NSOrderedAscending;
+        }];
+        self.sortedKeycodesArr = arr;
     }
     
     return self;
 }
 
+- (NSDictionary *)weatherStatus {
+    if (!_weatherStatus) {
+        _weatherStatus = [NSMutableDictionary dictionary];
+    }
+    return _weatherStatus;
+}
+
+- (NSArray *)sortedKeyCodes {
+    return self.sortedKeycodesArr;
+}
 
 -(NSString *)stringForKeycode:(NSString *)keycode{
-    NSArray *mapping = [self.weatherStatus objectForKey:keycode];
-    if (mapping.count == 2) {
-        return mapping[0];
-    } else {
-        return nil;
-    }
-    
+    WeatherStatusItem *mapping = [self.weatherStatus objectForKey:keycode];
+    return mapping.status;
 }
--(UIColor *)strokeColorForKeycode:(NSString *)keycode{
-    NSArray *mapping = [self.weatherStatus objectForKey:keycode];
-    if (mapping.count == 2) {
-        NSUInteger rgbColor = [mapping[1] integerValue];
-        return [UIColor colorWithRed:rgbColor/0x10000/255.0 green:rgbColor%0x10000/0x100/255.0 blue:rgbColor%0x100/255.0 alpha:0.8];
-    } else {
-        return [UIColor clearColor];
-    }
-}
-
--(UIColor *)fillColorForKeycode:(NSString *)keycode{
-    NSArray *mapping = [self.weatherStatus objectForKey:keycode];
-    if (mapping.count == 2) {
-        NSUInteger rgbColor = [mapping[1] integerValue];
-        return [UIColor colorWithRed:rgbColor/0x10000/255.0 green:rgbColor%0x10000/0x100/255.0 blue:rgbColor%0x100/255.0 alpha:0.6];
+-(UIColor *)colorForKeycode:(NSString *)keycode{
+    WeatherStatusItem *mapping = [self.weatherStatus objectForKey:keycode];
+    if (mapping) {
+        return mapping.color;
     } else {
         return [UIColor clearColor];
     }

@@ -116,7 +116,7 @@
         <!--设置-->
         <scene sceneID="4CV-gz-Lk7">
             <objects>
-                <viewController id="U1e-tq-4x2" sceneMemberID="viewController">
+                <viewController id="U1e-tq-4x2" customClass="SettingViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EYL-Sx-bT7"/>
                         <viewControllerLayoutGuide type="bottom" id="vqA-IB-4eY"/>
@@ -132,8 +132,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LWc-iP-R9U">
-                                <rect key="frame" x="130" y="87" width="200" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="LWc-iP-R9U">
+                                <rect key="frame" x="130" y="86" width="200" height="29"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="200" id="ZZW-q9-pph"/>
@@ -143,9 +143,12 @@
                                     <segment title="明天"/>
                                     <segment title="后天"/>
                                 </segments>
+                                <connections>
+                                    <action selector="changeWeatherTime:" destination="U1e-tq-4x2" eventType="valueChanged" id="Pyc-gc-8Bk"/>
+                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天气图钉:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECf-do-LgG">
-                                <rect key="frame" x="20" y="208.5" width="73" height="20.5"/>
+                                <rect key="frame" x="20" y="209" width="73" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -159,13 +162,19 @@
                                     <segment title="气温"/>
                                     <segment title="风力"/>
                                 </segments>
+                                <connections>
+                                    <action selector="changeWeatherContent:" destination="U1e-tq-4x2" eventType="valueChanged" id="jLI-dE-mNj"/>
+                                </connections>
                             </segmentedControl>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5hr-Aw-UWn">
                                 <rect key="frame" x="130" y="203.5" width="51" height="31"/>
                                 <animations/>
+                                <connections>
+                                    <action selector="changeSpin:" destination="U1e-tq-4x2" eventType="valueChanged" id="scL-jX-ovD"/>
+                                </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天气的内容:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEo-o2-syF">
-                                <rect key="frame" x="20" y="149" width="90" height="20.5"/>
+                                <rect key="frame" x="20" y="149.5" width="90" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -259,20 +268,7 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="5" minY="10" maxX="5" maxY="10"/>
                         </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionCell" id="LiV-nJ-So5">
-                                <rect key="frame" x="5" y="74" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <animations/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                                <animations/>
-                                <size key="customSize" width="100" height="100"/>
-                            </collectionViewCell>
-                        </cells>
+                        <cells/>
                         <connections>
                             <outlet property="dataSource" destination="ITH-wx-sNq" id="tUv-AY-s44"/>
                             <outlet property="delegate" destination="ITH-wx-sNq" id="NX8-UD-JfP"/>

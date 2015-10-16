@@ -12,6 +12,11 @@
 		8C448F511BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C448F4F1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		8C448F551BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C448F531BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		8C448F561BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C448F541BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		8C448F5B1BD101DA008F2F40 /* SettingData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C448F5A1BD101DA008F2F40 /* SettingData.m */; settings = {ASSET_TAGS = (); }; };
+		8C448F5F1BD1044C008F2F40 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C448F5E1BD1044C008F2F40 /* SettingViewController.m */; settings = {ASSET_TAGS = (); }; };
+		8C448F611BD10C61008F2F40 /* WindMapping.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C448F601BD10C61008F2F40 /* WindMapping.plist */; settings = {ASSET_TAGS = (); }; };
+		8C448F641BD10CE5008F2F40 /* WindMappingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C448F631BD10CE5008F2F40 /* WindMappingModel.m */; settings = {ASSET_TAGS = (); }; };
+		8C448F661BD10F2B008F2F40 /* windStrengthColor.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C448F651BD10F2B008F2F40 /* windStrengthColor.plist */; settings = {ASSET_TAGS = (); }; };
 		8C5F16061B86BEB0002C96E2 /* MAPolygon+PolygenColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F16051B86BEB0002C96E2 /* MAPolygon+PolygenColor.m */; };
 		8C5F16091B86C103002C96E2 /* CutlineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F16081B86C103002C96E2 /* CutlineTableViewController.m */; };
 		8C5F160C1B86D273002C96E2 /* CutlineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F160B1B86D273002C96E2 /* CutlineTableViewCell.m */; };
@@ -65,6 +70,14 @@
 		8C448F521BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceSelectedCollectionViewCell.h; sourceTree = "<group>"; };
 		8C448F531BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceSelectedCollectionViewCell.m; sourceTree = "<group>"; };
 		8C448F541BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProvinceSelectedCollectionViewCell.xib; sourceTree = "<group>"; };
+		8C448F591BD101DA008F2F40 /* SettingData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingData.h; sourceTree = "<group>"; };
+		8C448F5A1BD101DA008F2F40 /* SettingData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingData.m; sourceTree = "<group>"; };
+		8C448F5D1BD1044C008F2F40 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		8C448F5E1BD1044C008F2F40 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		8C448F601BD10C61008F2F40 /* WindMapping.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WindMapping.plist; sourceTree = "<group>"; };
+		8C448F621BD10CE5008F2F40 /* WindMappingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindMappingModel.h; sourceTree = "<group>"; };
+		8C448F631BD10CE5008F2F40 /* WindMappingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WindMappingModel.m; sourceTree = "<group>"; };
+		8C448F651BD10F2B008F2F40 /* windStrengthColor.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = windStrengthColor.plist; sourceTree = "<group>"; };
 		8C5F16041B86BEB0002C96E2 /* MAPolygon+PolygenColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MAPolygon+PolygenColor.h"; path = "../MAPolygon+PolygenColor.h"; sourceTree = "<group>"; };
 		8C5F16051B86BEB0002C96E2 /* MAPolygon+PolygenColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MAPolygon+PolygenColor.m"; path = "../MAPolygon+PolygenColor.m"; sourceTree = "<group>"; };
 		8C5F16071B86C103002C96E2 /* CutlineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutlineTableViewController.h; sourceTree = "<group>"; };
@@ -174,7 +187,7 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		8C070D8B1BCC95BE00C1F240 /* weatherData */ = {
+		8C070D8B1BCC95BE00C1F240 /* WeatherData */ = {
 			isa = PBXGroup;
 			children = (
 				8CC2F89B1B786ED70094762A /* WeatherData.h */,
@@ -183,8 +196,10 @@
 				8C070D891BCC95B200C1F240 /* WeatherModel.m */,
 				8C7601D01BCCEB960022274A /* WeatherStatusMappingModel.h */,
 				8C7601D11BCCEB960022274A /* WeatherStatusMappingModel.m */,
+				8C448F621BD10CE5008F2F40 /* WindMappingModel.h */,
+				8C448F631BD10CE5008F2F40 /* WindMappingModel.m */,
 			);
-			name = weatherData;
+			name = WeatherData;
 			sourceTree = "<group>";
 		};
 		8C070D8C1BCC95DB00C1F240 /* CutlineVC */ = {
@@ -209,6 +224,24 @@
 				8C448F541BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.xib */,
 			);
 			name = cells;
+			sourceTree = "<group>";
+		};
+		8C448F581BD1019B008F2F40 /* SettingData */ = {
+			isa = PBXGroup;
+			children = (
+				8C448F591BD101DA008F2F40 /* SettingData.h */,
+				8C448F5A1BD101DA008F2F40 /* SettingData.m */,
+			);
+			name = SettingData;
+			sourceTree = "<group>";
+		};
+		8C448F5C1BD1041F008F2F40 /* SettingVC */ = {
+			isa = PBXGroup;
+			children = (
+				8C448F5D1BD1044C008F2F40 /* SettingViewController.h */,
+				8C448F5E1BD1044C008F2F40 /* SettingViewController.m */,
+			);
+			name = SettingVC;
 			sourceTree = "<group>";
 		};
 		8CB343211BCE7010001DB2E9 /* CityData */ = {
@@ -268,8 +301,10 @@
 				8CB343251BCE7C4B001DB2E9 /* MapVC */,
 				8CB343261BCE7C75001DB2E9 /* CitySelectVC */,
 				8C070D8C1BCC95DB00C1F240 /* CutlineVC */,
+				8C448F5C1BD1041F008F2F40 /* SettingVC */,
 				8CB343211BCE7010001DB2E9 /* CityData */,
-				8C070D8B1BCC95BE00C1F240 /* weatherData */,
+				8C070D8B1BCC95BE00C1F240 /* WeatherData */,
+				8C448F581BD1019B008F2F40 /* SettingData */,
 				8CF22FE71B77037700611895 /* MAMAP */,
 				8CF22FE31B77036F00611895 /* Utility */,
 				8CF22FB61B76EB7D00611895 /* Supporting Files */,
@@ -285,6 +320,8 @@
 				8CC2F89E1B788D360094762A /* WeatherStatusMapping.plist */,
 				8CB3431E1BCE6BF1001DB2E9 /* CityList.plist */,
 				8CF22FB81B76EB7D00611895 /* main.m */,
+				8C448F601BD10C61008F2F40 /* WindMapping.plist */,
+				8C448F651BD10F2B008F2F40 /* windStrengthColor.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -467,9 +504,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CC2F89F1B788D360094762A /* WeatherStatusMapping.plist in Resources */,
+				8C448F661BD10F2B008F2F40 /* windStrengthColor.plist in Resources */,
 				8C448F561BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.xib in Resources */,
 				8CB3431F1BCE6BF1001DB2E9 /* CityList.plist in Resources */,
 				8CF22FC21B76EB7D00611895 /* Main.storyboard in Resources */,
+				8C448F611BD10C61008F2F40 /* WindMapping.plist in Resources */,
 				8C448F511BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.xib in Resources */,
 				8CF22FC41B76EB7D00611895 /* Images.xcassets in Resources */,
 			);
@@ -544,6 +583,7 @@
 				8CC856931BCBAFE700B6FFA8 /* AMapTipAnnotation.m in Sources */,
 				8CF230121B77037700611895 /* MANaviAnnotation.m in Sources */,
 				8C958B8B1B7747F1004AB2DD /* JSONKit.m in Sources */,
+				8C448F5F1BD1044C008F2F40 /* SettingViewController.m in Sources */,
 				8CC8569D1BCBB09900B6FFA8 /* CommonUtility.m in Sources */,
 				8C070D8A1BCC95B200C1F240 /* WeatherModel.m in Sources */,
 				8C5F160C1B86D273002C96E2 /* CutlineTableViewCell.m in Sources */,
@@ -554,6 +594,7 @@
 				8CF2300A1B77037700611895 /* BusStopAnnotation.m in Sources */,
 				8CB343291BCE7CAF001DB2E9 /* CitySelectCollectionViewController.m in Sources */,
 				8CF22FB91B76EB7D00611895 /* main.m in Sources */,
+				8C448F641BD10CE5008F2F40 /* WindMappingModel.m in Sources */,
 				8CB343241BCE702A001DB2E9 /* CityListModel.m in Sources */,
 				8CC2F89D1B786ED70094762A /* WeatherData.m in Sources */,
 				8CF230101B77037700611895 /* LineDashPolyline.m in Sources */,
@@ -561,6 +602,7 @@
 				8C448F501BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.m in Sources */,
 				8CF230081B77037700611895 /* AnimatedAnnotation.m in Sources */,
 				8CC856951BCBAFE700B6FFA8 /* ReGeocodeAnnotation.m in Sources */,
+				8C448F5B1BD101DA008F2F40 /* SettingData.m in Sources */,
 				8CC856921BCBAFE700B6FFA8 /* GeocodeAnnotation.m in Sources */,
 				8CF230141B77037700611895 /* MANaviPolyline.m in Sources */,
 				8C7601D21BCCEB960022274A /* WeatherStatusMappingModel.m in Sources */,

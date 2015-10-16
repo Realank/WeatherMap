@@ -8,14 +8,20 @@
 
 #import "CutlineTableViewCell.h"
 
+@interface CutlineTableViewCell ()
+
+@property (weak, nonatomic) IBOutlet UILabel *cutlineName;
+@property (weak, nonatomic) IBOutlet UIView *cutlineColor;
+
+@end
+
 @implementation CutlineTableViewCell
 
 - (void)setCutlineModel:(NSArray *)cutlineModel {
     _cutlineModel = cutlineModel;
     _cutlineName.text = cutlineModel[0];
-    
-    NSUInteger rgbColor = [cutlineModel[1] integerValue];
-    _cutlineColor.backgroundColor = [UIColor colorWithRed:rgbColor/0x10000/255.0 green:rgbColor%0x10000/0x100/255.0 blue:rgbColor%0x100/255.0 alpha:0.6];
+
+    _cutlineColor.backgroundColor = cutlineModel[1];
 }
 
 @end

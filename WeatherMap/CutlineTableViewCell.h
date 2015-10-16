@@ -9,8 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CutlineTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UILabel *cutlineName;
-@property (weak, nonatomic) IBOutlet UIView *cutlineColor;
+
 @property (strong, nonatomic) NSArray *cutlineModel;
 
 - (void)setCutlineModel:(NSArray *)cutlineModel;
