@@ -104,7 +104,7 @@
         return;
     }
 
-    NSLog(@"[地理]搜索区域%@",city);
+    NSLog(@"[地理]搜索区域 %@",city);
     __weak __typeof(self) weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, arc4random_uniform(10)* NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
         [weakSelf searchDistricts:city];
@@ -137,6 +137,7 @@
         //获取某个城市的天气信息
         WeatherModel* model = [self.weatherData.weatherInfo objectForKey:dist.name];
         if (!model) {
+            NSLog(@"[地理]找不到%@的天气信息！",dist.name);
             continue;
         }
         WeatherForcast *tomorrowWeather = model.forcast[1];

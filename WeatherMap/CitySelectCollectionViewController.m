@@ -8,6 +8,8 @@
 
 #import "CitySelectCollectionViewController.h"
 #import "CityListModel.h"
+#import "ProvinceUnselectedCollectionViewCell.h"
+#import "ProvinceSelectedCollectionViewCell.h"
 
 @interface CitySelectCollectionViewController ()
 
@@ -17,8 +19,8 @@
 
 @implementation CitySelectCollectionViewController
 
-static NSString * const reuseIdentifier = @"CollectionCell";
-
+static NSString * const selectedReuseIdentifier = @"selectCell";
+static NSString * const unselectedReuseIdentifier = @"unselectCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.cityListModel = [CityListModel sharedInstance];
@@ -26,8 +28,9 @@ static NSString * const reuseIdentifier = @"CollectionCell";
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Register cell classes
-    [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
+    [self.collectionView registerNib:[UINib nibWithNibName:@"ProvinceUnselectedCollectionViewCell" bundle:nil]forCellWithReuseIdentifier:unselectedReuseIdentifier];
+    [self.collectionView registerNib:[UINib nibWithNibName:@"ProvinceSelectedCollectionViewCell" bundle:nil]forCellWithReuseIdentifier:selectedReuseIdentifier];
+
     // Do any additional setup after loading the view.
 }
 
@@ -47,48 +50,20 @@ static NSString * const reuseIdentifier = @"CollectionCell";
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     NSString *provinceName = self.cityListModel.provincesNameArray[indexPath.item];
     ProvinceInfo *provinceModel= [self.cityListModel.provinceDict objectForKey:provinceName];
     
-    UIColor *color = [UIColor grayColor];
     if ([self.cityListModel isInSelectedProvinces:provinceName]) {
-        color = [UIColor blueColor];
+        ProvinceSelectedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:selectedReuseIdentifier forIndexPath:indexPath];
+        [cell setTitle:provinceModel.shortCut andName:provinceName];
+        return cell;
+    } else {
+        ProvinceUnselectedCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:unselectedReuseIdentifier forIndexPath:indexPath];
+        
+        [cell setTitle:provinceModel.shortCut andName:provinceName];
+        return cell;
     }
-    
-    cell.layer.cornerRadius = 6;
-    cell.clipsToBounds = YES;
-    cell.layer.borderWidth = 1;
-    cell.layer.borderColor = color.CGColor;
-    
-    CGSize cellSize = cell.contentView.bounds.size;
-    
-    UILabel *shortCutLable = (UILabel *)[cell.contentView viewWithTag:1000];
-    if (!shortCutLable) {
-        shortCutLable = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, cellSize.width, cellSize.height * 0.8)];
-        shortCutLable.tag = 1000;
-        shortCutLable.textAlignment = NSTextAlignmentCenter;
-        shortCutLable.font = [UIFont boldSystemFontOfSize:40];
-        shortCutLable.textColor = [UIColor whiteColor];
-        [cell.contentView addSubview:shortCutLable];
-    }
-    shortCutLable.text = provinceModel.shortCut;
-    shortCutLable.backgroundColor = color;
-    
-    UILabel *fullNameLabel = (UILabel *)[cell.contentView viewWithTag:1001];
-    if (!fullNameLabel) {
-        fullNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, cellSize.height * 0.8, cellSize.width, cellSize.height * 0.2)];
-        fullNameLabel.tag = 1001;
-        fullNameLabel.textAlignment = NSTextAlignmentCenter;
-        fullNameLabel.font = [UIFont systemFontOfSize:15];
-        fullNameLabel.layer.borderWidth = 1;
-        [cell.contentView addSubview:fullNameLabel];
-    }
-    fullNameLabel.text = provinceName;
-    fullNameLabel.textColor = color;
-    fullNameLabel.layer.borderColor = color.CGColor;
-    return cell;
 }
 
 #pragma mark <UICollectionViewDelegate>

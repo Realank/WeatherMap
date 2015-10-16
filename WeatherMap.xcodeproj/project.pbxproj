@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		8C070D8A1BCC95B200C1F240 /* WeatherModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C070D891BCC95B200C1F240 /* WeatherModel.m */; settings = {ASSET_TAGS = (); }; };
+		8C448F501BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C448F4E1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		8C448F511BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C448F4F1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
+		8C448F551BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C448F531BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
+		8C448F561BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8C448F541BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.xib */; settings = {ASSET_TAGS = (); }; };
 		8C5F16061B86BEB0002C96E2 /* MAPolygon+PolygenColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F16051B86BEB0002C96E2 /* MAPolygon+PolygenColor.m */; };
 		8C5F16091B86C103002C96E2 /* CutlineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F16081B86C103002C96E2 /* CutlineTableViewController.m */; };
 		8C5F160C1B86D273002C96E2 /* CutlineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F160B1B86D273002C96E2 /* CutlineTableViewCell.m */; };
@@ -55,6 +59,12 @@
 		439339594C5807B3E19B2F05 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		8C070D881BCC95B200C1F240 /* WeatherModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherModel.h; sourceTree = "<group>"; };
 		8C070D891BCC95B200C1F240 /* WeatherModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherModel.m; sourceTree = "<group>"; };
+		8C448F4D1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceUnselectedCollectionViewCell.h; sourceTree = "<group>"; };
+		8C448F4E1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceUnselectedCollectionViewCell.m; sourceTree = "<group>"; };
+		8C448F4F1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProvinceUnselectedCollectionViewCell.xib; sourceTree = "<group>"; };
+		8C448F521BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceSelectedCollectionViewCell.h; sourceTree = "<group>"; };
+		8C448F531BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceSelectedCollectionViewCell.m; sourceTree = "<group>"; };
+		8C448F541BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProvinceSelectedCollectionViewCell.xib; sourceTree = "<group>"; };
 		8C5F16041B86BEB0002C96E2 /* MAPolygon+PolygenColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MAPolygon+PolygenColor.h"; path = "../MAPolygon+PolygenColor.h"; sourceTree = "<group>"; };
 		8C5F16051B86BEB0002C96E2 /* MAPolygon+PolygenColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MAPolygon+PolygenColor.m"; path = "../MAPolygon+PolygenColor.m"; sourceTree = "<group>"; };
 		8C5F16071B86C103002C96E2 /* CutlineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutlineTableViewController.h; sourceTree = "<group>"; };
@@ -211,6 +221,12 @@
 			children = (
 				8CB343271BCE7CAF001DB2E9 /* CitySelectCollectionViewController.h */,
 				8CB343281BCE7CAF001DB2E9 /* CitySelectCollectionViewController.m */,
+				8C448F4D1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.h */,
+				8C448F4E1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.m */,
+				8C448F4F1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.xib */,
+				8C448F521BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.h */,
+				8C448F531BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.m */,
+				8C448F541BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.xib */,
 			);
 			name = CitySelectVC;
 			sourceTree = "<group>";
@@ -443,8 +459,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8CC2F89F1B788D360094762A /* WeatherStatusMapping.plist in Resources */,
+				8C448F561BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.xib in Resources */,
 				8CB3431F1BCE6BF1001DB2E9 /* CityList.plist in Resources */,
 				8CF22FC21B76EB7D00611895 /* Main.storyboard in Resources */,
+				8C448F511BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.xib in Resources */,
 				8CF22FC41B76EB7D00611895 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -531,6 +549,8 @@
 				8CB343241BCE702A001DB2E9 /* CityListModel.m in Sources */,
 				8CC2F89D1B786ED70094762A /* WeatherData.m in Sources */,
 				8CF230101B77037700611895 /* LineDashPolyline.m in Sources */,
+				8C448F551BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.m in Sources */,
+				8C448F501BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.m in Sources */,
 				8CF230081B77037700611895 /* AnimatedAnnotation.m in Sources */,
 				8CC856951BCBAFE700B6FFA8 /* ReGeocodeAnnotation.m in Sources */,
 				8CC856921BCBAFE700B6FFA8 /* GeocodeAnnotation.m in Sources */,

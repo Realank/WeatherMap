@@ -11,10 +11,22 @@
 @implementation ProvinceInfo
 
 
+@end
+
+@interface CityListModel ()
+
+@property (nonatomic, strong) NSMutableDictionary *allCityList;
 
 @end
 
 @implementation CityListModel
+
+- (NSMutableDictionary *)allCityList {
+    if (!_allCityList) {
+        _allCityList = [NSMutableDictionary dictionary];
+    }
+    return _allCityList;
+}
 
 
 +(instancetype) sharedInstance {
@@ -48,10 +60,11 @@
                 provinceModel.shortCut = shortCut;
             }
             NSDictionary *citys = [aProvinceDict objectForKey:@"citys"];
-            if (citys.count <= 0) {
+            if ([citys allKeys].count <= 0) {
                 continue;
             } else {
                 provinceModel.citysDict = citys;
+                [self.allCityList addEntriesFromDictionary:citys];
             }
             
             [provinceDictM setValue:provinceModel forKey:provinceName];
@@ -60,7 +73,7 @@
         self.provinceDict = [provinceDictM copy];
         
         
-        _selectedProvincesNameArray = [NSMutableArray arrayWithArray: @[@"北京市",@"江苏省",@"重庆市"]];
+        _selectedProvincesNameArray = [NSMutableArray arrayWithArray: @[]];
         self.selectStatusChanged = YES;
         
         
@@ -79,6 +92,10 @@
     }
     
     return self;
+}
+
+-(NSString *)cityNameForAreaCode:(NSString *)areaCode {
+    return [self.allCityList objectForKey:areaCode];
 }
 
 

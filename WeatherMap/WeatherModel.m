@@ -9,6 +9,7 @@
 //从中国气象台获取的天气信息
 
 #import "WeatherModel.h"
+#import "CityListModel.h"
 
 @implementation WeatherForcast
 
@@ -44,7 +45,7 @@
         if (cityInfo) {
             _areaID = cityInfo[@"c1"];
             _cityEnglishName = cityInfo[@"c2"];
-            _cityChineseName = [cityInfo[@"c3"]stringByAppendingString:@"市"];
+            _cityChineseName = [[CityListModel sharedInstance]cityNameForAreaCode:_areaID];
             _bigCityEnglishName = cityInfo[@"c4"];
             _bigCityChineseName = cityInfo[@"c5"];
             _provinceEnglishName = cityInfo[@"c6"];

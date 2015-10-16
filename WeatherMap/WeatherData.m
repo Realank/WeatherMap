@@ -91,7 +91,9 @@
             
             NSDictionary *resultDict = [data objectFromJSONData];
             if (!resultDict) {
-                NSLog(@"[天气]%lu:获取失败",(unsigned long)cityCode);
+                NSString *cityCodeStr = [NSString stringWithFormat:@"%lu",cityCode];
+                
+                NSLog(@"[天气]%@:获取失败",[[CityListModel sharedInstance]cityNameForAreaCode:cityCodeStr]);
                 return;
             }
             WeatherModel *model = [[WeatherModel alloc]initWithDict:resultDict];
