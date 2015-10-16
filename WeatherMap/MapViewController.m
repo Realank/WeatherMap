@@ -33,7 +33,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
     [self setupMapAndSearch];
     
 
@@ -87,6 +86,10 @@
     [self.weatherData loadWeatherInfoFromProvincesList:[[CityListModel sharedInstance] selectedProvincesNameArray]];
 }
 
+- (IBAction)locateMyself:(UIBarButtonItem *)sender {
+    
+    [self.mapView setUserTrackingMode: MAUserTrackingModeFollow animated:YES];
+}
 
 #pragma mark - 天气读取完毕代理
 - (void)weatherDataDidLoad {

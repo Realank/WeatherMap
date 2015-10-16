@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "puzzle.png",
+      "filename" : "culineSelect.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "97-puzzle.png",
+      "filename" : "culineSelect@2x.png",
       "scale" : "2x"
     },
     {

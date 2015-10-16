@@ -198,6 +198,19 @@
 			name = CutlineVC;
 			sourceTree = "<group>";
 		};
+		8C448F571BD0CD6F008F2F40 /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				8C448F4D1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.h */,
+				8C448F4E1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.m */,
+				8C448F4F1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.xib */,
+				8C448F521BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.h */,
+				8C448F531BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.m */,
+				8C448F541BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.xib */,
+			);
+			name = cells;
+			sourceTree = "<group>";
+		};
 		8CB343211BCE7010001DB2E9 /* CityData */ = {
 			isa = PBXGroup;
 			children = (
@@ -221,12 +234,7 @@
 			children = (
 				8CB343271BCE7CAF001DB2E9 /* CitySelectCollectionViewController.h */,
 				8CB343281BCE7CAF001DB2E9 /* CitySelectCollectionViewController.m */,
-				8C448F4D1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.h */,
-				8C448F4E1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.m */,
-				8C448F4F1BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.xib */,
-				8C448F521BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.h */,
-				8C448F531BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.m */,
-				8C448F541BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.xib */,
+				8C448F571BD0CD6F008F2F40 /* cells */,
 			);
 			name = CitySelectVC;
 			sourceTree = "<group>";

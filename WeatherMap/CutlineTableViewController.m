@@ -23,7 +23,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    self.title = @"天气图例";
     
     NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"WeatherStatusMapping" ofType:@"plist"];
     _weatherStatusDict = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];

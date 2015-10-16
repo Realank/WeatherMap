@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--天气地图-->
@@ -21,18 +22,36 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="天气地图" id="as3-NI-lB6">
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="refresh" id="J7v-XF-Wub">
-                            <connections>
-                                <action selector="updateWeatherMap:" destination="BYZ-38-t0r" id="s9c-IK-OQf"/>
-                            </connections>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="CLg-HK-s5J">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IQH-RP-kN8">
+                                <rect key="frame" x="20" y="7" width="75" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <animations/>
+                                <state key="normal" title="选择省份"/>
+                                <connections>
+                                    <segue destination="ITH-wx-sNq" kind="show" id="Sse-um-UXg"/>
+                                </connections>
+                            </button>
                         </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" systemItem="refresh" id="J7v-XF-Wub">
+                                <connections>
+                                    <action selector="updateWeatherMap:" destination="BYZ-38-t0r" id="s9c-IK-OQf"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="loc" style="plain" id="gfr-yN-Zkd">
+                                <connections>
+                                    <action selector="locateMyself:" destination="BYZ-38-t0r" id="I8D-G5-7eg"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3208" y="99"/>
+            <point key="canvasLocation" x="3076" y="99"/>
         </scene>
-        <!--Cutline Table View Controller-->
+        <!--天气图例-->
         <scene sceneID="dNK-x0-RE6">
             <objects>
                 <tableViewController id="fTq-GO-pNG" customClass="CutlineTableViewController" sceneMemberID="viewController">
@@ -88,11 +107,100 @@
                             <outlet property="delegate" destination="fTq-GO-pNG" id="GGi-sf-Xqo"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="cfB-Yg-9hG"/>
+                    <navigationItem key="navigationItem" title="天气图例" id="cfB-Yg-9hG"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ai1-HM-Szk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3213" y="1524"/>
+            <point key="canvasLocation" x="3076" y="828"/>
+        </scene>
+        <!--设置-->
+        <scene sceneID="4CV-gz-Lk7">
+            <objects>
+                <viewController id="U1e-tq-4x2" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EYL-Sx-bT7"/>
+                        <viewControllerLayoutGuide type="bottom" id="vqA-IB-4eY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="l4n-q7-CVO">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天气的时效:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KL9-SO-S6g">
+                                <rect key="frame" x="20" y="90" width="90" height="20.5"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="LWc-iP-R9U">
+                                <rect key="frame" x="130" y="87" width="200" height="29"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="ZZW-q9-pph"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="今天"/>
+                                    <segment title="明天"/>
+                                    <segment title="后天"/>
+                                </segments>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天气图钉:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECf-do-LgG">
+                                <rect key="frame" x="20" y="208.5" width="73" height="20.5"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6uZ-Cn-nzn">
+                                <rect key="frame" x="130" y="145.5" width="200" height="29"/>
+                                <animations/>
+                                <segments>
+                                    <segment title="降水"/>
+                                    <segment title="气温"/>
+                                    <segment title="风力"/>
+                                </segments>
+                            </segmentedControl>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5hr-Aw-UWn">
+                                <rect key="frame" x="130" y="203.5" width="51" height="31"/>
+                                <animations/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天气的内容:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEo-o2-syF">
+                                <rect key="frame" x="20" y="149" width="90" height="20.5"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6uZ-Cn-nzn" firstAttribute="centerY" secondItem="mEo-o2-syF" secondAttribute="centerY" id="4iD-Ec-g34"/>
+                            <constraint firstItem="LWc-iP-R9U" firstAttribute="leading" secondItem="KL9-SO-S6g" secondAttribute="trailing" constant="20" id="59g-gd-Vlm"/>
+                            <constraint firstItem="mEo-o2-syF" firstAttribute="top" secondItem="KL9-SO-S6g" secondAttribute="bottom" constant="39" id="7uZ-1V-JG3"/>
+                            <constraint firstItem="ECf-do-LgG" firstAttribute="leading" secondItem="mEo-o2-syF" secondAttribute="leading" id="8TE-05-mBW"/>
+                            <constraint firstItem="6uZ-Cn-nzn" firstAttribute="top" secondItem="LWc-iP-R9U" secondAttribute="bottom" constant="32" id="CJY-00-X9H"/>
+                            <constraint firstItem="mEo-o2-syF" firstAttribute="leading" secondItem="KL9-SO-S6g" secondAttribute="leading" id="DmG-aQ-vLL"/>
+                            <constraint firstItem="5hr-Aw-UWn" firstAttribute="centerY" secondItem="ECf-do-LgG" secondAttribute="centerY" id="HAS-6g-d6m"/>
+                            <constraint firstItem="5hr-Aw-UWn" firstAttribute="leading" secondItem="6uZ-Cn-nzn" secondAttribute="leading" id="IFL-gs-fXu"/>
+                            <constraint firstItem="LWc-iP-R9U" firstAttribute="centerY" secondItem="KL9-SO-S6g" secondAttribute="centerY" id="OaR-RC-RKb"/>
+                            <constraint firstItem="KL9-SO-S6g" firstAttribute="top" secondItem="EYL-Sx-bT7" secondAttribute="bottom" constant="26" id="j2c-qw-w8D"/>
+                            <constraint firstItem="ECf-do-LgG" firstAttribute="top" secondItem="mEo-o2-syF" secondAttribute="bottom" constant="39" id="lkM-mw-ile"/>
+                            <constraint firstItem="6uZ-Cn-nzn" firstAttribute="leading" secondItem="LWc-iP-R9U" secondAttribute="leading" id="ozI-wo-7Ln"/>
+                            <constraint firstItem="6uZ-Cn-nzn" firstAttribute="width" secondItem="LWc-iP-R9U" secondAttribute="width" id="r7l-rJ-v2A"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="KL9-SO-S6g" secondAttribute="leading" id="uZ7-Ag-1le"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="CJY-00-X9H"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <navigationItem key="navigationItem" title="设置" id="PYp-dD-tml"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hu9-QF-lhg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3086" y="1541"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="TXr-dg-BT1">
@@ -108,8 +216,8 @@
                     </tabBar>
                     <connections>
                         <segue destination="X2Q-sV-9vU" kind="relationship" relationship="viewControllers" id="DQw-Tn-Bi5"/>
-                        <segue destination="uRV-Oz-TYZ" kind="relationship" relationship="viewControllers" id="nvn-mU-kpy"/>
                         <segue destination="Qhy-P2-hRV" kind="relationship" relationship="viewControllers" id="uN9-h9-bOR"/>
+                        <segue destination="DGH-cI-DRe" kind="relationship" relationship="viewControllers" id="xlD-D6-eLG"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dQe-8O-nuy" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -120,7 +228,7 @@
         <scene sceneID="esK-A7-t7F">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qhy-P2-hRV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="天气图例" image="puzzle" id="CT2-up-gFH"/>
+                    <tabBarItem key="tabBarItem" title="天气图例" image="culineUnselect" selectedImage="culineSelect" id="CT2-up-gFH"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rph-GR-uIS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -134,19 +242,19 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Zc-Hd-0CR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2396" y="1524"/>
+            <point key="canvasLocation" x="2372" y="820"/>
         </scene>
         <!--请选择省份-->
         <scene sceneID="H99-Rl-ZGH">
             <objects>
-                <collectionViewController id="ITH-wx-sNq" customClass="CitySelectCollectionViewController" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="oib-oO-es3">
+                <collectionViewController hidesBottomBarWhenPushed="YES" id="ITH-wx-sNq" customClass="CitySelectCollectionViewController" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="oib-oO-es3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="5" id="N9B-DF-QZi">
-                            <size key="itemSize" width="100" height="100"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="30" minimumInteritemSpacing="5" id="N9B-DF-QZi">
+                            <size key="itemSize" width="75" height="75"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="5" minY="10" maxX="5" maxY="10"/>
@@ -174,13 +282,13 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OXq-Hh-EpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3200" y="830"/>
+            <point key="canvasLocation" x="3876" y="106"/>
         </scene>
         <!--天气地图-->
         <scene sceneID="P9v-Pm-FAq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="X2Q-sV-9vU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="天气地图" image="map-marker" id="W8t-Mg-xBu"/>
+                    <tabBarItem key="tabBarItem" title="天气地图" image="mapunSelect" selectedImage="mapSelect" id="W8t-Mg-xBu"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L7F-8T-Nkb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -196,29 +304,34 @@
             </objects>
             <point key="canvasLocation" x="2377" y="99"/>
         </scene>
-        <!--选择省份-->
-        <scene sceneID="ecC-6Z-Kud">
+        <!--设置-->
+        <scene sceneID="81t-vI-sRH">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uRV-Oz-TYZ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="选择省份" id="Dwc-ID-tjR"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DGH-cI-DRe" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="设置" image="setUnselect" selectedImage="setSelect" id="DY7-vt-HXT"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="p5n-Lb-oSD">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UWT-Gr-zki">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="ITH-wx-sNq" kind="relationship" relationship="rootViewController" id="8Lw-Pc-786"/>
+                        <segue destination="U1e-tq-4x2" kind="relationship" relationship="rootViewController" id="5lz-jw-jmY"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="c1h-Jh-3qB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yyR-u9-lVX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2396" y="818"/>
+            <point key="canvasLocation" x="2372" y="1517"/>
         </scene>
     </scenes>
     <resources>
-        <image name="map-marker" width="11" height="19"/>
-        <image name="puzzle" width="20" height="18"/>
+        <image name="culineSelect" width="30" height="30"/>
+        <image name="culineUnselect" width="30" height="30"/>
+        <image name="loc" width="20" height="20"/>
+        <image name="mapSelect" width="30" height="30"/>
+        <image name="mapunSelect" width="30" height="30"/>
+        <image name="setSelect" width="30" height="30"/>
+        <image name="setUnselect" width="30" height="30"/>
     </resources>
 </document>

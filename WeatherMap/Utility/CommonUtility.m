@@ -30,11 +30,11 @@
     NSArray *components = [str componentsSeparatedByString:@","];
     
     NSInteger componentCount = [components count];
-    if (componentCount < 1000) {
+    if (componentCount < 500) {
         *coordinateCount = 0;
         return NULL;
     }
-    NSInteger count = 180;
+    NSInteger count = 200;
     NSInteger times = componentCount/count/2*2;
     if (coordinateCount != NULL) {
         *coordinateCount = count+1;

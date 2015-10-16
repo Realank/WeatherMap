@@ -23,6 +23,7 @@ static NSString * const selectedReuseIdentifier = @"selectCell";
 static NSString * const unselectedReuseIdentifier = @"unselectCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.cityListModel = [CityListModel sharedInstance];
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
