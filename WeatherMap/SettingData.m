@@ -22,25 +22,46 @@
 -(instancetype) initUniqueInstance {
     
     if (self = [super init]) {
-        _weatherTime = WEA_TOMOTTOW;
-        _weatherContent = WEA_RAIN;
-        _showSpin = YES;
+        
+        NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"settingData"];
+        if (!dict) {
+            NSDictionary *dict = @{@"time":[self weatherTimeToString:WEA_TOMOTTOW],@"content":[self weatherContentToString:WEA_RAIN],@"showSpin":[self boolToString:YES]};
+            [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"settingData"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        _weatherTime = [self weatherTimeStringToEnum:[dict objectForKey:@"time"]];
+        _weatherContent = [self weatherContentStringToEnum:[dict objectForKey:@"content"]];
+        _showSpin = [self stringToBool:[dict objectForKey:@"showSpin"]];
+        
     }
     
     return self;
 }
 
+#pragma mark - change setting status
+
+- (void) syncCoreData {
+    NSDictionary *dict = @{@"time":[self weatherTimeToString:_weatherTime],@"content":[self weatherContentToString:_weatherContent],@"showSpin":[self boolToString:_showSpin]};
+    [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"settingData"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
 - (void)setWeatherTime:(SDWeatherTime)weatherTime {
     
     if (_weatherTime != weatherTime) {
         self.settingStatusChanged = YES;
+        [self syncCoreData];
     }
     _weatherTime = weatherTime;
+
+   
 }
 
 - (void)setWeatherContent:(SDWeatherContent)weatherContent {
     if (_weatherContent != weatherContent) {
         self.settingStatusChanged = YES;
+        [self syncCoreData];
     }
     _weatherContent = weatherContent;
 }
@@ -48,6 +69,7 @@
 - (void)setShowSpin:(BOOL)showSpin {
     if (_showSpin != showSpin) {
         self.settingStatusChanged = YES;
+        [self syncCoreData];
     }
     _showSpin = showSpin;
 }
@@ -58,6 +80,66 @@
     return ret;
 }
 
+#pragma mark - use for core data storage
 
+- (NSString *)weatherTimeToString:(SDWeatherTime)time {
+    switch (time) {
+        case WEA_TODAY:
+            return @"WEA_TODAY";
+        case WEA_TOMOTTOW:
+            return @"WEA_TOMOTTOW";
+        case WEA_AFTERTOMORROW:
+            return @"WEA_AFTERTOMORROW";
+
+    }
+}
+
+
+
+- (SDWeatherTime)weatherTimeStringToEnum:(NSString *)timeString {
+    if ([timeString isEqualToString:@"WEA_TODAY"]) {
+        return WEA_TODAY;
+    } else if ([timeString isEqualToString:@"WEA_TOMOTTOW"]) {
+        return WEA_TOMOTTOW;
+    } else {
+        return WEA_AFTERTOMORROW;
+    }
+}
+
+- (NSString *)weatherContentToString:(SDWeatherContent)content {
+    switch (content) {
+        case WEA_RAIN:
+            return @"WEA_RAIN";
+        case WEA_TEMPERATURE:
+            return @"WEA_TEMPERATURE";
+        case WEA_WIND:
+            return @"WEA_WIND";
+            
+    }
+}
+
+- (SDWeatherContent)weatherContentStringToEnum:(NSString *)contentString {
+    if ([contentString isEqualToString:@"WEA_RAIN"]) {
+        return WEA_RAIN;
+    } else if ([contentString isEqualToString:@"WEA_TEMPERATURE"]) {
+        return WEA_TEMPERATURE;
+    } else {
+        return WEA_WIND;
+    }
+}
+
+- (NSString *)boolToString:(BOOL)yes {
+    if (yes) {
+        return @"YES";
+    }
+    return @"NO";
+}
+
+- (BOOL)stringToBool:(NSString *)yesString {
+    if ([yesString isEqualToString:@"YES"]) {
+        return YES;
+    }
+    return NO;
+}
 
 @end

@@ -206,6 +206,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="设置" id="PYp-dD-tml"/>
+                    <connections>
+                        <outlet property="showSpinSwitch" destination="5hr-Aw-UWn" id="f63-vy-zr6"/>
+                        <outlet property="weatherContentSeg" destination="6uZ-Cn-nzn" id="tyB-Sc-wxA"/>
+                        <outlet property="weatherTimeSeg" destination="LWc-iP-R9U" id="xKC-UG-NiL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hu9-QF-lhg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

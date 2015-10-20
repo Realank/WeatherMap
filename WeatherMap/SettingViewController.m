@@ -10,6 +10,10 @@
 #import "SettingData.h"
 
 @interface SettingViewController ()
+@property (weak, nonatomic) IBOutlet UISegmentedControl *weatherTimeSeg;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *weatherContentSeg;
+@property (weak, nonatomic) IBOutlet UISwitch *showSpinSwitch;
+
 
 @end
 
@@ -17,6 +21,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    SDWeatherTime time = [SettingData sharedInstance].weatherTime;
+    switch (time) {
+        case WEA_TODAY:
+            self.weatherTimeSeg.selectedSegmentIndex = 0;
+            break;
+        case WEA_TOMOTTOW:
+            self.weatherTimeSeg.selectedSegmentIndex = 1;
+            break;
+        case WEA_AFTERTOMORROW:
+            self.weatherTimeSeg.selectedSegmentIndex = 2;
+            break;
+    }
+    
+    SDWeatherContent content = [SettingData sharedInstance].weatherContent;
+    switch (content) {
+        case WEA_RAIN:
+            self.weatherContentSeg.selectedSegmentIndex = 0;
+            break;
+        case WEA_TEMPERATURE:
+            self.weatherContentSeg.selectedSegmentIndex = 1;
+            break;
+        case WEA_WIND:
+            self.weatherContentSeg.selectedSegmentIndex = 2;
+            break;
+    }
+    
+    BOOL showSpin = [SettingData sharedInstance].showSpin;
+    self.showSpinSwitch.on = showSpin;
+    
     // Do any additional setup after loading the view.
 }
 - (IBAction)changeWeatherTime:(UISegmentedControl *)sender {

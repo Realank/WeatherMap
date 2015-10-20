@@ -72,8 +72,13 @@
         }
         self.provinceDict = [provinceDictM copy];
         
-        
-        _selectedProvincesNameArray = [NSMutableArray arrayWithArray: @[@"河北省"]];
+        NSArray *list = [[NSUserDefaults standardUserDefaults] objectForKey:@"ProvinceList"];
+        if (!list) {
+            list = @[@"河北省",@"北京市",@"天津市"];
+            [[NSUserDefaults standardUserDefaults] setObject:list forKey:@"ProvinceList"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        _selectedProvincesNameArray = [list mutableCopy];
         self.selectStatusChanged = YES;
         
         
@@ -112,6 +117,9 @@
         [self.selectedProvincesNameArray addObject:provinceName];
     }
     self.selectStatusChanged = YES;
+    [[NSUserDefaults standardUserDefaults] setObject:[self.selectedProvincesNameArray copy]forKey:@"ProvinceList"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
 }
 
 -(bool)isInSelectedProvinces:(NSString *)provinceName {
