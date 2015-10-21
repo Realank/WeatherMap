@@ -133,10 +133,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="LWc-iP-R9U">
-                                <rect key="frame" x="130" y="86" width="200" height="29"/>
+                                <rect key="frame" x="120" y="86" width="180" height="29"/>
                                 <animations/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="ZZW-q9-pph"/>
+                                    <constraint firstAttribute="width" constant="180" id="ZZW-q9-pph"/>
                                 </constraints>
                                 <segments>
                                     <segment title="今天"/>
@@ -155,7 +155,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="6uZ-Cn-nzn">
-                                <rect key="frame" x="130" y="145.5" width="200" height="29"/>
+                                <rect key="frame" x="120" y="145.5" width="180" height="29"/>
                                 <animations/>
                                 <segments>
                                     <segment title="天气"/>
@@ -167,7 +167,7 @@
                                 </connections>
                             </segmentedControl>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5hr-Aw-UWn">
-                                <rect key="frame" x="130" y="203.5" width="51" height="31"/>
+                                <rect key="frame" x="120" y="203.5" width="51" height="31"/>
                                 <animations/>
                                 <connections>
                                     <action selector="changeSpin:" destination="U1e-tq-4x2" eventType="valueChanged" id="scL-jX-ovD"/>
@@ -185,7 +185,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="6uZ-Cn-nzn" firstAttribute="centerY" secondItem="mEo-o2-syF" secondAttribute="centerY" id="4iD-Ec-g34"/>
-                            <constraint firstItem="LWc-iP-R9U" firstAttribute="leading" secondItem="KL9-SO-S6g" secondAttribute="trailing" constant="20" id="59g-gd-Vlm"/>
+                            <constraint firstItem="LWc-iP-R9U" firstAttribute="leading" secondItem="KL9-SO-S6g" secondAttribute="trailing" constant="10" id="59g-gd-Vlm"/>
                             <constraint firstItem="mEo-o2-syF" firstAttribute="top" secondItem="KL9-SO-S6g" secondAttribute="bottom" constant="39" id="7uZ-1V-JG3"/>
                             <constraint firstItem="ECf-do-LgG" firstAttribute="leading" secondItem="mEo-o2-syF" secondAttribute="leading" id="8TE-05-mBW"/>
                             <constraint firstItem="6uZ-Cn-nzn" firstAttribute="top" secondItem="LWc-iP-R9U" secondAttribute="bottom" constant="32" id="CJY-00-X9H"/>

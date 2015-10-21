@@ -25,7 +25,7 @@
         
         NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"settingData"];
         if (!dict) {
-            NSDictionary *dict = @{@"time":[self weatherTimeToString:WEA_TOMOTTOW],@"content":[self weatherContentToString:WEA_RAIN],@"showSpin":[self boolToString:YES]};
+            dict = @{@"time":[self weatherTimeToString:WEA_TOMOTTOW],@"content":[self weatherContentToString:WEA_RAIN],@"showSpin":[self boolToString:YES]};
             [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"settingData"];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
