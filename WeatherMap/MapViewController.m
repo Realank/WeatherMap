@@ -20,6 +20,7 @@
 #import "SettingData.h"
 #import "WindMappingModel.h"
 #import "TemperatureColorModel.h"
+#import "Reachability.h"
 
 
 @interface MapViewController ()<MAMapViewDelegate,AMapSearchDelegate,WeatherDataLoadSuccessDelegate>
@@ -28,6 +29,8 @@
 @property (nonatomic,strong) MAMapView *mapView;
 @property (nonatomic,strong) WeatherData *weatherData;
 
+
+@property (nonatomic ,strong) Reachability *reachability;
 @end
 
 
@@ -37,8 +40,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     [self setupMapAndSearch];
-    
-
+    self.reachability = [Reachability reachabilityForInternetConnection];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -87,10 +89,19 @@
 }
 
 - (IBAction)updateWeatherMap:(UIBarButtonItem *)sender {
+    
+    
     [self clearMapView];
-    self.weatherData = [[WeatherData alloc]init];
-    self.weatherData.delegate = self;
-    [self.weatherData loadWeatherInfoFromProvincesList:[[CityListModel sharedInstance] selectedProvincesNameArray]];
+    
+    if ([self.reachability currentReachabilityStatus] == NotReachable) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"当前设备无法联网" delegate:nil  cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alert show];
+    } else {
+        self.weatherData = [[WeatherData alloc]init];
+        self.weatherData.delegate = self;
+        [self.weatherData loadWeatherInfoFromProvincesList:[[CityListModel sharedInstance] selectedProvincesNameArray]];
+    }
+    
 }
 
 - (IBAction)locateMyself:(UIBarButtonItem *)sender {

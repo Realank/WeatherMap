@@ -20,6 +20,8 @@
 		8C5F16061B86BEB0002C96E2 /* MAPolygon+PolygenColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F16051B86BEB0002C96E2 /* MAPolygon+PolygenColor.m */; };
 		8C5F16091B86C103002C96E2 /* CutlineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F16081B86C103002C96E2 /* CutlineTableViewController.m */; };
 		8C5F160C1B86D273002C96E2 /* CutlineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C5F160B1B86D273002C96E2 /* CutlineTableViewCell.m */; };
+		8C6104E91BD90FDE00106213 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C6104E81BD90FDE00106213 /* SystemConfiguration.framework */; };
+		8C6104EC1BD90FF000106213 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C6104EB1BD90FF000106213 /* Reachability.m */; };
 		8C7601D21BCCEB960022274A /* WeatherStatusMappingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7601D11BCCEB960022274A /* WeatherStatusMappingModel.m */; };
 		8C958B8B1B7747F1004AB2DD /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C958B8A1B7747F1004AB2DD /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8CB3431F1BCE6BF1001DB2E9 /* CityList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CB3431E1BCE6BF1001DB2E9 /* CityList.plist */; };
@@ -85,6 +87,9 @@
 		8C5F16081B86C103002C96E2 /* CutlineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CutlineTableViewController.m; sourceTree = "<group>"; };
 		8C5F160A1B86D273002C96E2 /* CutlineTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutlineTableViewCell.h; sourceTree = "<group>"; };
 		8C5F160B1B86D273002C96E2 /* CutlineTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CutlineTableViewCell.m; sourceTree = "<group>"; };
+		8C6104E81BD90FDE00106213 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8C6104EA1BD90FF000106213 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		8C6104EB1BD90FF000106213 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		8C7601D01BCCEB960022274A /* WeatherStatusMappingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeatherStatusMappingModel.h; sourceTree = "<group>"; };
 		8C7601D11BCCEB960022274A /* WeatherStatusMappingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherStatusMappingModel.m; sourceTree = "<group>"; };
 		8C958B891B7747F1004AB2DD /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
@@ -167,6 +172,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C6104E91BD90FDE00106213 /* SystemConfiguration.framework in Frameworks */,
 				F4E024ED50208C918DC9ADB3 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,6 +357,8 @@
 		8CF22FE31B77036F00611895 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				8C6104EA1BD90FF000106213 /* Reachability.h */,
+				8C6104EB1BD90FF000106213 /* Reachability.m */,
 				8C958B891B7747F1004AB2DD /* JSONKit.h */,
 				8C958B8A1B7747F1004AB2DD /* JSONKit.m */,
 				8CC8569B1BCBB09900B6FFA8 /* CommonUtility.h */,
@@ -418,6 +426,7 @@
 		CA1988E03D3C88884889C56D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8C6104E81BD90FDE00106213 /* SystemConfiguration.framework */,
 				FE65EEB91D920F49C917774F /* libPods.a */,
 			);
 			name = Frameworks;
@@ -607,6 +616,7 @@
 				8C448F551BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.m in Sources */,
 				8C448F501BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.m in Sources */,
 				8CF230081B77037700611895 /* AnimatedAnnotation.m in Sources */,
+				8C6104EC1BD90FF000106213 /* Reachability.m in Sources */,
 				8CC856951BCBAFE700B6FFA8 /* ReGeocodeAnnotation.m in Sources */,
 				8C448F5B1BD101DA008F2F40 /* SettingData.m in Sources */,
 				8CC856921BCBAFE700B6FFA8 /* GeocodeAnnotation.m in Sources */,
