@@ -60,6 +60,9 @@
     self.mapView.showsCompass = NO;
     self.mapView.showsScale = NO;
     self.mapView.showsUserLocation = YES;    //YES 为打开定位，NO为关闭定位
+    [self.mapView setZoomLevel:6 animated:YES];
+    [self.mapView setCenterCoordinate:CLLocationCoordinate2DMake(34, 117) animated:YES];
+    
     [self.mapView setUserTrackingMode: MAUserTrackingModeFollow animated:YES];
     [self.view addSubview:self.mapView];
     
@@ -92,7 +95,15 @@
 
 - (IBAction)locateMyself:(UIBarButtonItem *)sender {
     
-    [self.mapView setUserTrackingMode: MAUserTrackingModeFollow animated:YES];
+    
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+    if (kCLAuthorizationStatusDenied == status || kCLAuthorizationStatusRestricted == status) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"定位未被许可" message:@"请在\"设置-隐私-定位服务\"中允许此应用的定位功能" delegate:nil  cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alert show];
+    } else {
+        [self.mapView setUserTrackingMode: MAUserTrackingModeFollow animated:YES];
+        [self.mapView setZoomLevel:6 animated:YES];
+    }
 }
 
 #pragma mark - 天气读取完毕代理
