@@ -25,6 +25,7 @@ typedef NS_ENUM(NSUInteger, SDWeatherContent) {
 @property (nonatomic ,assign) SDWeatherTime weatherTime;
 @property (nonatomic ,assign) SDWeatherContent weatherContent;
 @property (nonatomic ,assign) BOOL showSpin;
+@property (nonatomic ,assign) BOOL crazyMode;
 
 +(instancetype) sharedInstance;
 @property (nonatomic ,assign) BOOL settingStatusChanged;

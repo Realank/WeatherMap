@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *weatherTimeSeg;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *weatherContentSeg;
 @property (weak, nonatomic) IBOutlet UISwitch *showSpinSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *crazyModeSwitch;
 
 
 @end
@@ -50,6 +51,9 @@
     
     BOOL showSpin = [SettingData sharedInstance].showSpin;
     self.showSpinSwitch.on = showSpin;
+    
+    BOOL crazyMode = [SettingData sharedInstance].crazyMode;
+    self.crazyModeSwitch.on = crazyMode;
     
     // Do any additional setup after loading the view.
 }
@@ -92,6 +96,9 @@
 - (IBAction)changeSpin:(UISwitch *)sender {
     
     [SettingData sharedInstance].showSpin = sender.isOn;
+}
+- (IBAction)changeCrazyMode:(UISwitch *)sender {
+    [SettingData sharedInstance].crazyMode = sender.isOn;
 }
 
 @end

@@ -8,6 +8,7 @@
 
 #import "SettingData.h"
 #import <MobClick.h>
+#import "CityListModel.h"
 
 @implementation SettingData
 
@@ -26,13 +27,15 @@
         
         NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:@"settingData"];
         if (!dict) {
-            dict = @{@"time":[self weatherTimeToString:WEA_TOMOTTOW],@"content":[self weatherContentToString:WEA_RAIN],@"showSpin":[self boolToString:YES]};
+            dict = @{@"time":[self weatherTimeToString:WEA_TOMOTTOW],@"content":[self weatherContentToString:WEA_RAIN],@"showSpin":[self boolToString:YES],@"crazyMode":[self boolToString:NO]};
             [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"settingData"];
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
         _weatherTime = [self weatherTimeStringToEnum:[dict objectForKey:@"time"]];
         _weatherContent = [self weatherContentStringToEnum:[dict objectForKey:@"content"]];
         _showSpin = [self stringToBool:[dict objectForKey:@"showSpin"]];
+        _crazyMode = [self stringToBool:[dict objectForKey:@"crazyMode"]];
+        self.settingStatusChanged = YES;
         
     }
     
@@ -42,7 +45,7 @@
 #pragma mark - change setting status
 
 - (void) syncCoreData {
-    NSDictionary *dict = @{@"time":[self weatherTimeToString:_weatherTime],@"content":[self weatherContentToString:_weatherContent],@"showSpin":[self boolToString:_showSpin]};
+    NSDictionary *dict = @{@"time":[self weatherTimeToString:_weatherTime],@"content":[self weatherContentToString:_weatherContent],@"showSpin":[self boolToString:_showSpin],@"crazyMode":[self boolToString:_crazyMode]};
     [[NSUserDefaults standardUserDefaults] setObject:dict forKey:@"settingData"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -51,6 +54,7 @@
 - (void)setWeatherTime:(SDWeatherTime)weatherTime {
     
     _weatherTime = weatherTime;
+    [MobClick event:@"Setting"label:@"time"];
     self.settingStatusChanged = YES;
     [self syncCoreData];
    
@@ -58,6 +62,7 @@
 
 - (void)setWeatherContent:(SDWeatherContent)weatherContent {
     _weatherContent = weatherContent;
+    [MobClick event:@"Setting"label:@"content"];
     self.settingStatusChanged = YES;
     [self syncCoreData];
 
@@ -67,16 +72,26 @@
     
     _showSpin = showSpin;
     self.settingStatusChanged = YES;
+    [MobClick event:@"Setting"label:@"spin"];
     [self syncCoreData];
     
+}
+
+- (void)setCrazyMode:(BOOL)crazyMode {
+    _crazyMode = crazyMode;
+    if (!crazyMode) {
+        while ([CityListModel sharedInstance].selectedProvincesNameArray.count > MAX_CITY_NUM) {
+            [[CityListModel sharedInstance].selectedProvincesNameArray removeObjectAtIndex:0];
+        }
+    }
+    self.settingStatusChanged = YES;
+    [MobClick event:@"Setting"label:@"crazyMode"];
+    [self syncCoreData];
 }
 
 - (BOOL)settingStatusChanged {
     BOOL ret = _settingStatusChanged;
     _settingStatusChanged = NO;
-    if (ret) {
-        [MobClick event:@"Setting"];
-    }
     return ret;
 }
 

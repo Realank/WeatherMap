@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define MAX_CITY_NUM 5
+
 @interface ProvinceInfo : NSObject
 
 @property (nonatomic, strong) NSString *shortCut;
@@ -24,7 +26,7 @@
 @property (nonatomic ,assign) BOOL selectStatusChanged;
 
 +(instancetype) sharedInstance;
--(void)changeProvinceSelectStatus:(NSString *)provinceName;
+-(BOOL)changeProvinceSelectStatus:(NSString *)provinceName;
 -(BOOL)isInSelectedProvinces:(NSString *)provinceName;
 -(NSString *)cityNameForAreaCode:(NSString *)areaCode;
 

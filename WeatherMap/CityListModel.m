@@ -8,6 +8,9 @@
 
 #import "CityListModel.h"
 #import <MobClick.h>
+#import "SettingData.h"
+
+
 
 @implementation ProvinceInfo
 
@@ -104,10 +107,12 @@
     return [self.allCityList objectForKey:areaCode];
 }
 
-
--(void)changeProvinceSelectStatus:(NSString *)provinceName{
+//超出选择数量上限，如果不是CrazyMode，会停止添加，并且返回NO
+//               如果是CrazyMode，会继续添加，但是不会返回NO
+-(BOOL)changeProvinceSelectStatus:(NSString *)provinceName{
     
     BOOL canfind = NO;
+    BOOL crazyMode = NO;
     for (NSString *provinceInArr in [self.selectedProvincesNameArray copy]) {
         if ([provinceInArr isEqualToString:provinceName]) {
             canfind = YES;
@@ -115,12 +120,20 @@
         }
     }
     if (!canfind) {
+        crazyMode = [SettingData sharedInstance].crazyMode;
+        if (self.selectedProvincesNameArray.count > MAX_CITY_NUM-1 && !crazyMode) {
+            return NO;
+        }
         [self.selectedProvincesNameArray addObject:provinceName];
+        [MobClick event:@"ChangeProvince"label:[NSString stringWithFormat:@"add:%@",provinceName]];
     }
     self.selectStatusChanged = YES;
     [[NSUserDefaults standardUserDefaults] setObject:[self.selectedProvincesNameArray copy]forKey:@"ProvinceList"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
+    if (crazyMode && self.selectedProvincesNameArray.count == MAX_CITY_NUM+1) {
+        return NO;
+    }
+    return YES;
 }
 
 -(bool)isInSelectedProvinces:(NSString *)provinceName {
@@ -135,9 +148,6 @@
 - (BOOL)selectStatusChanged {
     BOOL ret = _selectStatusChanged;
     _selectStatusChanged = NO;
-    if (ret) {
-        [MobClick event:@"ChangeProvince"];
-    }
     
     return ret;
 }

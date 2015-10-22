@@ -10,6 +10,7 @@
 #import "CityListModel.h"
 #import "ProvinceUnselectedCollectionViewCell.h"
 #import "ProvinceSelectedCollectionViewCell.h"
+#import "SettingData.h"
 
 @interface CitySelectCollectionViewController ()
 
@@ -72,7 +73,17 @@ static NSString * const unselectedReuseIdentifier = @"unselectCell";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSString *provinceName = self.cityListModel.provincesNameArray[indexPath.item];
-    [self.cityListModel changeProvinceSelectStatus:provinceName];
+    if (![self.cityListModel changeProvinceSelectStatus:provinceName]) {
+        BOOL crazyMode = [SettingData sharedInstance].crazyMode;
+        if (crazyMode) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"您当前是疯狂模式" message:@"您可以选择多于5个城市，但是数据过多，会造成地图载入缓慢和应用卡顿" delegate:nil  cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alert show];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"您只能选择至多5个省份，若要选择更多省份，请在设置中开启疯狂模式" delegate:nil  cancelButtonTitle:@"确定" otherButtonTitles: nil];
+            [alert show];
+        }
+        
+    }
     NSLog(@"select: %@",provinceName);
     [collectionView reloadData];
     

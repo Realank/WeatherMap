@@ -180,6 +180,28 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="普通模式只能显示至多5个省份的天气信息，开启疯狂模式后，可以不受此数量限制，但是选择省份过多会造成地图载入缓慢和应用卡顿" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1q-QZ-lfa">
+                                <rect key="frame" x="20" y="302.5" width="550" height="36"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="疯狂模式:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eE4-Dk-W86">
+                                <rect key="frame" x="20" y="268.5" width="73" height="20.5"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2rl-mB-BCx">
+                                <rect key="frame" x="120" y="263" width="51" height="31"/>
+                                <animations/>
+                                <connections>
+                                    <action selector="changeCrazyMode:" destination="U1e-tq-4x2" eventType="valueChanged" id="YYX-ld-TiS"/>
+                                    <action selector="changeSpin:" destination="U1e-tq-4x2" eventType="valueChanged" id="f8l-m6-pBF"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -187,14 +209,21 @@
                             <constraint firstItem="6uZ-Cn-nzn" firstAttribute="centerY" secondItem="mEo-o2-syF" secondAttribute="centerY" id="4iD-Ec-g34"/>
                             <constraint firstItem="LWc-iP-R9U" firstAttribute="leading" secondItem="KL9-SO-S6g" secondAttribute="trailing" constant="10" id="59g-gd-Vlm"/>
                             <constraint firstItem="mEo-o2-syF" firstAttribute="top" secondItem="KL9-SO-S6g" secondAttribute="bottom" constant="39" id="7uZ-1V-JG3"/>
+                            <constraint firstItem="eE4-Dk-W86" firstAttribute="top" secondItem="ECf-do-LgG" secondAttribute="bottom" constant="39" id="7w9-o4-rbg"/>
+                            <constraint firstItem="h1q-QZ-lfa" firstAttribute="top" secondItem="eE4-Dk-W86" secondAttribute="bottom" constant="13.5" id="8KU-0w-cTu"/>
                             <constraint firstItem="ECf-do-LgG" firstAttribute="leading" secondItem="mEo-o2-syF" secondAttribute="leading" id="8TE-05-mBW"/>
+                            <constraint firstItem="2rl-mB-BCx" firstAttribute="centerY" secondItem="eE4-Dk-W86" secondAttribute="centerY" id="AH5-Uj-m99"/>
+                            <constraint firstItem="2rl-mB-BCx" firstAttribute="leading" secondItem="5hr-Aw-UWn" secondAttribute="leading" id="AcS-iW-jdp"/>
                             <constraint firstItem="6uZ-Cn-nzn" firstAttribute="top" secondItem="LWc-iP-R9U" secondAttribute="bottom" constant="32" id="CJY-00-X9H"/>
                             <constraint firstItem="mEo-o2-syF" firstAttribute="leading" secondItem="KL9-SO-S6g" secondAttribute="leading" id="DmG-aQ-vLL"/>
                             <constraint firstItem="5hr-Aw-UWn" firstAttribute="centerY" secondItem="ECf-do-LgG" secondAttribute="centerY" id="HAS-6g-d6m"/>
                             <constraint firstItem="5hr-Aw-UWn" firstAttribute="leading" secondItem="6uZ-Cn-nzn" secondAttribute="leading" id="IFL-gs-fXu"/>
                             <constraint firstItem="LWc-iP-R9U" firstAttribute="centerY" secondItem="KL9-SO-S6g" secondAttribute="centerY" id="OaR-RC-RKb"/>
+                            <constraint firstItem="h1q-QZ-lfa" firstAttribute="leading" secondItem="eE4-Dk-W86" secondAttribute="leading" id="Sbc-Or-aD6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="h1q-QZ-lfa" secondAttribute="trailing" constant="10" id="c6s-si-AXr"/>
                             <constraint firstItem="KL9-SO-S6g" firstAttribute="top" secondItem="EYL-Sx-bT7" secondAttribute="bottom" constant="26" id="j2c-qw-w8D"/>
                             <constraint firstItem="ECf-do-LgG" firstAttribute="top" secondItem="mEo-o2-syF" secondAttribute="bottom" constant="39" id="lkM-mw-ile"/>
+                            <constraint firstItem="eE4-Dk-W86" firstAttribute="leading" secondItem="ECf-do-LgG" secondAttribute="leading" id="nzB-pd-7yk"/>
                             <constraint firstItem="6uZ-Cn-nzn" firstAttribute="leading" secondItem="LWc-iP-R9U" secondAttribute="leading" id="ozI-wo-7Ln"/>
                             <constraint firstItem="6uZ-Cn-nzn" firstAttribute="width" secondItem="LWc-iP-R9U" secondAttribute="width" id="r7l-rJ-v2A"/>
                             <constraint firstAttribute="leadingMargin" secondItem="KL9-SO-S6g" secondAttribute="leading" id="uZ7-Ag-1le"/>
@@ -207,6 +236,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="设置" id="PYp-dD-tml"/>
                     <connections>
+                        <outlet property="crazyModeSwitch" destination="2rl-mB-BCx" id="Pe6-ws-dFn"/>
                         <outlet property="showSpinSwitch" destination="5hr-Aw-UWn" id="f63-vy-zr6"/>
                         <outlet property="weatherContentSeg" destination="6uZ-Cn-nzn" id="tyB-Sc-wxA"/>
                         <outlet property="weatherTimeSeg" destination="LWc-iP-R9U" id="xKC-UG-NiL"/>
