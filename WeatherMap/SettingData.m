@@ -7,6 +7,7 @@
 //
 
 #import "SettingData.h"
+#import <MobClick.h>
 
 @implementation SettingData
 
@@ -73,6 +74,9 @@
 - (BOOL)settingStatusChanged {
     BOOL ret = _settingStatusChanged;
     _settingStatusChanged = NO;
+    if (ret) {
+        [MobClick event:@"Setting"];
+    }
     return ret;
 }
 

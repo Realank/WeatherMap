@@ -7,6 +7,7 @@
 //
 
 #import "CityListModel.h"
+#import <MobClick.h>
 
 @implementation ProvinceInfo
 
@@ -134,6 +135,10 @@
 - (BOOL)selectStatusChanged {
     BOOL ret = _selectStatusChanged;
     _selectStatusChanged = NO;
+    if (ret) {
+        [MobClick event:@"ChangeProvince"];
+    }
+    
     return ret;
 }
 
