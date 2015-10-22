@@ -12,7 +12,7 @@
 @interface WindMappingModel ()
 
 @property (nonatomic,strong) NSDictionary *windDirection;
-@property (nonatomic,strong) NSMutableDictionary *windColor;
+@property (nonatomic,strong) NSMutableArray *windColor;
 
 @property (nonatomic,strong) NSArray *sortedKeycodesArr;
 @end
@@ -34,16 +34,12 @@
         NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"WindMapping" ofType:@"plist"];
         self.windDirection = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
         
-        self.windColor = [NSMutableDictionary dictionary];
-        NSString *plistPath2 = [[NSBundle mainBundle] pathForResource:@"windStrengthColor" ofType:@"plist"];
-        NSDictionary *dict = [[NSDictionary alloc] initWithContentsOfFile:plistPath2];
-        for (NSString *key in [dict allKeys]) {
-            NSUInteger rgbColor = [[dict objectForKey:key] integerValue];
-            if (rgbColor > 0) {
-                UIColor *color = [UIColor colorWithRed:rgbColor/0x10000/255.0 green:rgbColor%0x10000/0x100/255.0 blue:rgbColor%0x100/255.0 alpha:1];
-                [self.windColor setValue:color forKey:key];
-                
-            }
+        self.windColor = [NSMutableArray array];
+        for (int i = 0; i < 10; i++) {
+
+            UIColor *color = [UIColor colorWithRed:180/255.0 green:(180 - 10 * i)/255.0 blue:(180 - 10 * i)/255.0 alpha:1];
+            [self.windColor addObject:color];
+
         }
         
         NSArray *arr = [[self.windDirection allKeys] sortedArrayUsingComparator:^NSComparisonResult(NSString*  _Nonnull obj1, NSString*  _Nonnull obj2) {
@@ -77,7 +73,7 @@
     return string;
 }
 -(UIColor *)colorForWindStrengthKeycode:(NSString *)keycode{
-    return [self.windColor objectForKey:keycode];
+    return [self.windColor objectAtIndex:[keycode integerValue]];
 }
 
 - (NSArray *)sortedKeyCodes {

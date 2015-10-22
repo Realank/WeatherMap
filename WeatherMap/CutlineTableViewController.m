@@ -11,6 +11,7 @@
 #import "WeatherStatusMappingModel.h"
 #import "SettingData.h"
 #import "WindMappingModel.h"
+#import "TemperatureColorModel.h"
 #define CELL_HEIGHT 50.0
 
 
@@ -71,7 +72,9 @@
             
         case WEA_TEMPERATURE:
         {
-
+            NSInteger tem = (indexPath.row - 10)*5;
+            NSArray *weatherTempToColor = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%ld度",(long)tem], [TemperatureColorModel colorForTemperature:tem], nil];
+             cell.cutlineModel = weatherTempToColor;
             break;
         }
             
@@ -79,7 +82,7 @@
         {
             NSString *keycode = [[[WindMappingModel sharedInstance] sortedKeyCodes] objectAtIndex:row];
             
-            NSArray *weatherStautsToColor = [NSArray arrayWithObjects:[[WindMappingModel sharedInstance] windStrengthForKeycode:keycode], [[[WindMappingModel sharedInstance] colorForWindStrengthKeycode:keycode] colorWithAlphaComponent:0.6], nil];
+            NSArray *weatherStautsToColor = [NSArray arrayWithObjects:[[WindMappingModel sharedInstance] windStrengthForKeycode:keycode], [[WindMappingModel sharedInstance] colorForWindStrengthKeycode:keycode], nil];
             cell.cutlineModel = weatherStautsToColor;
             break;
         }
@@ -103,7 +106,7 @@
             
         case WEA_TEMPERATURE:
         {
-            return 0;
+            return 21;
         }
             
         case WEA_WIND:

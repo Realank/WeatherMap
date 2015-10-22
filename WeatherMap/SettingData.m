@@ -49,29 +49,25 @@
 
 - (void)setWeatherTime:(SDWeatherTime)weatherTime {
     
-    if (_weatherTime != weatherTime) {
-        self.settingStatusChanged = YES;
-        [self syncCoreData];
-    }
     _weatherTime = weatherTime;
-
+    self.settingStatusChanged = YES;
+    [self syncCoreData];
    
 }
 
 - (void)setWeatherContent:(SDWeatherContent)weatherContent {
-    if (_weatherContent != weatherContent) {
-        self.settingStatusChanged = YES;
-        [self syncCoreData];
-    }
     _weatherContent = weatherContent;
+    self.settingStatusChanged = YES;
+    [self syncCoreData];
+
 }
 
 - (void)setShowSpin:(BOOL)showSpin {
-    if (_showSpin != showSpin) {
-        self.settingStatusChanged = YES;
-        [self syncCoreData];
-    }
+    
     _showSpin = showSpin;
+    self.settingStatusChanged = YES;
+    [self syncCoreData];
+    
 }
 
 - (BOOL)settingStatusChanged {

@@ -19,6 +19,7 @@
 #import "CityListModel.h"
 #import "SettingData.h"
 #import "WindMappingModel.h"
+#import "TemperatureColorModel.h"
 
 
 @interface MapViewController ()<MAMapViewDelegate,AMapSearchDelegate,WeatherDataLoadSuccessDelegate>
@@ -179,6 +180,16 @@
     
             case WEA_TEMPERATURE:
             {
+                NSString* weatherStatus = dayWeather.daytimeStatus;
+                NSInteger temperature = ([dayWeather.daytimeTemperature integerValue] + [dayWeather.nightTemperature integerValue])/2;
+                weatherString = [NSString stringWithFormat:@"%@ %@~%@℃",[[WeatherStatusMappingModel sharedInstance] stringForKeycode:weatherStatus],dayWeather.nightTemperature,dayWeather.daytimeTemperature];
+                if (weatherStatus.length <= 0) {
+                    weatherStatus = dayWeather.nightStatus;
+                    temperature = [dayWeather.nightTemperature integerValue];
+                    weatherString = [NSString stringWithFormat:@"%@ %@℃",[[WeatherStatusMappingModel sharedInstance] stringForKeycode:weatherStatus],dayWeather.nightTemperature];
+                }
+                
+                color = [TemperatureColorModel colorForTemperature:temperature];
                 
                 break;
             }
