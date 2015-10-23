@@ -199,7 +199,6 @@
                                 <animations/>
                                 <connections>
                                     <action selector="changeCrazyMode:" destination="U1e-tq-4x2" eventType="valueChanged" id="YYX-ld-TiS"/>
-                                    <action selector="changeSpin:" destination="U1e-tq-4x2" eventType="valueChanged" id="f8l-m6-pBF"/>
                                 </connections>
                             </switch>
                         </subviews>
