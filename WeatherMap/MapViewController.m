@@ -42,15 +42,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupMapAndSearch];
+    self.progress.hidden = YES;
+    [self.view bringSubviewToFront:self.progress];
     self.reachability = [Reachability reachabilityForInternetConnection];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    self.progress.hidden = YES;
-    [self.view bringSubviewToFront:self.progress];
-    
-    if ([CityListModel sharedInstance].selectStatusChanged || [SettingData sharedInstance].settingStatusChanged) {
+    BOOL cityListStatusChanged = [CityListModel sharedInstance].selectStatusChanged;
+    BOOL settingStatusChaned = [SettingData sharedInstance].settingStatusChanged;
+    if (cityListStatusChanged || settingStatusChaned) {
         [self updateWeatherMap:nil];
     }
     
@@ -206,7 +207,7 @@
 {
     if (response == nil)
     {
-        DMapLog(@"[地理]请求失败");
+        DLog(@"[地理]请求失败");
         return;
     }
     //通过AMapDistrictSearchResponse对象处理搜索结果
@@ -215,7 +216,7 @@
         //获取某个城市的天气信息
         WeatherModel* model = [self.weatherData.weatherInfo objectForKey:dist.name];
         if (!model) {
-            DMapLog(@"[地理]找不到%@的天气信息！",dist.name);
+            DLog(@"[地理]找不到%@的天气信息！",dist.name);
             continue;
         }
         [self.loadedCitys addObject:dist.name];

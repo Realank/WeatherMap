@@ -93,7 +93,7 @@
             if (!resultDict) {
                 NSString *cityCodeStr = [NSString stringWithFormat:@"%lu",cityCode];
                 
-                DWeahtherLog(@"[天气]%@:获取失败",[[CityListModel sharedInstance]cityNameForAreaCode:cityCodeStr]);
+                DLog(@"[天气]%@:获取失败",[[CityListModel sharedInstance]cityNameForAreaCode:cityCodeStr]);
                 return;
             }
             WeatherModel *model = [[WeatherModel alloc]initWithDict:resultDict];
@@ -103,7 +103,7 @@
             DWeahtherLog(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
             
             if (!model) {
-                DWeahtherLog(@"[天气]%lu:获取失败",(unsigned long)cityCode);
+                DLog(@"[天气]%lu:获取失败",(unsigned long)cityCode);
                 return;
             }
             if (weakSelf.delegate) {
