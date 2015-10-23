@@ -26,7 +26,7 @@
 
 - (void)dealloc {
     
-    NSLog(@"bye weatherData");
+    DWeahtherLog(@"bye weatherData");
 
 }
 
@@ -74,7 +74,7 @@
 //    [self.weatherInfo setObject:model forKey:model.cityChineseName];
 //    
 //    
-//    NSLog(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
+//    DWeahtherLog(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
 //    return model.cityChineseName;
 //}
 
@@ -93,17 +93,17 @@
             if (!resultDict) {
                 NSString *cityCodeStr = [NSString stringWithFormat:@"%lu",cityCode];
                 
-                NSLog(@"[天气]%@:获取失败",[[CityListModel sharedInstance]cityNameForAreaCode:cityCodeStr]);
+                DWeahtherLog(@"[天气]%@:获取失败",[[CityListModel sharedInstance]cityNameForAreaCode:cityCodeStr]);
                 return;
             }
             WeatherModel *model = [[WeatherModel alloc]initWithDict:resultDict];
             WeatherForcast *tomorrowWeather = model.forcast[1];
             [weakSelf.weatherInfo setObject:model forKey:model.cityChineseName];
             
-            NSLog(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
+            DWeahtherLog(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
             
             if (!model) {
-                NSLog(@"[天气]%lu:获取失败",(unsigned long)cityCode);
+                DWeahtherLog(@"[天气]%lu:获取失败",(unsigned long)cityCode);
                 return;
             }
             if (weakSelf.delegate) {

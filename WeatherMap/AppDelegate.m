@@ -37,7 +37,7 @@
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:nil];
     
-    NSLog(@"%@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+    DLog(@"%@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
     
 }
 

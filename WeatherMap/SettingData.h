@@ -22,13 +22,15 @@ typedef NS_ENUM(NSUInteger, SDWeatherContent) {
 
 @interface SettingData : NSObject
 
-@property (nonatomic ,assign) SDWeatherTime weatherTime;
-@property (nonatomic ,assign) SDWeatherContent weatherContent;
-@property (nonatomic ,assign) BOOL showSpin;
-@property (nonatomic ,assign) BOOL crazyMode;
+@property (nonatomic ,assign) SDWeatherTime weatherTime;//存储天气时效
+@property (nonatomic ,assign) SDWeatherContent weatherContent;//存储天气类型
+@property (nonatomic ,assign) BOOL showSpin;//是否显示大头针
+@property (nonatomic ,assign) BOOL crazyMode;//是否是疯狂模式
 
+@property (nonatomic ,assign) BOOL settingStatusChanged;//用户是否更改过设置
+- (BOOL)isFirstUse;
+- (BOOL)isFirstUseThisVersion;
 +(instancetype) sharedInstance;
-@property (nonatomic ,assign) BOOL settingStatusChanged;
 
 // clue for improper use (produces compile time error)
 +(instancetype) alloc __attribute__((unavailable("alloc not available, call sharedInstance instead")));

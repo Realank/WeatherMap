@@ -10,6 +10,13 @@
 #import <MobClick.h>
 #import "CityListModel.h"
 
+@interface SettingData ()
+
+@property (nonatomic ,assign, readonly) BOOL isFirstUseValue;//应用是否是第一次使用
+@property (nonatomic ,assign, readonly) BOOL isFirstUseThisVersionValue;//应用是否是第一次使用此版本
+
+@end
+
 @implementation SettingData
 
 +(instancetype) sharedInstance {
@@ -37,9 +44,46 @@
         _crazyMode = [self stringToBool:[dict objectForKey:@"crazyMode"]];
         self.settingStatusChanged = YES;
         
+        [self checkFirstUse];
+        
+        
+
     }
     
     return self;
+}
+#pragma mark - first use
+//判断应用是否是历史上第一次启动，判断应用的这个版本是否是第一次启动
+- (void) checkFirstUse {
+    NSString *firstUse = [[NSUserDefaults standardUserDefaults] objectForKey:@"firstUse"];
+    if (!firstUse) {
+        firstUse = @"yes";
+        _isFirstUseValue = YES;
+        [[NSUserDefaults standardUserDefaults] setObject:firstUse forKey:@"firstUse"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    NSString *bundleVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *key = [NSString stringWithFormat:@"firstUseThisVersion:%@",bundleVersion];
+    NSString *firstUseThisVersion = [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    if (!firstUseThisVersion) {
+        firstUseThisVersion = @"yes";
+        _isFirstUseThisVersionValue = YES;
+        [[NSUserDefaults standardUserDefaults] setObject:firstUse forKey:key];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
+}
+
+- (BOOL)isFirstUse {
+    BOOL ret = _isFirstUseValue;
+    _isFirstUseValue = NO;
+    return ret;
+}
+
+- (BOOL)isFirstUseThisVersion {
+    BOOL ret = _isFirstUseThisVersionValue;
+    _isFirstUseThisVersionValue = NO;
+    return ret;
 }
 
 #pragma mark - change setting status

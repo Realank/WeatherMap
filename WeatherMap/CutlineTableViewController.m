@@ -57,7 +57,7 @@
     
     CutlineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reuseIdentifier"];
     if (!cell) {
-        NSLog(@"找不到cell");
+        DMapLog(@"找不到cell");
     }
     
     switch ([SettingData sharedInstance].weatherContent) {

@@ -8,6 +8,7 @@
 
 #import "SettingViewController.h"
 #import "SettingData.h"
+#import "PopUpBigViewForNotice.h"
 
 @interface SettingViewController ()
 @property (weak, nonatomic) IBOutlet UISegmentedControl *weatherTimeSeg;
@@ -99,6 +100,16 @@
 }
 - (IBAction)changeCrazyMode:(UISwitch *)sender {
     [SettingData sharedInstance].crazyMode = sender.isOn;
+}
+- (IBAction)clickIntroduce:(UIButton *)sender {
+    
+    PopUpBigViewForNotice *view = [[PopUpBigViewForNotice alloc]initWithFrame:self.view.bounds];
+    view.title = @"-欢迎使用天气地图-";
+    NSString *filepath = [[NSBundle mainBundle] pathForResource:@"introduce" ofType:@"txt"];
+    NSString *content = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:nil];
+    view.content = content;
+    [[UIApplication sharedApplication].keyWindow addSubview:view];
+    
 }
 
 @end

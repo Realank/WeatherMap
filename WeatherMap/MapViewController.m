@@ -22,6 +22,8 @@
 #import "TemperatureColorModel.h"
 #import "Reachability.h"
 
+#import "PopUpBigViewForNotice.h"
+
 
 @interface MapViewController ()<MAMapViewDelegate,AMapSearchDelegate,WeatherDataLoadSuccessDelegate>
 
@@ -49,6 +51,36 @@
         [self updateWeatherMap:nil];
     }
     
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self showHelpIfFisrUse];
+
+}
+
+- (void)showHelpIfFisrUse {
+    
+    BOOL firstUse = [[SettingData sharedInstance] isFirstUse];
+    BOOL firstUseThisVersion = [[SettingData sharedInstance] isFirstUseThisVersion];
+    if (firstUse) {
+        PopUpBigViewForNotice *view = [[PopUpBigViewForNotice alloc]initWithFrame:self.view.bounds];
+        view.title = @"-欢迎使用天气地图-";
+        NSString *filepath = [[NSBundle mainBundle] pathForResource:@"introduce" ofType:@"txt"];
+        NSString *content = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:nil];
+        view.content = content;
+        [[UIApplication sharedApplication].keyWindow addSubview:view];
+    } else if(firstUseThisVersion){
+        PopUpBigViewForNotice *view = [[PopUpBigViewForNotice alloc]initWithFrame:self.view.bounds];
+        NSString *bundleVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+        NSString *title = [NSString stringWithFormat:@"-欢迎使用天气地图%@-",bundleVersion];
+        
+        view.title = title;
+        NSString *filepath = [[NSBundle mainBundle] pathForResource:@"introduceNewVersion" ofType:@"txt"];
+        NSString *content = [NSString stringWithContentsOfFile:filepath encoding:NSUTF8StringEncoding error:nil];
+        view.content = content;
+        [[UIApplication sharedApplication].keyWindow addSubview:view];
+    }
 }
 
 # pragma mark -  初始化地图和搜索
@@ -94,7 +126,7 @@
     [self clearMapView];
     
     if ([self.reachability currentReachabilityStatus] == NotReachable) {
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"当前设备无法联网" delegate:nil  cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"当前无法联网" delegate:nil  cancelButtonTitle:@"确定" otherButtonTitles: nil];
         [alert show];
     } else {
         self.weatherData = [[WeatherData alloc]init];
@@ -119,7 +151,7 @@
 
 #pragma mark - 天气读取完毕代理
 - (void)weatherDataDidLoad {
-    //NSLog(@"%@",self.weatherData.weatherInfo);
+    //DWeahtherLog(@"%@",self.weatherData.weatherInfo);
     for (NSString* city in [self.weatherData.weatherInfo allKeys]) {
         
         [self weatherDataDidLoadForCity:city];
@@ -133,7 +165,7 @@
         return;
     }
 
-    NSLog(@"[地理]搜索区域 %@",city);
+    DWeahtherLog(@"[地理]搜索区域 %@",city);
     __weak __typeof(self) weakSelf = self;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, arc4random_uniform(10)* NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
         [weakSelf searchDistricts:city];
@@ -157,7 +189,7 @@
 {
     if (response == nil)
     {
-        NSLog(@"[地理]请求失败");
+        DMapLog(@"[地理]请求失败");
         return;
     }
     //通过AMapDistrictSearchResponse对象处理搜索结果
@@ -166,7 +198,7 @@
         //获取某个城市的天气信息
         WeatherModel* model = [self.weatherData.weatherInfo objectForKey:dist.name];
         if (!model) {
-            NSLog(@"[地理]找不到%@的天气信息！",dist.name);
+            DMapLog(@"[地理]找不到%@的天气信息！",dist.name);
             continue;
         }
         WeatherForcast *dayWeather = model.forcast[1];
@@ -248,7 +280,7 @@
         if (dist.polylines.count > 0)
         {
             //MAMapRect bounds = MAMapRectZero;
-            NSLog(@"[地理]正在渲染 %@",dist.name);
+            DMapLog(@"[地理]正在渲染 %@",dist.name);
             for (NSString *polylineStr in dist.polylines)
             {
                 MAPolygon *polygon = [CommonUtility polygonForCoordinateString:polylineStr];
