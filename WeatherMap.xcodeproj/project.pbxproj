@@ -26,6 +26,8 @@
 		8C7601D21BCCEB960022274A /* WeatherStatusMappingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C7601D11BCCEB960022274A /* WeatherStatusMappingModel.m */; };
 		8C8C07E51BD9D0540094F789 /* introduce.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8C8C07E41BD9D0540094F789 /* introduce.txt */; };
 		8C8C07E71BD9D6770094F789 /* introduceNewVersion.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8C8C07E61BD9D6770094F789 /* introduceNewVersion.txt */; };
+		8C8C07F41BDA195C0094F789 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8C8C07F31BDA195C0094F789 /* Launch Screen.storyboard */; };
+		8C8C07F71BDA1C010094F789 /* LaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C8C07F61BDA1C010094F789 /* LaunchViewController.m */; };
 		8C958B8B1B7747F1004AB2DD /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 8C958B8A1B7747F1004AB2DD /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		8CB3431F1BCE6BF1001DB2E9 /* CityList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8CB3431E1BCE6BF1001DB2E9 /* CityList.plist */; };
 		8CB343241BCE702A001DB2E9 /* CityListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CB343231BCE702A001DB2E9 /* CityListModel.m */; };
@@ -100,6 +102,9 @@
 		8C7601D11BCCEB960022274A /* WeatherStatusMappingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeatherStatusMappingModel.m; sourceTree = "<group>"; };
 		8C8C07E41BD9D0540094F789 /* introduce.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = introduce.txt; sourceTree = "<group>"; };
 		8C8C07E61BD9D6770094F789 /* introduceNewVersion.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = introduceNewVersion.txt; sourceTree = "<group>"; };
+		8C8C07F31BDA195C0094F789 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		8C8C07F51BDA1C010094F789 /* LaunchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchViewController.h; sourceTree = "<group>"; };
+		8C8C07F61BDA1C010094F789 /* LaunchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchViewController.m; sourceTree = "<group>"; };
 		8C958B891B7747F1004AB2DD /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		8C958B8A1B7747F1004AB2DD /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		8CB3431E1BCE6BF1001DB2E9 /* CityList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CityList.plist; sourceTree = "<group>"; };
@@ -263,6 +268,15 @@
 			name = SettingVC;
 			sourceTree = "<group>";
 		};
+		8C8C07EA1BDA17DB0094F789 /* LaunchVC */ = {
+			isa = PBXGroup;
+			children = (
+				8C8C07F51BDA1C010094F789 /* LaunchViewController.h */,
+				8C8C07F61BDA1C010094F789 /* LaunchViewController.m */,
+			);
+			name = LaunchVC;
+			sourceTree = "<group>";
+		};
 		8CB343211BCE7010001DB2E9 /* CityData */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,6 +331,8 @@
 				8CF22FBA1B76EB7D00611895 /* AppDelegate.h */,
 				8CF22FBB1B76EB7D00611895 /* AppDelegate.m */,
 				8CF22FC01B76EB7D00611895 /* Main.storyboard */,
+				8C8C07F31BDA195C0094F789 /* Launch Screen.storyboard */,
+				8C8C07EA1BDA17DB0094F789 /* LaunchVC */,
 				8CB343251BCE7C4B001DB2E9 /* MapVC */,
 				8CB343261BCE7C75001DB2E9 /* CitySelectVC */,
 				8C070D8C1BCC95DB00C1F240 /* CutlineVC */,
@@ -536,6 +552,7 @@
 				8C448F561BD0C63F008F2F40 /* ProvinceSelectedCollectionViewCell.xib in Resources */,
 				8C8C07E71BD9D6770094F789 /* introduceNewVersion.txt in Resources */,
 				8CB3431F1BCE6BF1001DB2E9 /* CityList.plist in Resources */,
+				8C8C07F41BDA195C0094F789 /* Launch Screen.storyboard in Resources */,
 				8CF22FC21B76EB7D00611895 /* Main.storyboard in Resources */,
 				8C448F611BD10C61008F2F40 /* WindMapping.plist in Resources */,
 				8C448F511BD0C09B008F2F40 /* ProvinceUnselectedCollectionViewCell.xib in Resources */,
@@ -610,6 +627,7 @@
 				8C6104F01BD91AE600106213 /* PopUpBigViewForNotice.m in Sources */,
 				8C5F16091B86C103002C96E2 /* CutlineTableViewController.m in Sources */,
 				8CC856961BCBAFE700B6FFA8 /* MANaviRoute.m in Sources */,
+				8C8C07F71BDA1C010094F789 /* LaunchViewController.m in Sources */,
 				8CC856931BCBAFE700B6FFA8 /* AMapTipAnnotation.m in Sources */,
 				8CFD8FF31BD8A23E00A81C44 /* TemperatureColorModel.m in Sources */,
 				8CF230121B77037700611895 /* MANaviAnnotation.m in Sources */,

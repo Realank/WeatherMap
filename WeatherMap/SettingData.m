@@ -128,7 +128,7 @@
             [[CityListModel sharedInstance].selectedProvincesNameArray removeObjectAtIndex:0];
         }
     }
-    self.settingStatusChanged = YES;
+//    self.settingStatusChanged = YES;
     [MobClick event:@"Setting"label:@"crazyMode"];
     [self syncCoreData];
 }

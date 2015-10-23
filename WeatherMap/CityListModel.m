@@ -152,5 +152,27 @@
     return ret;
 }
 
+- (NSArray *)selectedCitysArray {
+    
+    NSDictionary *dict = self.provinceDict;
+    NSMutableArray *cityarr = [NSMutableArray array];
+    
+    for (NSString *provinceName in self.selectedProvincesNameArray) {
+        ProvinceInfo *province = [dict objectForKey:provinceName];
+        if (!province) {
+            continue;
+        }
+        NSDictionary *citysDict = province.citysDict;
+        if (!citysDict) {
+            continue;
+        }
+        for (NSString* cityCodeStr in [citysDict allKeys]) {
+            NSString* cityName = [citysDict objectForKey:cityCodeStr];
+            [cityarr addObject:cityName];
+        }
+    }
+    return [cityarr copy];
+}
+
 
 @end

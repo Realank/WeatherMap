@@ -29,6 +29,7 @@
 -(BOOL)changeProvinceSelectStatus:(NSString *)provinceName;
 -(BOOL)isInSelectedProvinces:(NSString *)provinceName;
 -(NSString *)cityNameForAreaCode:(NSString *)areaCode;
+- (NSArray *)selectedCitysArray;
 
 // clue for improper use (produces compile time error)
 +(instancetype) alloc __attribute__((unavailable("alloc not available, call sharedInstance instead")));

@@ -30,9 +30,10 @@
 @property (nonatomic,strong) AMapSearchAPI *search;
 @property (nonatomic,strong) MAMapView *mapView;
 @property (nonatomic,strong) WeatherData *weatherData;
-
-
 @property (nonatomic ,strong) Reachability *reachability;
+@property (nonatomic, strong) NSMutableArray *loadedCitys;
+
+@property (weak, nonatomic) IBOutlet UIProgressView *progress;
 @end
 
 
@@ -40,13 +41,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     [self setupMapAndSearch];
     self.reachability = [Reachability reachabilityForInternetConnection];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.progress.hidden = YES;
+    [self.view bringSubviewToFront:self.progress];
+    
     if ([CityListModel sharedInstance].selectStatusChanged || [SettingData sharedInstance].settingStatusChanged) {
         [self updateWeatherMap:nil];
     }
@@ -132,8 +135,24 @@
         self.weatherData = [[WeatherData alloc]init];
         self.weatherData.delegate = self;
         [self.weatherData loadWeatherInfoFromProvincesList:[[CityListModel sharedInstance] selectedProvincesNameArray]];
+        self.loadedCitys = [NSMutableArray array];
+        [self updatePrograss];
     }
     
+}
+
+- (void)updatePrograss {
+    NSUInteger loadedCityNum = self.loadedCitys.count;
+    NSUInteger selectedCityNum = [[CityListModel sharedInstance] selectedCitysArray].count;
+    if (loadedCityNum == 0) {
+        self.progress.hidden = NO;
+        self.progress.progress = 0;
+    } else if(loadedCityNum < selectedCityNum) {
+        self.progress.progress = loadedCityNum * 1.0/selectedCityNum;
+    } else {
+        self.progress.hidden = YES;
+        self.progress.progress = 0;
+    }
 }
 
 - (IBAction)locateMyself:(UIBarButtonItem *)sender {
@@ -166,10 +185,8 @@
     }
 
     DWeahtherLog(@"[地理]搜索区域 %@",city);
-    __weak __typeof(self) weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, arc4random_uniform(10)* NSEC_PER_MSEC), dispatch_get_main_queue(), ^{
-        [weakSelf searchDistricts:city];
-    });
+
+    [self searchDistricts:city];
 }
 
 
@@ -201,6 +218,8 @@
             DMapLog(@"[地理]找不到%@的天气信息！",dist.name);
             continue;
         }
+        [self.loadedCitys addObject:dist.name];
+        [self updatePrograss];
         WeatherForcast *dayWeather = model.forcast[1];
         switch ([SettingData sharedInstance].weatherTime) {
             case WEA_TODAY:

@@ -34,7 +34,7 @@
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>请开启定位以显示您的位置</string>
 	<key>UILaunchStoryboardName</key>
-	<string>Main</string>
+	<string>Launch Screen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

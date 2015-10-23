@@ -81,7 +81,7 @@
 - (void)asyncRequestWeatherInfoWithCityCode:(NSUInteger)cityCode {
     
     __weak __typeof(self) weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, arc4random_uniform(500)* NSEC_PER_USEC), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, arc4random_uniform(50)* NSEC_PER_USEC), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         
         NSString *urlString = [NSString stringWithFormat:@"http://182.92.183.168/weatherRequest.php?%lu",(unsigned long)cityCode];
