@@ -12,9 +12,9 @@
 
 @interface CommonUtility : NSObject
 
-+ (CLLocationCoordinate2D *)coordinatesForString:(NSString *)string
-                                 coordinateCount:(NSUInteger *)coordinateCount
-                                      parseToken:(NSString *)token;
++ (NSArray *)shortCoordinatesArrByString:(NSString *)string withParseToken:(NSString *)token maxCount:(NSUInteger)maxCount;
++ (MAPolygon *)polygonForCoordinateArr:(NSArray *)coordinatesArr;
++ (MAPolyline *)polylineForCoordinateArr:(NSArray *)coordinatesArr;
 
 + (MAPolyline *)polylineForCoordinateString:(NSString *)coordinateString;
 + (MAPolygon *)polygonForCoordinateString:(NSString *)coordinateString;

@@ -12,6 +12,8 @@
 #import "ProvinceSelectedCollectionViewCell.h"
 #import "SettingData.h"
 
+#define kCellItemSize 75
+
 @interface CitySelectCollectionViewController ()
 
 @property (nonatomic, strong) CityListModel *cityListModel;
@@ -25,7 +27,18 @@ static NSString * const unselectedReuseIdentifier = @"unselectCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //setup the cell space
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    layout.itemSize = CGSizeMake(kCellItemSize, kCellItemSize);
+    NSInteger space = (self.view.bounds.size.width - 4*kCellItemSize)/8;
+    space = space > 5 ? space : 5;
+    layout.minimumLineSpacing = 30;
+    layout.minimumInteritemSpacing = space;
+    layout.sectionInset = UIEdgeInsetsMake(10, space, 10, space);
+    self.collectionView.collectionViewLayout = layout;
+    
     self.cityListModel = [CityListModel sharedInstance];
+    
     // Uncomment the following line to preserve selection between presentations
     // self.clearsSelectionOnViewWillAppear = NO;
     
@@ -33,7 +46,6 @@ static NSString * const unselectedReuseIdentifier = @"unselectCell";
     [self.collectionView registerNib:[UINib nibWithNibName:@"ProvinceUnselectedCollectionViewCell" bundle:nil]forCellWithReuseIdentifier:unselectedReuseIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"ProvinceSelectedCollectionViewCell" bundle:nil]forCellWithReuseIdentifier:selectedReuseIdentifier];
 
-    // Do any additional setup after loading the view.
 }
 
 

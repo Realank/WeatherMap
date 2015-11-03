@@ -10,46 +10,116 @@
 #import "LineDashPolyline.h"
 
 @implementation CommonUtility
-+ (CLLocationCoordinate2D *)coordinatesForString:(NSString *)string
-                                 coordinateCount:(NSUInteger *)coordinateCount
-                                      parseToken:(NSString *)token
-{
-    if (string == nil) {
-        return NULL;
+
++ (NSArray *)shortCoordinatesArrByString:(NSString *)string withParseToken:(NSString *)token maxCount:(NSUInteger)maxCount{
+    NSMutableArray *arr = [NSMutableArray array];
+    
+    if (string.length <= 0) {
+        return nil;
     }
     if (token == nil) {
         token = @",";
     }
-    NSString *str = @"";
-    if (![token isEqualToString:@","]) {
-        str = [string stringByReplacingOccurrencesOfString:token withString:@","];
-    }
-    else {
-        str = [NSString stringWithString:string];
-    }
-    NSArray *components = [str componentsSeparatedByString:@","];
+    NSArray *components = [string componentsSeparatedByString:token];
     
     NSInteger componentCount = [components count];
-    if (componentCount < 500) {
+    if (componentCount < 400) {
+        return nil;
+    }
+
+    NSInteger times = componentCount/maxCount;
+
+    for (int i = 0; i < maxCount; i++) {
+        NSArray *coord = [[components objectAtIndex:times * i] componentsSeparatedByString:@","];
+        if (coord.count != 2) {
+            continue;
+        }
+        NSNumber *longitude = [NSNumber numberWithDouble:[coord[0] doubleValue]];
+        [arr addObject:longitude];
+        NSNumber *latitude = [NSNumber numberWithDouble:[coord[1] doubleValue]];
+        [arr addObject:latitude];
+    }
+    
+    NSArray *coord = [[components objectAtIndex:0] componentsSeparatedByString:@","];
+    if (coord.count == 2) {
+        NSNumber *longitude = [NSNumber numberWithDouble:[coord[0] doubleValue]];
+        [arr addObject:longitude];
+        NSNumber *latitude = [NSNumber numberWithDouble:[coord[1] doubleValue]];
+        [arr addObject:latitude];
+    }
+
+    return [arr copy];
+
+}
+
+
++ (CLLocationCoordinate2D *)coordinatesForArr:(NSArray *)arr
+                                 coordinateCount:(NSUInteger *)coordinateCount
+{
+    if (arr == nil) {
         *coordinateCount = 0;
         return NULL;
     }
-    NSInteger count = 200;
-    NSInteger times = componentCount/count/2*2;
+
+    NSInteger count = arr.count/2;
+    
     if (coordinateCount != NULL) {
-        *coordinateCount = count+1;
+        *coordinateCount = count;
     }
-    CLLocationCoordinate2D *coordinates = (CLLocationCoordinate2D*)malloc((count+1) * sizeof(CLLocationCoordinate2D));
+    
+    CLLocationCoordinate2D *coordinates = (CLLocationCoordinate2D*)malloc(count * sizeof(CLLocationCoordinate2D));
     
     for (int i = 0; i < count; i++) {
-        coordinates[i].longitude = [[components objectAtIndex:times * i]     doubleValue];
-        coordinates[i].latitude  = [[components objectAtIndex:times * i + 1] doubleValue];
+        NSNumber *longitude = arr[i*2];
+        coordinates[i].longitude = [longitude doubleValue];
+        NSNumber *latitude = arr[i*2+1];
+        coordinates[i].latitude  = [latitude doubleValue];
     }
-    coordinates[count].longitude = [[components objectAtIndex:0]     doubleValue];
-    coordinates[count].latitude  = [[components objectAtIndex:1] doubleValue];
     
     return coordinates;
 }
+
++ (MAPolygon *)polygonForCoordinateArr:(NSArray *)coordinatesArr
+{
+    if (coordinatesArr.count == 0)
+    {
+        return nil;
+    }
+    
+    NSUInteger count = 0;
+    
+    CLLocationCoordinate2D *coordinates = [self coordinatesForArr:coordinatesArr coordinateCount:&count];
+    if (!coordinates) {
+        return nil;
+    }
+    
+    MAPolygon *polygon = [MAPolygon polygonWithCoordinates:coordinates count:count];
+    
+    free(coordinates), coordinates = NULL;
+    
+    return polygon;
+}
+
++ (MAPolyline *)polylineForCoordinateArr:(NSArray *)coordinatesArr
+{
+    if (coordinatesArr.count == 0)
+    {
+        return nil;
+    }
+    
+    NSUInteger count = 0;
+    CLLocationCoordinate2D *coordinates = [self coordinatesForArr:coordinatesArr coordinateCount:&count];
+    
+    if (!coordinates) {
+        return nil;
+    }
+    MAPolyline *polyline = [MAPolyline polylineWithCoordinates:coordinates count:count];
+    
+    free(coordinates), coordinates = NULL;
+    
+    return polyline;
+}
+
 + (MAPolygon *)polygonForCoordinateString:(NSString *)coordinateString
 {
     if (coordinateString.length == 0)
@@ -94,6 +164,48 @@
     
     return polyline;
 }
+
++ (CLLocationCoordinate2D *)coordinatesForString:(NSString *)string
+                                 coordinateCount:(NSUInteger *)coordinateCount
+                                      parseToken:(NSString *)token
+{
+    if (string == nil) {
+        return NULL;
+    }
+    if (token == nil) {
+        token = @",";
+    }
+    NSString *str = @"";
+    if (![token isEqualToString:@","]) {
+        str = [string stringByReplacingOccurrencesOfString:token withString:@","];
+    }
+    else {
+        str = [NSString stringWithString:string];
+    }
+    NSArray *components = [str componentsSeparatedByString:@","];
+    
+    NSInteger componentCount = [components count];
+    if (componentCount < 500) {
+        *coordinateCount = 0;
+        return NULL;
+    }
+    NSInteger count = 200;
+    NSInteger times = componentCount/count/2*2;
+    if (coordinateCount != NULL) {
+        *coordinateCount = count+1;
+    }
+    CLLocationCoordinate2D *coordinates = (CLLocationCoordinate2D*)malloc((count+1) * sizeof(CLLocationCoordinate2D));
+    
+    for (int i = 0; i < count; i++) {
+        coordinates[i].longitude = [[components objectAtIndex:times * i]     doubleValue];
+        coordinates[i].latitude  = [[components objectAtIndex:times * i + 1] doubleValue];
+    }
+    coordinates[count].longitude = [[components objectAtIndex:0]     doubleValue];
+    coordinates[count].latitude  = [[components objectAtIndex:1] doubleValue];
+    
+    return coordinates;
+}
+
 
 + (MAPolyline *)polylineForStep:(AMapStep *)step
 {

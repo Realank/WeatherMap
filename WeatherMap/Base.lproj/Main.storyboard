@@ -84,15 +84,15 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ifH-E7-lVv">
-                                            <rect key="frame" x="300" y="5" width="292" height="40"/>
+                                            <rect key="frame" x="300" y="10" width="282" height="30"/>
                                             <animations/>
                                             <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lz5-C0-4Ek">
-                                            <rect key="frame" x="8" y="5" width="292" height="40"/>
+                                            <rect key="frame" x="18" y="10" width="282" height="30"/>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="N0M-E8-sVm"/>
+                                                <constraint firstAttribute="height" constant="30" id="N0M-E8-sVm"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -104,8 +104,8 @@
                                         <constraint firstItem="Lz5-C0-4Ek" firstAttribute="width" secondItem="ifH-E7-lVv" secondAttribute="width" id="2Xp-gf-gLO"/>
                                         <constraint firstAttribute="centerY" secondItem="Lz5-C0-4Ek" secondAttribute="centerY" id="3tZ-AH-rXs"/>
                                         <constraint firstItem="Lz5-C0-4Ek" firstAttribute="centerY" secondItem="ifH-E7-lVv" secondAttribute="centerY" id="8Z7-ae-Dbm"/>
-                                        <constraint firstItem="ifH-E7-lVv" firstAttribute="trailing" secondItem="4On-9M-LWU" secondAttribute="trailingMargin" id="HuR-SK-V9f"/>
-                                        <constraint firstItem="Lz5-C0-4Ek" firstAttribute="leading" secondItem="4On-9M-LWU" secondAttribute="leadingMargin" id="XcN-uA-IIx"/>
+                                        <constraint firstItem="ifH-E7-lVv" firstAttribute="trailing" secondItem="4On-9M-LWU" secondAttribute="trailingMargin" constant="-10" id="HuR-SK-V9f"/>
+                                        <constraint firstItem="Lz5-C0-4Ek" firstAttribute="leading" secondItem="4On-9M-LWU" secondAttribute="leadingMargin" constant="10" id="XcN-uA-IIx"/>
                                         <constraint firstItem="ifH-E7-lVv" firstAttribute="leading" secondItem="Lz5-C0-4Ek" secondAttribute="trailing" id="kGo-N4-YSb"/>
                                         <constraint firstItem="Lz5-C0-4Ek" firstAttribute="height" secondItem="ifH-E7-lVv" secondAttribute="height" id="nZt-lk-dN8"/>
                                     </constraints>

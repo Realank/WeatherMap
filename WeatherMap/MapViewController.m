@@ -21,6 +21,7 @@
 #import "WindMappingModel.h"
 #import "TemperatureColorModel.h"
 #import "Reachability.h"
+#import "MapOutlineData.h"
 
 #import "PopUpBigViewForNotice.h"
 
@@ -31,7 +32,7 @@
 @property (nonatomic,strong) MAMapView *mapView;
 @property (nonatomic,strong) WeatherData *weatherData;
 @property (nonatomic ,strong) Reachability *reachability;
-@property (nonatomic, strong) NSMutableArray *loadedCitys;
+@property (nonatomic, strong) NSMutableDictionary *loadedCitys;
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progress;
 @end
@@ -136,14 +137,14 @@
         self.weatherData = [[WeatherData alloc]init];
         self.weatherData.delegate = self;
         [self.weatherData loadWeatherInfoFromProvincesList:[[CityListModel sharedInstance] selectedProvincesNameArray]];
-        self.loadedCitys = [NSMutableArray array];
+        self.loadedCitys = [NSMutableDictionary dictionary];
         [self updatePrograss];
     }
     
 }
 
 - (void)updatePrograss {
-    NSUInteger loadedCityNum = self.loadedCitys.count;
+    NSUInteger loadedCityNum = self.loadedCitys.allKeys.count;
     NSUInteger selectedCityNum = [[CityListModel sharedInstance] selectedCitysArray].count;
     if (loadedCityNum == 0) {
         self.progress.hidden = NO;
@@ -181,13 +182,20 @@
 }
 - (void)weatherDataDidLoadForCity:(NSString *)city {
     
-    if (![self.weatherData.weatherInfo objectForKey:city]) {
+    WeatherModel* weatherModel = [self.weatherData.weatherInfo objectForKey:city];
+    if (!weatherModel) {
         return;
     }
 
     DWeahtherLog(@"[地理]搜索区域 %@",city);
-
-    [self searchDistricts:city];
+    MapOutlineModel* model = [[MapOutlineData sharedInstance]mapOutlineModelByROMCache:city andWeatherInfo:weatherModel];
+    if (model) {
+        DLog(@"已经缓存了%@的轮廓",city);
+        [self showPolygonOnMap:model];
+    } else {
+        [self searchDistricts:city];
+    }
+    
 }
 
 
@@ -202,138 +210,99 @@
 }
 
 
-//实现行政区划查询的回调函数
+//行政区划查询的网络回调函数
 - (void)onDistrictSearchDone:(AMapDistrictSearchRequest *)request response:(AMapDistrictSearchResponse *)response
 {
     if (response == nil)
     {
-        DLog(@"[地理]请求失败");
+        ELOG(@"[地理]请求失败");
         return;
     }
     //通过AMapDistrictSearchResponse对象处理搜索结果
+    if (response.districts.count > 1) {
+        ELOG(@"地理结果超过1个");
+    }
     for (AMapDistrict *dist in response.districts)
     {
+
         //获取某个城市的天气信息
-        WeatherModel* model = [self.weatherData.weatherInfo objectForKey:dist.name];
-        if (!model) {
-            DLog(@"[地理]找不到%@的天气信息！",dist.name);
+        WeatherModel* weatherModel = [self.weatherData.weatherInfo objectForKey:dist.name];
+        if (!weatherModel) {
+            ELOG(@"[地理]找不到%@的天气信息！",dist.name);
             continue;
         }
-        [self.loadedCitys addObject:dist.name];
-        [self updatePrograss];
-        WeatherForcast *dayWeather = model.forcast[1];
-        switch ([SettingData sharedInstance].weatherTime) {
-            case WEA_TODAY:
-                dayWeather = model.forcast[0];
-                break;
-            case WEA_TOMOTTOW:
-                dayWeather = model.forcast[1];
-                break;
-            case WEA_AFTERTOMORROW:
-                dayWeather = model.forcast[2];
-                break;
-        }
-        //大头针显示的内容
-        NSString *weatherString;
-        //轮廓多边形的颜色
-        UIColor *color;
-        //判断要显示的天气类型：降水情况、气温或者风力
-        switch ([SettingData sharedInstance].weatherContent) {
-            case WEA_RAIN: {
-                NSString* weatherStatus = dayWeather.daytimeStatus;
-                weatherString = [NSString stringWithFormat:@"%@ %@~%@℃",[[WeatherStatusMappingModel sharedInstance] stringForKeycode:weatherStatus],dayWeather.nightTemperature,dayWeather.daytimeTemperature];
-                if (weatherStatus.length <= 0) {
-                    weatherStatus = dayWeather.nightStatus;
-                    weatherString = [NSString stringWithFormat:@"%@ %@℃",[[WeatherStatusMappingModel sharedInstance] stringForKeycode:weatherStatus],dayWeather.nightTemperature];
-                }
-                
-                color = [[WeatherStatusMappingModel sharedInstance] colorForKeycode:weatherStatus];
-
-                break;
-            }
-    
-            case WEA_TEMPERATURE:
-            {
-                NSString* weatherStatus = dayWeather.daytimeStatus;
-                NSInteger temperature = ([dayWeather.daytimeTemperature integerValue] + [dayWeather.nightTemperature integerValue])/2;
-                weatherString = [NSString stringWithFormat:@"%@ %@~%@℃",[[WeatherStatusMappingModel sharedInstance] stringForKeycode:weatherStatus],dayWeather.nightTemperature,dayWeather.daytimeTemperature];
-                if (weatherStatus.length <= 0) {
-                    weatherStatus = dayWeather.nightStatus;
-                    temperature = [dayWeather.nightTemperature integerValue];
-                    weatherString = [NSString stringWithFormat:@"%@ %@℃",[[WeatherStatusMappingModel sharedInstance] stringForKeycode:weatherStatus],dayWeather.nightTemperature];
-                }
-                
-                color = [TemperatureColorModel colorForTemperature:temperature];
-                
-                break;
-            }
-                
-            case WEA_WIND:
-            {
-                weatherString = [NSString stringWithFormat:@"%@ %@",[[WindMappingModel sharedInstance] windDirectionForKeycode:dayWeather.daytimeWindDirection],[[WindMappingModel sharedInstance] windStrengthForKeycode:dayWeather.daytimeWindStrength]];
-                color = [[WindMappingModel sharedInstance]  colorForWindStrengthKeycode:dayWeather.daytimeWindStrength];
-                
-                if (dayWeather.daytimeStatus.length <= 0) {
-                    weatherString = [NSString stringWithFormat:@"%@ %@",[[WindMappingModel sharedInstance] windDirectionForKeycode:dayWeather.nightWindDirection],[[WindMappingModel sharedInstance] windStrengthForKeycode:dayWeather.nightWindStrength]];
-                    color = [[WindMappingModel sharedInstance]  colorForWindStrengthKeycode:dayWeather.nightWindStrength];
-                }
-                
-                break;
-            }
-
-        }
         
+        MapOutlineModel* mapOutLineModel = [[MapOutlineData sharedInstance] mapOutlineModelByAMapDistrictInfo:dist andWeatherInfo:weatherModel];
         
-        if ([SettingData sharedInstance].showSpin) {
-            //天气信息别针
-            MAPointAnnotation *poiAnnotation = [[MAPointAnnotation alloc] init];
-            poiAnnotation.coordinate = CLLocationCoordinate2DMake(dist.center.latitude, dist.center.longitude);
-            poiAnnotation.title = dist.name;
-            poiAnnotation.subtitle   = weatherString;
-            [self.mapView addAnnotation:poiAnnotation];
-        }
+        [self showPolygonOnMap:mapOutLineModel];
         
-        
-        UIColor *strokeColor = [color colorWithAlphaComponent:0.8];
-        UIColor *fillColor = [color colorWithAlphaComponent:0.6];
-        //增加城市轮廓多边形
-        if (dist.polylines.count > 0)
-        {
-            //MAMapRect bounds = MAMapRectZero;
-            DMapLog(@"[地理]正在渲染 %@",dist.name);
-            for (NSString *polylineStr in dist.polylines)
-            {
-                MAPolygon *polygon = [CommonUtility polygonForCoordinateString:polylineStr];
-                if (!polygon) {
-                    continue;
-                }
-                
-                polygon.strokeColor = strokeColor;
-                polygon.fillColor   = fillColor;
-  
-                [self.mapView addOverlay:polygon];
-                
-                //bounds = MAMapRectUnion(bounds, polygon.boundingMapRect);
-            }
-            
-            //[self.mapView setVisibleMapRect:bounds animated:YES];
-        }
-        
-//        // sub
-//        for (AMapDistrict *subdist in dist.districts)
-//        {
-//            MAPointAnnotation *subAnnotation = [[MAPointAnnotation alloc] init];
-//            
-//            subAnnotation.coordinate = CLLocationCoordinate2DMake(subdist.center.latitude, subdist.center.longitude);
-//            subAnnotation.title      = subdist.name;
-//            subAnnotation.subtitle   = subdist.adcode;
-//            
-//            [self.mapView addAnnotation:subAnnotation];
-//            
-//        }
     }
 }
 
+#pragma mark - 显示天气图层
+
+- (void)showPolygonOnMap:(MapOutlineModel*)mapOutLineModel {
+    
+    if (!mapOutLineModel || mapOutLineModel.cityName.length <= 0) {
+        return;
+    }
+    //如果加载过这个城市，则不再重复加载
+    if ([self hasShowedThisCityOnMap:mapOutLineModel.cityName]) {
+        ELOG(@"[地理]%@ 已经在地图上显示了！",mapOutLineModel.cityName);
+        return;
+    }
+    //加载城市
+    [self.loadedCitys setObject:@"added" forKey:mapOutLineModel.cityName];
+    [self updatePrograss];
+    
+    if ([SettingData sharedInstance].showSpin) {
+        //天气信息别针
+        MAPointAnnotation *poiAnnotation = [[MAPointAnnotation alloc] init];
+        CGFloat latitude = [mapOutLineModel.centerCoordinate[0] doubleValue];
+        CGFloat longitude = [mapOutLineModel.centerCoordinate[1] doubleValue];
+        poiAnnotation.coordinate = CLLocationCoordinate2DMake(latitude, longitude);
+        poiAnnotation.title = mapOutLineModel.cityName;
+        poiAnnotation.subtitle   = mapOutLineModel.descript;
+        [self.mapView addAnnotation:poiAnnotation];
+    }
+    
+    UIColor *strokeColor = [mapOutLineModel.polygonColor colorWithAlphaComponent:0.8];
+    UIColor *fillColor = [mapOutLineModel.polygonColor colorWithAlphaComponent:0.6];
+    //增加城市轮廓多边形
+    if (mapOutLineModel.polygonCoordinates.count > 0)
+    {
+        //MAMapRect bounds = MAMapRectZero;
+        DMapLog(@"[地理]正在渲染 %@",mapOutLineModel.cityName);
+        
+        for (NSArray *polyline in mapOutLineModel.polygonCoordinates)
+        {
+            MAPolygon *polygon = [CommonUtility polygonForCoordinateArr:polyline];
+            if (!polygon) {
+                continue;
+            }
+            
+            polygon.strokeColor = strokeColor;
+            polygon.fillColor   = fillColor;
+            
+            [self.mapView addOverlay:polygon];
+            
+            //bounds = MAMapRectUnion(bounds, polygon.boundingMapRect);
+        }
+    }
+    
+
+}
+
+
+- (BOOL)hasShowedThisCityOnMap:(NSString *)cityName {
+    
+    if ([self.loadedCitys objectForKey:cityName]) {
+        return YES;
+    } else {
+        return NO;
+    }
+   
+}
 
 #pragma mark - MAMapViewDelegate 地图附加层显示
 

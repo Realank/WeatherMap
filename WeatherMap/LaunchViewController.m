@@ -20,10 +20,11 @@
     CGPoint center = self.view.center;
     __weak __typeof(self) weakSelf = self;
     
+    [NSThread sleepForTimeInterval:0.1];
     [UIView animateWithDuration:0.3 animations:^{
-        weakSelf.titleLabel.center = CGPointMake(weakSelf.titleLabel.center.x, weakSelf.titleLabel.center.y+20);
+        weakSelf.titleLabel.center = CGPointMake(weakSelf.titleLabel.center.x, weakSelf.titleLabel.center.y+30);
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.8 animations:^{
+        [UIView animateWithDuration:0.7 animations:^{
             weakSelf.titleLabel.center = CGPointMake(center.x, -30);
             //        self.view.backgroundColor = [UIColor whiteColor];
         } completion:^(BOOL finished) {

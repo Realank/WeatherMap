@@ -86,6 +86,7 @@
         
         NSString *urlString = [NSString stringWithFormat:@"http://182.92.183.168/weatherRequest.php?%lu",(unsigned long)cityCode];
         NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+
         
         [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
             
@@ -93,7 +94,7 @@
             if (!resultDict) {
                 NSString *cityCodeStr = [NSString stringWithFormat:@"%lu",cityCode];
                 
-                DLog(@"[天气]%@:获取失败",[[CityListModel sharedInstance]cityNameForAreaCode:cityCodeStr]);
+                DLog(@"[天气]%@:获取失败1",[[CityListModel sharedInstance]cityNameForAreaCode:cityCodeStr]);
                 return;
             }
             WeatherModel *model = [[WeatherModel alloc]initWithDict:resultDict];
@@ -103,7 +104,7 @@
             DWeahtherLog(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
             
             if (!model) {
-                DLog(@"[天气]%lu:获取失败",(unsigned long)cityCode);
+                DLog(@"[天气]%lu:获取失败2",(unsigned long)cityCode);
                 return;
             }
             if (weakSelf.delegate) {
