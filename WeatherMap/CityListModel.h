@@ -27,6 +27,7 @@
 
 +(instancetype) sharedInstance;
 -(BOOL)changeProvinceSelectStatus:(NSString *)provinceName;
+-(void)decreaseSelectedProvincesNumTo:(NSUInteger)num;
 -(BOOL)isInSelectedProvinces:(NSString *)provinceName;
 -(NSString *)cityNameForAreaCode:(NSString *)areaCode;
 - (NSArray *)selectedCitysArray;

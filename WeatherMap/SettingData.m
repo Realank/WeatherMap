@@ -124,8 +124,8 @@
 - (void)setCrazyMode:(BOOL)crazyMode {
     _crazyMode = crazyMode;
     if (!crazyMode) {
-        while ([CityListModel sharedInstance].selectedProvincesNameArray.count > MAX_CITY_NUM) {
-            [[CityListModel sharedInstance].selectedProvincesNameArray removeObjectAtIndex:0];
+        if ([CityListModel sharedInstance].selectedProvincesNameArray.count > MAX_CITY_NUM) {
+            [[CityListModel sharedInstance] decreaseSelectedProvincesNumTo:MAX_CITY_NUM];
         }
     }
 //    self.settingStatusChanged = YES;

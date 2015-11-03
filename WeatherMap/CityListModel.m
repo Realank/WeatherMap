@@ -108,7 +108,7 @@
 }
 
 //超出选择数量上限，如果不是CrazyMode，会停止添加，并且返回NO
-//               如果是CrazyMode，会继续添加，但是不会返回NO
+//               如果是CrazyMode，会继续添加，但是依然返回NO
 -(BOOL)changeProvinceSelectStatus:(NSString *)provinceName{
     
     BOOL canfind = NO;
@@ -134,6 +134,14 @@
         return NO;
     }
     return YES;
+}
+
+-(void)decreaseSelectedProvincesNumTo:(NSUInteger)num {
+    while (self.selectedProvincesNameArray.count > num) {
+        [[CityListModel sharedInstance].selectedProvincesNameArray removeObjectAtIndex:0];
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:[self.selectedProvincesNameArray copy]forKey:@"ProvinceList"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 -(bool)isInSelectedProvinces:(NSString *)provinceName {

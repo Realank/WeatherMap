@@ -386,4 +386,16 @@ updatingLocation:(BOOL)updatingLocation
     }
 }
 
+- (void)didReceiveMemoryWarning {
+    ELOG(@"内存吃紧！！");
+    BOOL crazyMode = [SettingData sharedInstance].crazyMode;
+    if (crazyMode) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"内存不足" message:@"为防止应用崩溃，将强制关闭疯狂模式，请您下次开启时，适量选择展示省份" delegate:nil  cancelButtonTitle:@"确定" otherButtonTitles: nil];
+        [alert show];
+        [SettingData sharedInstance].crazyMode = NO;
+        [self viewWillAppear:YES];
+    }
+    
+}
+
 @end

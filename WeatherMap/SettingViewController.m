@@ -21,8 +21,8 @@
 
 @implementation SettingViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     SDWeatherTime time = [SettingData sharedInstance].weatherTime;
     switch (time) {
