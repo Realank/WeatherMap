@@ -86,7 +86,7 @@
         NSMutableArray *polylineArr = [NSMutableArray array];
         for (NSString *polylineStr in dist.polylines)
         {
-            NSArray *polylineCoordinatesArr = [CommonUtility shortCoordinatesArrByString:polylineStr withParseToken:@";" maxCount:200];
+            NSArray *polylineCoordinatesArr = [CommonUtility shortCoordinatesArrByString:polylineStr withParseToken:@";" maxCount:180];
             if (polylineCoordinatesArr) {
                 [polylineArr addObject:polylineCoordinatesArr];
             }

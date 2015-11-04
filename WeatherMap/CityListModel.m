@@ -117,6 +117,7 @@
         if ([provinceInArr isEqualToString:provinceName]) {
             canfind = YES;
             [self.selectedProvincesNameArray removeObject:provinceInArr];
+            break;
         }
     }
     if (!canfind) {
@@ -125,11 +126,17 @@
             return NO;
         }
         [self.selectedProvincesNameArray addObject:provinceName];
-        [MobClick event:@"ChangeProvince"label:[NSString stringWithFormat:@"add:%@",provinceName]];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [MobClick event:@"ChangeProvince"label:[NSString stringWithFormat:@"add:%@",provinceName]];
+        });
     }
     self.selectStatusChanged = YES;
-    [[NSUserDefaults standardUserDefaults] setObject:[self.selectedProvincesNameArray copy]forKey:@"ProvinceList"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    __weak __typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[NSUserDefaults standardUserDefaults] setObject:[weakSelf.selectedProvincesNameArray copy]forKey:@"ProvinceList"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    });
+    
     if (crazyMode && self.selectedProvincesNameArray.count == MAX_CITY_NUM+1) {
         return NO;
     }

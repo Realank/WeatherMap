@@ -23,11 +23,15 @@
     NSArray *components = [string componentsSeparatedByString:token];
     
     NSInteger componentCount = [components count];
-    if (componentCount < 400) {
+    if (componentCount < 200) {
         return nil;
     }
 
     NSInteger times = componentCount/maxCount;
+    if (componentCount < maxCount) {
+        times = 1;
+        maxCount = componentCount;
+    }
 
     for (int i = 0; i < maxCount; i++) {
         NSArray *coord = [[components objectAtIndex:times * i] componentsSeparatedByString:@","];

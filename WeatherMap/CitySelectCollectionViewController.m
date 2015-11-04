@@ -99,6 +99,7 @@ static NSString * const unselectedReuseIdentifier = @"unselectCell";
     DMapLog(@"select: %@",provinceName);
 
     [collectionView reloadData];
+    //[collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
     
 
 }
