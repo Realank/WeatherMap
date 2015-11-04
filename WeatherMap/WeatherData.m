@@ -47,7 +47,10 @@
             if (cityCode < 100000000) {
                 continue;
             }
-            [self asyncRequestWeatherInfoWithCityCode:cityCode];
+            __weak __typeof(self) weakSelf = self;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, arc4random_uniform(50)* NSEC_PER_USEC), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [weakSelf asyncRequestWeatherInfoWithCityCode:cityCode retryTimes:0];
+            });
         }
     }
     
@@ -78,44 +81,44 @@
 //    return model.cityChineseName;
 //}
 
-- (void)asyncRequestWeatherInfoWithCityCode:(NSUInteger)cityCode {
+- (void)asyncRequestWeatherInfoWithCityCode:(NSUInteger)cityCode retryTimes:(NSUInteger)retryTimes{
     
     __weak __typeof(self) weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, arc4random_uniform(50)* NSEC_PER_USEC), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        
-        NSString *urlString = [NSString stringWithFormat:@"http://182.92.183.168/weatherRequest.php?%lu",(unsigned long)cityCode];
-        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
 
-        
-        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
-            
-            NSDictionary *resultDict = [data objectFromJSONData];
-            if (!resultDict) {
-                NSString *cityCodeStr = [NSString stringWithFormat:@"%lu",cityCode];
-                
-                DLog(@"[天气]%@:获取失败1",[[CityListModel sharedInstance]cityNameForAreaCode:cityCodeStr]);
-                return;
-            }
-            WeatherModel *model = [[WeatherModel alloc]initWithDict:resultDict];
-            WeatherForcast *tomorrowWeather = model.forcast[1];
-            [weakSelf.weatherInfo setObject:model forKey:model.cityChineseName];
-            
-            DWeahtherLog(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
-            
-            if (!model) {
-                DLog(@"[天气]%lu:获取失败2",(unsigned long)cityCode);
-                return;
-            }
-            if (weakSelf.delegate) {
-                [weakSelf.delegate weatherDataDidLoadForCity:model.cityChineseName];
-            }
-            
-        }];
-        
-        
-    });
+    NSString *urlString = [NSString stringWithFormat:@"http://182.92.183.168/weatherRequest.php?%lu",(unsigned long)cityCode];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
     
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+        
+        NSDictionary *resultDict = [data objectFromJSONData];
+        if (!resultDict) {
+            NSString *cityCodeStr = [NSString stringWithFormat:@"%lu",cityCode];
+            
+            ELOG(@"[天气]%@:获取失败1,将重试",[[CityListModel sharedInstance]cityNameForAreaCode:cityCodeStr]);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(200 * NSEC_PER_MSEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                if (retryTimes < 3) {
+                    [weakSelf asyncRequestWeatherInfoWithCityCode:cityCode retryTimes:retryTimes+1];
+                }
+                
+            });
+            return;
+        }
+        WeatherModel *model = [[WeatherModel alloc]initWithDict:resultDict];
+        WeatherForcast *tomorrowWeather = model.forcast[1];
+        [weakSelf.weatherInfo setObject:model forKey:model.cityChineseName];
+        
+        ELOG(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
+        
+        if (!model) {
+            DLog(@"[天气]%lu:获取失败2",(unsigned long)cityCode);
+            return;
+        }
+        if (weakSelf.delegate) {
+            [weakSelf.delegate weatherDataDidLoadForCity:model.cityChineseName];
+        }
+        
+    }];
+
     
 }
 

@@ -190,7 +190,7 @@
     DWeahtherLog(@"[地理]搜索区域 %@",city);
     MapOutlineModel* model = [[MapOutlineData sharedInstance]mapOutlineModelByROMCache:city andWeatherInfo:weatherModel];
     if (model) {
-        DLog(@"已经缓存了%@的轮廓",city);
+        DMapLog(@"已经缓存了%@的轮廓",city);
         [self showPolygonOnMap:model];
     } else {
         [self searchDistricts:city];
