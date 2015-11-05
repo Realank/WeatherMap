@@ -9,6 +9,7 @@
 #import "SettingViewController.h"
 #import "SettingData.h"
 #import "PopUpBigViewForNotice.h"
+#import "MapOutlineData.h"
 
 @interface SettingViewController ()
 @property (weak, nonatomic) IBOutlet UISegmentedControl *weatherTimeSeg;
@@ -16,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *showSpinSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *crazyModeSwitch;
 
+@property (weak, nonatomic) IBOutlet UILabel *cacheSizeLabel;
 
 @end
 
@@ -56,6 +58,7 @@
     BOOL crazyMode = [SettingData sharedInstance].crazyMode;
     self.crazyModeSwitch.on = crazyMode;
     
+    self.cacheSizeLabel.text = [NSString stringWithFormat:@"%.1f M",[MapOutlineData cacheCitysSize]];
     // Do any additional setup after loading the view.
 }
 - (IBAction)changeWeatherTime:(UISegmentedControl *)sender {
@@ -111,5 +114,11 @@
     [[UIApplication sharedApplication].keyWindow addSubview:view];
     
 }
+
+- (IBAction)clearCache:(id)sender {
+    [MapOutlineData delectCacheCitysFolder];
+    self.cacheSizeLabel.text = [NSString stringWithFormat:@"%.1f M",[MapOutlineData cacheCitysSize]];
+}
+
 
 @end

@@ -17,6 +17,7 @@
 #import "WindMappingModel.h"
 #import "TemperatureColorModel.h"
 #import "CommonUtility.h"
+#import "JSONKit.h"
 @implementation MapOutlineModel
 
 @end
@@ -43,7 +44,7 @@
 
 -(MapOutlineModel *)mapOutlineModelByROMCache:(NSString *)cityName andWeatherInfo:(WeatherModel *)weatherModel {
     
-    NSDictionary *polygonData = [[NSUserDefaults standardUserDefaults] objectForKey:cityName];
+    NSDictionary *polygonData = [self fetchOutLineForCity:cityName];
     if (!polygonData) {
         return nil;
     }
@@ -84,9 +85,15 @@
     {
         DMapLog(@"[地理]正在渲染 %@",dist.name);
         NSMutableArray *polylineArr = [NSMutableArray array];
+        NSUInteger minCount = 300;
+        if ([dist.name isEqualToString:@"舟山市"]) {
+            minCount = 200;
+        } else if ([dist.name isEqualToString:@"澳門特別行政區"]){
+            minCount = 50;
+        }
         for (NSString *polylineStr in dist.polylines)
         {
-            NSArray *polylineCoordinatesArr = [CommonUtility shortCoordinatesArrByString:polylineStr withParseToken:@";" maxCount:180];
+            NSArray *polylineCoordinatesArr = [CommonUtility shortCoordinatesArrByString:polylineStr withParseToken:@";" maxCount:180 minCount:minCount];
             if (polylineCoordinatesArr) {
                 [polylineArr addObject:polylineCoordinatesArr];
             }
@@ -100,8 +107,7 @@
     }
     
     NSDictionary *storeDict = @{@"center":mapOutlineModel.centerCoordinate, @"polygon":mapOutlineModel.polygonCoordinates};
-    [[NSUserDefaults standardUserDefaults] setObject:storeDict forKey:mapOutlineModel.cityName];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    [self storeOutLineForCity:mapOutlineModel.cityName withDict:storeDict];
     return mapOutlineModel;
 }
 
@@ -173,4 +179,67 @@
     model.polygonColor = color;
     return model;
 }
+
+#pragma mark - 数据持久化
+- (void)storeOutLineForCity:(NSString *)cityName withDict:(NSDictionary *)dict{
+    NSData *dateToStore = [dict JSONData];
+    NSString *cityFolderPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"citys"];
+    NSString *fileName = [NSString stringWithFormat:@"%@.city",cityName];
+    NSString *filePath = [cityFolderPath stringByAppendingPathComponent:fileName];
+    
+    BOOL isDir = NO;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL existed = [fileManager fileExistsAtPath:cityFolderPath isDirectory:&isDir];
+    if ( !(isDir == YES && existed == YES) )
+    {
+        [fileManager createDirectoryAtPath:cityFolderPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    BOOL success = [dateToStore writeToFile:filePath atomically:YES];
+}
+
+- (NSDictionary *)fetchOutLineForCity:(NSString *)cityName {
+    NSString *cityFolderPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"citys"];
+    NSString *fileName = [NSString stringWithFormat:@"%@.city",cityName];
+    NSString *filePath = [cityFolderPath stringByAppendingPathComponent:fileName];
+    
+    NSData *dataLoaded = [NSData dataWithContentsOfFile:filePath];
+    NSDictionary *dict = [dataLoaded objectFromJSONData];
+    NSLog(@"%f",[MapOutlineData cacheCitysSize]);
+    return dict;
+}
+
+//单个文件的大小
++ (long long) fileSizeAtPath:(NSString*) filePath{
+    NSFileManager* manager = [NSFileManager defaultManager];
+    if ([manager fileExistsAtPath:filePath]){
+        return [[manager attributesOfItemAtPath:filePath error:nil] fileSize];
+    }
+    return 0;
+}
+//遍历文件夹获得文件夹大小，返回多少M
++ (float ) folderSizeAtPath:(NSString*) folderPath{
+    NSFileManager* manager = [NSFileManager defaultManager];
+    if (![manager fileExistsAtPath:folderPath]) return 0;
+    NSEnumerator *childFilesEnumerator = [[manager subpathsAtPath:folderPath] objectEnumerator];
+    NSString* fileName;
+    long long folderSize = 0;
+    while ((fileName = [childFilesEnumerator nextObject]) != nil){
+        NSString* fileAbsolutePath = [folderPath stringByAppendingPathComponent:fileName];
+        folderSize += [self fileSizeAtPath:fileAbsolutePath];
+    }
+    return folderSize/(1024.0*1024.0);
+}
+
++ (float) cacheCitysSize {
+    NSString *cityFolderPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"citys"];
+    return [MapOutlineData folderSizeAtPath:cityFolderPath];
+}
+
++ (void) delectCacheCitysFolder {
+    NSString *cityFolderPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"citys"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager removeItemAtPath:cityFolderPath error:nil];
+}
+
 @end

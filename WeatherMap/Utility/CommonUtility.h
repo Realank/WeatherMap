@@ -12,7 +12,7 @@
 
 @interface CommonUtility : NSObject
 
-+ (NSArray *)shortCoordinatesArrByString:(NSString *)string withParseToken:(NSString *)token maxCount:(NSUInteger)maxCount;
++ (NSArray *)shortCoordinatesArrByString:(NSString *)string withParseToken:(NSString *)token maxCount:(NSUInteger)maxCount minCount:(NSUInteger)minCount;
 + (MAPolygon *)polygonForCoordinateArr:(NSArray *)coordinatesArr;
 + (MAPolyline *)polylineForCoordinateArr:(NSArray *)coordinatesArr;
 

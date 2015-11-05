@@ -11,7 +11,7 @@
 
 @implementation CommonUtility
 
-+ (NSArray *)shortCoordinatesArrByString:(NSString *)string withParseToken:(NSString *)token maxCount:(NSUInteger)maxCount{
++ (NSArray *)shortCoordinatesArrByString:(NSString *)string withParseToken:(NSString *)token maxCount:(NSUInteger)maxCount minCount:(NSUInteger)minCount{
     NSMutableArray *arr = [NSMutableArray array];
     
     if (string.length <= 0) {
@@ -23,7 +23,7 @@
     NSArray *components = [string componentsSeparatedByString:token];
     
     NSInteger componentCount = [components count];
-    if (componentCount < 200) {
+    if (componentCount < minCount) {
         return nil;
     }
 

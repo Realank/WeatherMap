@@ -26,6 +26,10 @@
 -(MapOutlineModel *)mapOutlineModelByROMCache:(NSString *)cityName andWeatherInfo:(WeatherModel *)weatherModel;
 -(MapOutlineModel *)mapOutlineModelByAMapDistrictInfo:(AMapDistrict *)dist andWeatherInfo:(WeatherModel *)model;
 
++ (float) cacheCitysSize;
+
++ (void) delectCacheCitysFolder;
+
 // clue for improper use (produces compile time error)
 +(instancetype) alloc __attribute__((unavailable("alloc not available, call sharedInstance instead")));
 -(instancetype) init __attribute__((unavailable("init not available, call sharedInstance instead")));
