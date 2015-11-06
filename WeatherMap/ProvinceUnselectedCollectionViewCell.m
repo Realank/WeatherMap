@@ -21,8 +21,8 @@
     // Initialization code
     
     UIColor *color = [[UIColor alloc]initWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
-    self.layer.cornerRadius = 4;
-    self.clipsToBounds = YES;
+//    self.layer.cornerRadius = 4;
+//    self.clipsToBounds = YES;
     self.layer.borderWidth = 1;
     self.layer.borderColor = color.CGColor;
     

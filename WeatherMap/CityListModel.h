@@ -28,10 +28,11 @@
 +(instancetype) sharedInstance;
 -(BOOL)changeProvinceSelectStatus:(NSString *)provinceName;
 -(void)decreaseSelectedProvincesNumTo:(NSUInteger)num;
+- (void)clearAllSelection;
 -(BOOL)isInSelectedProvinces:(NSString *)provinceName;
 -(NSString *)cityNameForAreaCode:(NSString *)areaCode;
 - (NSArray *)selectedCitysArray;
-
+- (void)syncProvinceSelectionStatusInROM;
 // clue for improper use (produces compile time error)
 +(instancetype) alloc __attribute__((unavailable("alloc not available, call sharedInstance instead")));
 -(instancetype) init __attribute__((unavailable("init not available, call sharedInstance instead")));

@@ -39,13 +39,15 @@ static NSString * const unselectedReuseIdentifier = @"unselectCell";
     
     self.cityListModel = [CityListModel sharedInstance];
     
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
     // Register cell classes
     [self.collectionView registerNib:[UINib nibWithNibName:@"ProvinceUnselectedCollectionViewCell" bundle:nil]forCellWithReuseIdentifier:unselectedReuseIdentifier];
     [self.collectionView registerNib:[UINib nibWithNibName:@"ProvinceSelectedCollectionViewCell" bundle:nil]forCellWithReuseIdentifier:selectedReuseIdentifier];
 
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [[CityListModel sharedInstance] syncProvinceSelectionStatusInROM];
 }
 
 
@@ -84,6 +86,7 @@ static NSString * const unselectedReuseIdentifier = @"unselectCell";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    DLog(@"didSelectItemAtIndexPath start");
     NSString *provinceName = self.cityListModel.provincesNameArray[indexPath.item];
     if (![self.cityListModel changeProvinceSelectStatus:provinceName]) {
         BOOL crazyMode = [SettingData sharedInstance].crazyMode;
@@ -97,12 +100,19 @@ static NSString * const unselectedReuseIdentifier = @"unselectCell";
         
     }
     DMapLog(@"select: %@",provinceName);
-
+    DLog(@"didSelectItemAtIndexPath 2");
     [collectionView reloadData];
     //[collectionView reloadItemsAtIndexPaths:[NSArray arrayWithObject:indexPath]];
+    DLog(@"didSelectItemAtIndexPath 3");
+    
     
 
 }
 
+- (IBAction)clearAllSelection:(id)sender {
+    
+    [self.cityListModel clearAllSelection];
+    [self.collectionView reloadData];
+}
 
 @end

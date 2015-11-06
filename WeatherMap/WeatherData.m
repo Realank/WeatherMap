@@ -107,10 +107,10 @@
         WeatherForcast *tomorrowWeather = model.forcast[1];
         [weakSelf.weatherInfo setObject:model forKey:model.cityChineseName];
         
-        ELOG(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
+        DWeahtherLog(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
         
         if (!model) {
-            DLog(@"[天气]%lu:获取失败2",(unsigned long)cityCode);
+            ELOG(@"[天气]%lu:获取失败2",(unsigned long)cityCode);
             return;
         }
         if (weakSelf.delegate) {

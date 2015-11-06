@@ -195,9 +195,12 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="普通模式只能显示至多5个省份的天气信息，开启疯狂模式后，可以不受此数量限制，但是选择省份过多会造成地图载入缓慢和应用卡顿" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1q-QZ-lfa">
-                                <rect key="frame" x="20" y="305" width="550" height="36"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h1q-QZ-lfa">
+                                <rect key="frame" x="20" y="305" width="550" height="54"/>
                                 <animations/>
+                                <string key="text">普通模式只能显示至多5个省份的天气信息，开启疯狂模式后，可以不受此数量限制
+
+选择省份过多会造成地图载入缓慢和应用卡顿，较密集的图形亦可能对您产生不适</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -216,15 +219,15 @@
                                     <action selector="changeCrazyMode:" destination="U1e-tq-4x2" eventType="valueChanged" id="YYX-ld-TiS"/>
                                 </connections>
                             </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="缓存可以有效提高加载天气蒙板的速度和成功率" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dO9-rG-343">
-                                <rect key="frame" x="20" y="415" width="550" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="缓存可以有效提高天气蒙板的加载速度和成功率" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dO9-rG-343">
+                                <rect key="frame" x="20" y="433" width="550" height="18"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcF-Gt-CAw">
-                                <rect key="frame" x="20" y="380" width="68" height="21"/>
+                                <rect key="frame" x="20" y="398" width="68" height="21"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="2iF-6o-MhX"/>
@@ -236,7 +239,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0 M" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="65O-F6-CUO">
-                                <rect key="frame" x="102" y="382" width="39" height="18"/>
+                                <rect key="frame" x="102" y="400" width="39" height="18"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -369,7 +372,13 @@
                             <outlet property="delegate" destination="ITH-wx-sNq" id="NX8-UD-JfP"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" title="请选择省份" id="t2p-NX-TTb"/>
+                    <navigationItem key="navigationItem" title="请选择省份" id="t2p-NX-TTb">
+                        <barButtonItem key="rightBarButtonItem" title="全部不选" style="plain" id="gaK-et-Wbb">
+                            <connections>
+                                <action selector="clearAllSelection:" destination="ITH-wx-sNq" id="REJ-ep-YmV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OXq-Hh-EpZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

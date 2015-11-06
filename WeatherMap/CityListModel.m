@@ -79,8 +79,8 @@
         NSArray *list = [[NSUserDefaults standardUserDefaults] objectForKey:@"ProvinceList"];
         if (!list) {
             list = @[@"河北省",@"北京市",@"天津市"];
-            [[NSUserDefaults standardUserDefaults] setObject:list forKey:@"ProvinceList"];
-            [[NSUserDefaults standardUserDefaults] synchronize];
+//            [[NSUserDefaults standardUserDefaults] setObject:list forKey:@"ProvinceList"];
+//            [[NSUserDefaults standardUserDefaults] synchronize];
         }
         _selectedProvincesNameArray = [list mutableCopy];
         self.selectStatusChanged = YES;
@@ -131,11 +131,11 @@
         });
     }
     self.selectStatusChanged = YES;
-    __weak __typeof(self) weakSelf = self;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [[NSUserDefaults standardUserDefaults] setObject:[weakSelf.selectedProvincesNameArray copy]forKey:@"ProvinceList"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    });
+//    __weak __typeof(self) weakSelf = self;
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        [[NSUserDefaults standardUserDefaults] setObject:[weakSelf.selectedProvincesNameArray copy]forKey:@"ProvinceList"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    });
     
     if (crazyMode && self.selectedProvincesNameArray.count == MAX_CITY_NUM+1) {
         return NO;
@@ -144,11 +144,28 @@
 }
 
 -(void)decreaseSelectedProvincesNumTo:(NSUInteger)num {
+    self.selectStatusChanged = YES;
+    
     while (self.selectedProvincesNameArray.count > num) {
-        [[CityListModel sharedInstance].selectedProvincesNameArray removeObjectAtIndex:0];
+        [self.selectedProvincesNameArray removeObjectAtIndex:0];
     }
-    [[NSUserDefaults standardUserDefaults] setObject:[self.selectedProvincesNameArray copy]forKey:@"ProvinceList"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+//    __weak __typeof(self) weakSelf = self;
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        [[NSUserDefaults standardUserDefaults] setObject:[weakSelf.selectedProvincesNameArray copy]forKey:@"ProvinceList"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    });
+    
+}
+
+- (void)clearAllSelection {
+    self.selectStatusChanged = YES;
+    _selectedProvincesNameArray = [NSMutableArray array];
+
+//    __weak __typeof(self) weakSelf = self;
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        [[NSUserDefaults standardUserDefaults] setObject:[weakSelf.selectedProvincesNameArray copy]forKey:@"ProvinceList"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    });
 }
 
 -(bool)isInSelectedProvinces:(NSString *)provinceName {
@@ -189,5 +206,13 @@
     return [cityarr copy];
 }
 
+- (void)syncProvinceSelectionStatusInROM {
+    [[NSUserDefaults standardUserDefaults] setObject:[self.selectedProvincesNameArray copy]forKey:@"ProvinceList"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)dealloc {
+    [self syncProvinceSelectionStatusInROM];
+}
 
 @end

@@ -146,10 +146,11 @@
 - (void)updatePrograss {
     NSUInteger loadedCityNum = self.loadedCitys.allKeys.count;
     NSUInteger selectedCityNum = [[CityListModel sharedInstance] selectedCitysArray].count;
-    if (loadedCityNum == 0) {
+    if (loadedCityNum == 0 && selectedCityNum != 0) {
         self.progress.hidden = NO;
         self.progress.progress = 0;
     } else if(loadedCityNum < selectedCityNum) {
+        self.progress.hidden = NO;
         self.progress.progress = loadedCityNum * 1.0/selectedCityNum;
     } else {
         self.progress.hidden = YES;

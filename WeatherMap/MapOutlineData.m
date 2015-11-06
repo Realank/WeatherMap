@@ -205,7 +205,6 @@
     
     NSData *dataLoaded = [NSData dataWithContentsOfFile:filePath];
     NSDictionary *dict = [dataLoaded objectFromJSONData];
-    NSLog(@"%f",[MapOutlineData cacheCitysSize]);
     return dict;
 }
 
