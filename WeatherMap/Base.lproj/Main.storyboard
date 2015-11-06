@@ -45,6 +45,33 @@
                                 </connections>
                             </button>
                         </barButtonItem>
+                        <view key="titleView" contentMode="scaleToFill" id="EfN-yS-nav">
+                            <rect key="frame" x="180" y="2" width="240" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTc-gY-225">
+                                    <rect key="frame" x="105" y="25" width="31" height="15"/>
+                                    <animations/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天气地图" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dU2-UF-ZjT">
+                                    <rect key="frame" x="86" y="5" width="68" height="21"/>
+                                    <animations/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <animations/>
+                            <constraints>
+                                <constraint firstItem="uTc-gY-225" firstAttribute="centerX" secondItem="EfN-yS-nav" secondAttribute="centerX" id="0zn-tr-cQN"/>
+                                <constraint firstItem="dU2-UF-ZjT" firstAttribute="top" secondItem="EfN-yS-nav" secondAttribute="top" constant="5" id="8qN-Az-oau"/>
+                                <constraint firstItem="dU2-UF-ZjT" firstAttribute="centerX" secondItem="EfN-yS-nav" secondAttribute="centerX" id="Tta-n5-3zH"/>
+                                <constraint firstAttribute="bottom" secondItem="uTc-gY-225" secondAttribute="bottom" id="rzH-bz-cIV"/>
+                            </constraints>
+                        </view>
                         <rightBarButtonItems>
                             <barButtonItem style="plain" systemItem="refresh" id="J7v-XF-Wub">
                                 <connections>
@@ -60,13 +87,14 @@
                     </navigationItem>
                     <connections>
                         <outlet property="progress" destination="ARD-CS-Bti" id="eAI-fT-BjA"/>
+                        <outlet property="weatherDescribe" destination="uTc-gY-225" id="eLv-uv-i0L"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3076" y="99"/>
         </scene>
-        <!--天气图例-->
+        <!--Cutline Table View Controller-->
         <scene sceneID="dNK-x0-RE6">
             <objects>
                 <tableViewController id="fTq-GO-pNG" customClass="CutlineTableViewController" sceneMemberID="viewController">
@@ -122,7 +150,39 @@
                             <outlet property="delegate" destination="fTq-GO-pNG" id="GGi-sf-Xqo"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="天气图例" id="cfB-Yg-9hG"/>
+                    <navigationItem key="navigationItem" id="cfB-Yg-9hG">
+                        <nil key="title"/>
+                        <view key="titleView" contentMode="scaleToFill" id="Pm9-xD-aND">
+                            <rect key="frame" x="180" y="2" width="240" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="图例" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnY-mC-due">
+                                    <rect key="frame" x="103" y="5" width="34" height="21"/>
+                                    <animations/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jvL-wU-6Oy">
+                                    <rect key="frame" x="104" y="25" width="31" height="15"/>
+                                    <animations/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="bottom" secondItem="jvL-wU-6Oy" secondAttribute="bottom" id="LSo-65-v7h"/>
+                                <constraint firstItem="jvL-wU-6Oy" firstAttribute="centerX" secondItem="Pm9-xD-aND" secondAttribute="centerX" id="sBn-eQ-rCC"/>
+                                <constraint firstItem="jnY-mC-due" firstAttribute="centerX" secondItem="Pm9-xD-aND" secondAttribute="centerX" id="thm-VW-vmR"/>
+                                <constraint firstItem="jnY-mC-due" firstAttribute="top" secondItem="Pm9-xD-aND" secondAttribute="top" constant="5" id="zd4-SW-wQ0"/>
+                            </constraints>
+                        </view>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="describeLabel" destination="jvL-wU-6Oy" id="QLw-cu-gde"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ai1-HM-Szk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -331,11 +391,11 @@
             </objects>
             <point key="canvasLocation" x="642" y="288"/>
         </scene>
-        <!--天气图例-->
+        <!--图例-->
         <scene sceneID="esK-A7-t7F">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qhy-P2-hRV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="天气图例" image="culineUnselect" selectedImage="culineSelect" id="CT2-up-gFH"/>
+                    <tabBarItem key="tabBarItem" title="图例" image="culineUnselect" selectedImage="culineSelect" id="CT2-up-gFH"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rph-GR-uIS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

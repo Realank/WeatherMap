@@ -14,38 +14,47 @@
 #import "TemperatureColorModel.h"
 #define CELL_HEIGHT 50.0
 
+@interface CutlineTableViewController ()
+
+@property (weak, nonatomic) IBOutlet UILabel *describeLabel;
+
+@end
 
 @implementation CutlineTableViewController
 
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateTitle) name:@"SettingWeatherContentChanged" object:nil];
+    [self updateTitle];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.tableView reloadData];
+}
+
+-(void)updateTitle {
     switch ([SettingData sharedInstance].weatherContent) {
         case WEA_RAIN:
         {
-            self.title = @"天气图例";
+            self.describeLabel.text = @"天气";
             break;
         }
             
         case WEA_TEMPERATURE:
         {
-            self.title = @"气温图例";
+            self.describeLabel.text = @"气温";
             break;
         }
             
         case WEA_WIND:
         {
-            self.title = @"风力图例";
+            self.describeLabel.text = @"风力";
             break;
         }
     }
-    [self.tableView reloadData];
+
 }
 
 
@@ -73,7 +82,7 @@
         case WEA_TEMPERATURE:
         {
             NSInteger tem = (indexPath.row - 10)*5;
-            NSArray *weatherTempToColor = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%ld度",(long)tem], [TemperatureColorModel colorForTemperature:tem], nil];
+            NSArray *weatherTempToColor = [NSArray arrayWithObjects:[NSString stringWithFormat:@"%ld℃",(long)tem], [TemperatureColorModel colorForTemperature:tem], nil];
              cell.cutlineModel = weatherTempToColor;
             break;
         }

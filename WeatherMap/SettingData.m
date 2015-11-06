@@ -100,6 +100,7 @@
     _weatherTime = weatherTime;
     [MobClick event:@"Setting"label:@"time"];
     self.settingStatusChanged = YES;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SettingWeatherTimeChanged" object:nil];
     [self syncCoreData];
    
 }
@@ -108,6 +109,7 @@
     _weatherContent = weatherContent;
     [MobClick event:@"Setting"label:@"content"];
     self.settingStatusChanged = YES;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SettingWeatherContentChanged" object:nil];
     [self syncCoreData];
 
 }

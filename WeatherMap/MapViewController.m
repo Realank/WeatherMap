@@ -35,6 +35,10 @@
 @property (nonatomic, strong) NSMutableDictionary *loadedCitys;
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progress;
+
+@property (weak, nonatomic) IBOutlet UILabel *weatherDescribe;
+
+
 @end
 
 
@@ -45,7 +49,11 @@
     [self setupMapAndSearch];
     self.progress.hidden = YES;
     [self.view bringSubviewToFront:self.progress];
+    [self.view bringSubviewToFront:self.weatherDescribe];
     self.reachability = [Reachability reachabilityForInternetConnection];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDescribe) name:@"SettingWeatherTimeChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDescribe) name:@"SettingWeatherContentChanged" object:nil];
+    [self updateDescribe];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -62,6 +70,50 @@
     [super viewDidAppear:animated];
     [self showHelpIfFisrUse];
 
+}
+
+- (void)updateDescribe {
+    NSString *time = @"";
+    switch ([SettingData sharedInstance].weatherTime) {
+        case WEA_TODAY:
+        {
+            time = @"今天";
+            break;
+        }
+            
+        case WEA_TOMOTTOW:
+        {
+            time = @"明天";
+            break;
+        }
+            
+        case WEA_AFTERTOMORROW:
+        {
+            time = @"后天";
+            break;
+        }
+    }
+    NSString *content = @"";
+    switch ([SettingData sharedInstance].weatherContent) {
+        case WEA_RAIN:
+        {
+            content = @"天气";
+            break;
+        }
+            
+        case WEA_TEMPERATURE:
+        {
+            content = @"气温";
+            break;
+        }
+            
+        case WEA_WIND:
+        {
+            content = @"风力";
+            break;
+        }
+    }
+    self.weatherDescribe.text = [time stringByAppendingString:content];
 }
 
 - (void)showHelpIfFisrUse {
