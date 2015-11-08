@@ -34,16 +34,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="天气地图" id="as3-NI-lB6">
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="CLg-HK-s5J">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IQH-RP-kN8">
-                                <rect key="frame" x="20" y="7" width="75" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <state key="normal" title="选择省份"/>
-                                <connections>
-                                    <segue destination="ITH-wx-sNq" kind="show" id="Sse-um-UXg"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="leftBarButtonItem" image="selection" style="plain" id="7Me-vU-L08">
+                            <connections>
+                                <segue destination="ITH-wx-sNq" kind="show" id="Rn6-92-Ugo"/>
+                            </connections>
                         </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="EfN-yS-nav">
                             <rect key="frame" x="180" y="2" width="240" height="40"/>
@@ -78,7 +72,7 @@
                                     <action selector="updateWeatherMap:" destination="BYZ-38-t0r" id="s9c-IK-OQf"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="loc" style="plain" id="gfr-yN-Zkd">
+                            <barButtonItem image="locate" style="plain" id="gfr-yN-Zkd">
                                 <connections>
                                     <action selector="locateMyself:" destination="BYZ-38-t0r" id="I8D-G5-7eg"/>
                                 </connections>
@@ -345,16 +339,10 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="设置" id="PYp-dD-tml">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="GdM-0S-An3">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ijt-W5-xrU">
-                                <rect key="frame" x="534" y="7" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <animations/>
-                                <state key="normal" title="介绍"/>
-                                <connections>
-                                    <action selector="clickIntroduce:" destination="U1e-tq-4x2" eventType="touchUpInside" id="wk4-wa-vvN"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" image="info" style="plain" id="GdM-0S-An3">
+                            <connections>
+                                <action selector="clickIntroduce:" destination="U1e-tq-4x2" id="tug-NQ-4rW"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -368,6 +356,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hu9-QF-lhg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3086" y="1541"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="zXP-Rn-jq0">
+            <objects>
+                <tableViewController id="mRl-SE-jEc" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Jay-zw-3vn">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="hzg-g7-4qD">
+                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hzg-g7-4qD" id="U4U-of-IZA">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="mRl-SE-jEc" id="0lO-8a-NVt"/>
+                            <outlet property="delegate" destination="mRl-SE-jEc" id="lFZ-WR-bxQ"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xV6-Tg-dDv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3715" y="1548"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="TXr-dg-BT1">
@@ -395,7 +414,7 @@
         <scene sceneID="esK-A7-t7F">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Qhy-P2-hRV" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="图例" image="culineUnselect" selectedImage="culineSelect" id="CT2-up-gFH"/>
+                    <tabBarItem key="tabBarItem" title="图例" image="cutline" id="CT2-up-gFH"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rph-GR-uIS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -448,7 +467,7 @@
         <scene sceneID="P9v-Pm-FAq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="X2Q-sV-9vU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="天气地图" image="mapunSelect" selectedImage="mapSelect" id="W8t-Mg-xBu"/>
+                    <tabBarItem key="tabBarItem" title="天气地图" image="map" id="W8t-Mg-xBu"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L7F-8T-Nkb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -468,7 +487,7 @@
         <scene sceneID="81t-vI-sRH">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DGH-cI-DRe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="设置" image="setUnselect" selectedImage="setSelect" id="DY7-vt-HXT"/>
+                    <tabBarItem key="tabBarItem" title="设置" image="setting" id="DY7-vt-HXT"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UWT-Gr-zki">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -532,12 +551,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="culineSelect" width="30" height="30"/>
-        <image name="culineUnselect" width="30" height="30"/>
-        <image name="loc" width="20" height="20"/>
-        <image name="mapSelect" width="30" height="30"/>
-        <image name="mapunSelect" width="30" height="30"/>
-        <image name="setSelect" width="30" height="30"/>
-        <image name="setUnselect" width="30" height="30"/>
+        <image name="cutline" width="30" height="30"/>
+        <image name="info" width="25" height="25"/>
+        <image name="locate" width="25" height="25"/>
+        <image name="map" width="30" height="30"/>
+        <image name="selection" width="25" height="25"/>
+        <image name="setting" width="30" height="30"/>
     </resources>
 </document>
