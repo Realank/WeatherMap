@@ -40,18 +40,18 @@
                             </connections>
                         </barButtonItem>
                         <view key="titleView" contentMode="scaleToFill" id="EfN-yS-nav">
-                            <rect key="frame" x="180" y="2" width="240" height="40"/>
+                            <rect key="frame" x="250" y="2" width="100" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTc-gY-225">
-                                    <rect key="frame" x="105" y="25" width="31" height="15"/>
+                                    <rect key="frame" x="35" y="25" width="31" height="15"/>
                                     <animations/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="天气地图" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dU2-UF-ZjT">
-                                    <rect key="frame" x="86" y="5" width="68" height="21"/>
+                                    <rect key="frame" x="16" y="5" width="68" height="21"/>
                                     <animations/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -138,6 +138,53 @@
                                     <outlet property="cutlineName" destination="Lz5-C0-4Ek" id="jYE-Yl-iOh"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="reuseIdentifier2" rowHeight="50" id="7xj-MG-u0g" customClass="CutlineTableViewCell">
+                                <rect key="frame" x="0.0" y="136" width="600" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7xj-MG-u0g" id="igr-9C-xkR">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HmA-yI-ght" userLabel="Cutline Color 1">
+                                            <rect key="frame" x="18" y="10" width="564" height="30"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4pX-fc-hsX">
+                                                    <rect key="frame" x="261" y="4" width="43" height="22"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <size key="shadowOffset" width="0.0" height="0.0"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstItem="4pX-fc-hsX" firstAttribute="centerX" secondItem="HmA-yI-ght" secondAttribute="centerX" id="fch-hx-NCF"/>
+                                                <constraint firstAttribute="height" constant="30" id="jrY-xA-dph"/>
+                                                <constraint firstItem="4pX-fc-hsX" firstAttribute="centerY" secondItem="HmA-yI-ght" secondAttribute="centerY" id="rMA-Pk-Pyo"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="HmA-yI-ght" secondAttribute="trailing" constant="10" id="24y-TV-gLx"/>
+                                        <constraint firstItem="HmA-yI-ght" firstAttribute="centerY" secondItem="igr-9C-xkR" secondAttribute="centerY" id="7Vj-Vd-pwa"/>
+                                        <constraint firstItem="HmA-yI-ght" firstAttribute="width" secondItem="igr-9C-xkR" secondAttribute="width" multiplier="0.45" id="qYi-zC-Jlx"/>
+                                        <constraint firstItem="HmA-yI-ght" firstAttribute="leading" secondItem="igr-9C-xkR" secondAttribute="leadingMargin" constant="10" id="uHu-Ww-bAb"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="qYi-zC-Jlx"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <outlet property="cutlineColor" destination="HmA-yI-ght" id="Qza-fB-qg9"/>
+                                    <outlet property="cutlineName" destination="4pX-fc-hsX" id="nTd-EH-Jzl"/>
+                                </connections>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="fTq-GO-pNG" id="jBq-CX-RhF"/>
@@ -147,18 +194,18 @@
                     <navigationItem key="navigationItem" id="cfB-Yg-9hG">
                         <nil key="title"/>
                         <view key="titleView" contentMode="scaleToFill" id="Pm9-xD-aND">
-                            <rect key="frame" x="180" y="2" width="240" height="40"/>
+                            <rect key="frame" x="250" y="2" width="100" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="图例" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnY-mC-due">
-                                    <rect key="frame" x="103" y="5" width="34" height="21"/>
+                                    <rect key="frame" x="33" y="5" width="34" height="21"/>
                                     <animations/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jvL-wU-6Oy">
-                                    <rect key="frame" x="104" y="25" width="31" height="15"/>
+                                    <rect key="frame" x="35" y="25" width="31" height="15"/>
                                     <animations/>
                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>

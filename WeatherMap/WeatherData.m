@@ -94,7 +94,7 @@
         if (!resultDict) {
             NSString *cityCodeStr = [NSString stringWithFormat:@"%lu",cityCode];
             
-            ELOG(@"[天气]%@:获取失败1,将重试",[[CityListModel sharedInstance]cityNameForAreaCode:cityCodeStr]);
+            ELOG(@"[天气]%@:获取失败,将重试第%lu次",[[CityListModel sharedInstance]cityNameForAreaCode:cityCodeStr],(unsigned long)retryTimes+1);
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(200 * NSEC_PER_MSEC)), dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 if (retryTimes < 3) {
                     [weakSelf asyncRequestWeatherInfoWithCityCode:cityCode retryTimes:retryTimes+1];
@@ -110,7 +110,7 @@
         DWeahtherLog(@"[天气]获取 %@ 信息：%@ %@~%@",model.cityChineseName, tomorrowWeather.daytimeStatus,tomorrowWeather.daytimeTemperature,tomorrowWeather.nightTemperature);
         
         if (!model) {
-            ELOG(@"[天气]%lu:获取失败2",(unsigned long)cityCode);
+            ELOG(@"[天气]%lu:获取失败",(unsigned long)cityCode);
             return;
         }
         if (weakSelf.delegate) {

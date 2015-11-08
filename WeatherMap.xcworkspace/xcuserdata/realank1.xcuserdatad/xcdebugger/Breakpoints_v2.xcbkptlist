@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WeatherMap/CityListModel.m"
-            timestampString = "468506214.132909"
+            timestampString = "468683855.129096"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
             landmarkName = "-dealloc"
             landmarkType = "5">
          </BreakpointContent>

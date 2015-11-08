@@ -12,6 +12,6 @@
 
 @property (strong, nonatomic) NSArray *cutlineModel;
 
-- (void)setCutlineModel:(NSArray *)cutlineModel;
+//- (void)setCutlineModel:(NSArray *)cutlineModel;
 
 @end

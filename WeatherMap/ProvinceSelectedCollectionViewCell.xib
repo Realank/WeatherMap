@@ -13,24 +13,55 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="京" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8o-of-efQ">
-                        <rect key="frame" x="0.0" y="0.0" width="75" height="55"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="京" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c8o-of-efQ">
+                        <rect key="frame" x="10" y="0.0" width="55" height="55"/>
                         <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="38"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="55" id="Ai1-YR-mTu"/>
+                            <constraint firstAttribute="height" constant="55" id="K2m-7v-nHK"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="33"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="北京" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yhE-JL-5xI">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="北京" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yhE-JL-5xI">
                         <rect key="frame" x="0.0" y="55" width="75" height="20"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pMw-wf-Dul" userLabel="dot">
+                        <rect key="frame" x="15" y="5" width="6" height="6"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="6" id="M28-c9-037"/>
+                            <constraint firstAttribute="height" constant="6" id="iwX-7h-hmu"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <animations/>
+            <constraints>
+                <constraint firstItem="c8o-of-efQ" firstAttribute="width" secondItem="nQt-JD-veb" secondAttribute="width" id="Pvp-ED-OdJ"/>
+                <constraint firstItem="c8o-of-efQ" firstAttribute="top" secondItem="nQt-JD-veb" secondAttribute="top" id="Ric-v5-FRv"/>
+                <constraint firstItem="c8o-of-efQ" firstAttribute="centerX" secondItem="nQt-JD-veb" secondAttribute="centerX" id="acu-nj-H8u"/>
+                <constraint firstItem="yhE-JL-5xI" firstAttribute="centerX" secondItem="nQt-JD-veb" secondAttribute="centerX" id="bKq-LK-bfT"/>
+                <constraint firstItem="pMw-wf-Dul" firstAttribute="leading" secondItem="nQt-JD-veb" secondAttribute="leading" constant="15" id="fUn-gx-aQd"/>
+                <constraint firstAttribute="bottom" secondItem="yhE-JL-5xI" secondAttribute="bottom" id="gu2-sq-pgI"/>
+                <constraint firstItem="c8o-of-efQ" firstAttribute="height" secondItem="nQt-JD-veb" secondAttribute="height" id="qb7-mn-9Mz"/>
+                <constraint firstItem="pMw-wf-Dul" firstAttribute="top" secondItem="nQt-JD-veb" secondAttribute="top" constant="5" id="qdt-pf-1Zh"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="Pvp-ED-OdJ"/>
+                    <exclude reference="qb7-mn-9Mz"/>
+                </mask>
+            </variation>
             <connections>
+                <outlet property="dotView" destination="pMw-wf-Dul" id="QMX-RY-xph"/>
                 <outlet property="nameLabel" destination="yhE-JL-5xI" id="rnS-fW-qGo"/>
                 <outlet property="titleLable" destination="c8o-of-efQ" id="A6o-7M-fg5"/>
             </connections>

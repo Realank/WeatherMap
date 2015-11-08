@@ -78,7 +78,7 @@
         
         NSArray *list = [[NSUserDefaults standardUserDefaults] objectForKey:@"ProvinceList"];
         if (!list) {
-            list = @[@"河北省",@"北京市",@"天津市"];
+            list = @[@"河北",@"北京市",@"天津市"];
 //            [[NSUserDefaults standardUserDefaults] setObject:list forKey:@"ProvinceList"];
 //            [[NSUserDefaults standardUserDefaults] synchronize];
         }
@@ -207,8 +207,12 @@
 }
 
 - (void)syncProvinceSelectionStatusInROM {
-    [[NSUserDefaults standardUserDefaults] setObject:[self.selectedProvincesNameArray copy]forKey:@"ProvinceList"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    __weak __typeof(self) weakSelf = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [[NSUserDefaults standardUserDefaults] setObject:[weakSelf.selectedProvincesNameArray copy]forKey:@"ProvinceList"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    });
+    
 }
 
 - (void)dealloc {

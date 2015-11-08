@@ -64,7 +64,7 @@
     NSUInteger row = indexPath.row;
     
     
-    CutlineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reuseIdentifier"];
+    CutlineTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reuseIdentifier2"];
     if (!cell) {
         DMapLog(@"找不到cell");
     }

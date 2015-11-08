@@ -42,7 +42,7 @@
 			<string>天津市</string>
 		</dict>
 	</dict>
-	<key>江苏省</key>
+	<key>江苏</key>
 	<dict>
 		<key>shortcut</key>
 		<string>苏</string>
@@ -76,7 +76,7 @@
 			<string>宿迁市</string>
 		</dict>
 	</dict>
-	<key>河北省</key>
+	<key>河北</key>
 	<dict>
 		<key>shortcut</key>
 		<string>冀</string>
@@ -106,7 +106,7 @@
 			<string>秦皇岛市</string>
 		</dict>
 	</dict>
-	<key>黑龙江省</key>
+	<key>黑龙江</key>
 	<dict>
 		<key>shortcut</key>
 		<string>黑</string>
@@ -140,7 +140,7 @@
 			<string>双鸭山市</string>
 		</dict>
 	</dict>
-	<key>吉林省</key>
+	<key>吉林</key>
 	<dict>
 		<key>shortcut</key>
 		<string>吉</string>
@@ -166,7 +166,7 @@
 			<string>白山市</string>
 		</dict>
 	</dict>
-	<key>辽宁省</key>
+	<key>辽宁</key>
 	<dict>
 		<key>shortcut</key>
 		<string>辽</string>
@@ -234,7 +234,7 @@
 			<string>阿拉善盟</string>
 		</dict>
 	</dict>
-	<key>山西省</key>
+	<key>山西</key>
 	<dict>
 		<key>shortcut</key>
 		<string>晋</string>
@@ -264,7 +264,7 @@
 			<string>吕梁市</string>
 		</dict>
 	</dict>
-	<key>陕西省</key>
+	<key>陕西</key>
 	<dict>
 		<key>shortcut</key>
 		<string>陕</string>
@@ -292,7 +292,7 @@
 			<string>铜川市</string>
 		</dict>
 	</dict>
-	<key>山东省</key>
+	<key>山东</key>
 	<dict>
 		<key>shortcut</key>
 		<string>鲁</string>
@@ -422,7 +422,7 @@
 			<string>格尔木市</string>
 		</dict>
 	</dict>
-	<key>甘肃省</key>
+	<key>甘肃</key>
 	<dict>
 		<key>shortcut</key>
 		<string>甘</string>
@@ -476,7 +476,7 @@
 			<string>中卫市</string>
 		</dict>
 	</dict>
-	<key>河南省</key>
+	<key>河南</key>
 	<dict>
 		<key>shortcut</key>
 		<string>豫</string>
@@ -520,7 +520,7 @@
 			<string>济源市</string>
 		</dict>
 	</dict>
-	<key>湖北省</key>
+	<key>湖北</key>
 	<dict>
 		<key>shortcut</key>
 		<string>鄂</string>
@@ -562,7 +562,7 @@
 			<string>潜江市</string>
 		</dict>
 	</dict>
-	<key>浙江省</key>
+	<key>浙江</key>
 	<dict>
 		<key>shortcut</key>
 		<string>浙</string>
@@ -592,7 +592,7 @@
 			<string>舟山市</string>
 		</dict>
 	</dict>
-	<key>安徽省</key>
+	<key>安徽</key>
 	<dict>
 		<key>shortcut</key>
 		<string>皖</string>
@@ -632,7 +632,7 @@
 			<string>池州市</string>
 		</dict>
 	</dict>
-	<key>福建省</key>
+	<key>福建</key>
 	<dict>
 		<key>shortcut</key>
 		<string>闽</string>
@@ -658,7 +658,7 @@
 			<string>南平市</string>
 		</dict>
 	</dict>
-	<key>江西省</key>
+	<key>江西</key>
 	<dict>
 		<key>shortcut</key>
 		<string>赣</string>
@@ -688,7 +688,7 @@
 			<string>鹰潭市</string>
 		</dict>
 	</dict>
-	<key>湖南省</key>
+	<key>湖南</key>
 	<dict>
 		<key>shortcut</key>
 		<string>湘</string>
@@ -724,7 +724,7 @@
 			<string>湘西土家族苗族自治州</string>
 		</dict>
 	</dict>
-	<key>贵州省</key>
+	<key>贵州</key>
 	<dict>
 		<key>shortcut</key>
 		<string>黔</string>
@@ -750,7 +750,7 @@
 			<string>黔西南布依族苗族自治州</string>
 		</dict>
 	</dict>
-	<key>四川省</key>
+	<key>四川</key>
 	<dict>
 		<key>shortcut</key>
 		<string>川</string>
@@ -800,7 +800,7 @@
 			<string>广元市</string>
 		</dict>
 	</dict>
-	<key>广东省</key>
+	<key>广东</key>
 	<dict>
 		<key>shortcut</key>
 		<string>粤</string>
@@ -850,7 +850,7 @@
 			<string>汕尾市</string>
 		</dict>
 	</dict>
-	<key>云南省</key>
+	<key>云南</key>
 	<dict>
 		<key>shortcut</key>
 		<string>滇</string>
@@ -926,7 +926,7 @@
 			<string>防城港市</string>
 		</dict>
 	</dict>
-	<key>海南省</key>
+	<key>海南</key>
 	<dict>
 		<key>shortcut</key>
 		<string>琼</string>

@@ -13,16 +13,21 @@
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                 <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="京" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dW-Q7-7A6">
-                        <rect key="frame" x="0.0" y="0.0" width="75" height="55"/>
-                        <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="38"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="北京" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9d-We-0bU">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="北京" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g9d-We-0bU">
                         <rect key="frame" x="0.0" y="55" width="75" height="20"/>
                         <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="京" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dW-Q7-7A6">
+                        <rect key="frame" x="10" y="0.0" width="55" height="55"/>
+                        <animations/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="55" id="3wh-Y0-0id"/>
+                            <constraint firstAttribute="height" constant="55" id="8n1-i5-Ptc"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="33"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -30,6 +35,18 @@
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <animations/>
+            <constraints>
+                <constraint firstItem="g9d-We-0bU" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="6g1-So-neN"/>
+                <constraint firstItem="4dW-Q7-7A6" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="Da2-gg-v8U"/>
+                <constraint firstItem="4dW-Q7-7A6" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="rvk-qG-X3w"/>
+                <constraint firstItem="4dW-Q7-7A6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="sTT-5d-gSZ"/>
+                <constraint firstAttribute="bottom" secondItem="g9d-We-0bU" secondAttribute="bottom" id="zPG-aG-c81"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="sTT-5d-gSZ"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="nameLabel" destination="g9d-We-0bU" id="cfT-6b-sD3"/>
                 <outlet property="titleLable" destination="4dW-Q7-7A6" id="VD6-7T-LMd"/>

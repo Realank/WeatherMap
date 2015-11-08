@@ -20,10 +20,17 @@
 - (void)setCutlineModel:(NSArray *)cutlineModel {
     _cutlineModel = cutlineModel;
     _cutlineName.text = cutlineModel[0];
+    _cutlineName.layer.shadowColor = [UIColor blackColor].CGColor;
+    _cutlineName.layer.shadowOpacity = 0.9;
+    _cutlineName.layer.shadowRadius = 15.0;
+    _cutlineName.layer.shadowOffset = CGSizeMake(0, 0);
     //_cutlineName.textColor = cutlineModel[1];
 
-    _cutlineColor.backgroundColor = cutlineModel[1];
-    _cutlineColor.layer.cornerRadius = 4;
+    UIColor *color = cutlineModel[1];
+    _cutlineColor.backgroundColor = color;
+//    _cutlineColor.layer.borderColor = color.CGColor;
+//    _cutlineColor.layer.borderWidth = 1;
+    _cutlineColor.layer.cornerRadius = 5;
     _cutlineColor.layer.masksToBounds = YES;
 }
 
