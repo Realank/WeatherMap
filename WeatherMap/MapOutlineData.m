@@ -94,7 +94,7 @@
         for (NSString *polylineStr in dist.polylines)
         {
             NSArray *polylineCoordinatesArr = [CommonUtility shortCoordinatesArrByString:polylineStr withParseToken:@";" maxCount:180 minCount:minCount];
-            if (polylineCoordinatesArr) {
+            if (polylineCoordinatesArr.count > 0) {
                 [polylineArr addObject:polylineCoordinatesArr];
             }
             
@@ -182,6 +182,9 @@
 
 #pragma mark - 数据持久化
 - (void)storeOutLineForCity:(NSString *)cityName withDict:(NSDictionary *)dict{
+    if (!dict) {
+        return;
+    }
     NSData *dateToStore = [dict JSONData];
     NSString *cityFolderPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"citys"];
     NSString *fileName = [NSString stringWithFormat:@"%@.city",cityName];
@@ -204,6 +207,9 @@
     NSString *filePath = [cityFolderPath stringByAppendingPathComponent:fileName];
     
     NSData *dataLoaded = [NSData dataWithContentsOfFile:filePath];
+    if (!dataLoaded) {
+        return nil;
+    }
     NSDictionary *dict = [dataLoaded objectFromJSONData];
     return dict;
 }

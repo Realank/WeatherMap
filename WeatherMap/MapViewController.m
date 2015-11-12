@@ -286,8 +286,10 @@
         }
         
         MapOutlineModel* mapOutLineModel = [[MapOutlineData sharedInstance] mapOutlineModelByAMapDistrictInfo:dist andWeatherInfo:weatherModel];
+        if (mapOutLineModel) {
+            [self showPolygonOnMap:mapOutLineModel];
+        }
         
-        [self showPolygonOnMap:mapOutLineModel];
         
     }
 }
