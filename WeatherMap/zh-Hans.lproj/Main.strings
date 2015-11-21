@@ -1,0 +1,84 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "4pX-fc-hsX"; */
+"4pX-fc-hsX.text" = "Label";
+
+/* Class = "UILabel"; text = "0.0 M"; ObjectID = "65O-F6-CUO"; */
+"65O-F6-CUO.text" = "0.0 M";
+
+/* Class = "UISegmentedControl"; 6uZ-Cn-nzn.segmentTitles[0] = "天气"; ObjectID = "6uZ-Cn-nzn"; */
+"6uZ-Cn-nzn.segmentTitles[0]" = "天气";
+
+/* Class = "UISegmentedControl"; 6uZ-Cn-nzn.segmentTitles[1] = "气温"; ObjectID = "6uZ-Cn-nzn"; */
+"6uZ-Cn-nzn.segmentTitles[1]" = "气温";
+
+/* Class = "UISegmentedControl"; 6uZ-Cn-nzn.segmentTitles[2] = "风力"; ObjectID = "6uZ-Cn-nzn"; */
+"6uZ-Cn-nzn.segmentTitles[2]" = "风力";
+
+/* Class = "UITabBarItem"; title = "图例"; ObjectID = "CT2-up-gFH"; */
+"CT2-up-gFH.title" = "图例";
+
+/* Class = "UITabBarItem"; title = "设置"; ObjectID = "DY7-vt-HXT"; */
+"DY7-vt-HXT.title" = "设置";
+
+/* Class = "UILabel"; text = "天气图钉:"; ObjectID = "ECf-do-LgG"; */
+"ECf-do-LgG.text" = "天气图钉:";
+
+/* Class = "UILabel"; text = "天气地图"; ObjectID = "EW6-zB-sgw"; */
+"EW6-zB-sgw.text" = "天气地图";
+
+/* Class = "UILabel"; text = "天气的时效:"; ObjectID = "KL9-SO-S6g"; */
+"KL9-SO-S6g.text" = "天气的时效:";
+
+/* Class = "UISegmentedControl"; LWc-iP-R9U.segmentTitles[0] = "今天"; ObjectID = "LWc-iP-R9U"; */
+"LWc-iP-R9U.segmentTitles[0]" = "今天";
+
+/* Class = "UISegmentedControl"; LWc-iP-R9U.segmentTitles[1] = "明天"; ObjectID = "LWc-iP-R9U"; */
+"LWc-iP-R9U.segmentTitles[1]" = "明天";
+
+/* Class = "UISegmentedControl"; LWc-iP-R9U.segmentTitles[2] = "后天"; ObjectID = "LWc-iP-R9U"; */
+"LWc-iP-R9U.segmentTitles[2]" = "后天";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Lz5-C0-4Ek"; */
+"Lz5-C0-4Ek.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "设置"; ObjectID = "PYp-dD-tml"; */
+"PYp-dD-tml.title" = "设置";
+
+/* Class = "UITabBarItem"; title = "天气地图"; ObjectID = "W8t-Mg-xBu"; */
+"W8t-Mg-xBu.title" = "天气地图";
+
+/* Class = "UINavigationItem"; title = "天气地图"; ObjectID = "as3-NI-lB6"; */
+"as3-NI-lB6.title" = "天气地图";
+
+/* Class = "UIButton"; normalTitle = "清除缓存"; ObjectID = "bcF-Gt-CAw"; */
+"bcF-Gt-CAw.normalTitle" = "清除缓存";
+
+/* Class = "UILabel"; text = "缓存可以有效提高天气蒙板的加载速度和成功率"; ObjectID = "dO9-rG-343"; */
+"dO9-rG-343.text" = "缓存可以有效提高天气蒙板的加载速度和成功率";
+
+/* Class = "UILabel"; text = "天气地图"; ObjectID = "dU2-UF-ZjT"; */
+"dU2-UF-ZjT.text" = "天气地图";
+
+/* Class = "UILabel"; text = "疯狂模式:"; ObjectID = "eE4-Dk-W86"; */
+"eE4-Dk-W86.text" = "疯狂模式:";
+
+/* Class = "UIBarButtonItem"; title = "全部不选"; ObjectID = "gaK-et-Wbb"; */
+"gaK-et-Wbb.title" = "全部不选";
+
+/* Class = "UILabel"; text = "普通模式只能显示至多5个省份的天气信息，开启疯狂模式后，可以不受此数量限制\n\n选择省份过多会造成地图载入缓慢和应用卡顿，较密集的图形亦可能对您产生不适"; ObjectID = "h1q-QZ-lfa"; */
+"h1q-QZ-lfa.text" = "普通模式只能显示至多5个省份的天气信息，开启疯狂模式后，可以不受此数量限制\n\n选择省份过多会造成地图载入缓慢和应用卡顿，较密集的图形亦可能对您产生不适";
+
+/* Class = "UILabel"; text = "图例"; ObjectID = "jnY-mC-due"; */
+"jnY-mC-due.text" = "图例";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "jvL-wU-6Oy"; */
+"jvL-wU-6Oy.text" = "Label";
+
+/* Class = "UILabel"; text = "天气的内容:"; ObjectID = "mEo-o2-syF"; */
+"mEo-o2-syF.text" = "天气的内容:";
+
+/* Class = "UINavigationItem"; title = "请选择省份"; ObjectID = "t2p-NX-TTb"; */
+"t2p-NX-TTb.title" = "请选择省份";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "uTc-gY-225"; */
+"uTc-gY-225.text" = "Label";
