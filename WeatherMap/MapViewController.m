@@ -26,6 +26,8 @@
 #import "PopUpBigViewForNotice.h"
 
 
+
+
 @interface MapViewController ()<MAMapViewDelegate,AMapSearchDelegate,WeatherDataLoadSuccessDelegate>
 
 @property (nonatomic,strong) AMapSearchAPI *search;
@@ -69,7 +71,13 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self showHelpIfFisrUse];
+    //注册通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userDidTakeScreenshot:) name:UIApplicationUserDidTakeScreenshotNotification object:nil];
 
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationUserDidTakeScreenshotNotification object:nil];
 }
 
 - (void)updateDescribe {
@@ -221,8 +229,15 @@
         [self.mapView setUserTrackingMode: MAUserTrackingModeFollow animated:YES];
         [self.mapView setZoomLevel:6 animated:YES];
     }
-}
 
+}
+#pragma mark - 截图
+
+//截屏响应
+- (void)userDidTakeScreenshot:(NSNotification *)notification
+{
+    
+}
 #pragma mark - 天气读取完毕代理
 - (void)weatherDataDidLoad {
     //DWeahtherLog(@"%@",self.weatherData.weatherInfo);
