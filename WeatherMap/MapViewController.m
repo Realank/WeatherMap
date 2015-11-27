@@ -24,6 +24,7 @@
 #import "MapOutlineData.h"
 
 #import "PopUpBigViewForNotice.h"
+#import <MobClick.h>
 
 
 
@@ -236,7 +237,7 @@
 //截屏响应
 - (void)userDidTakeScreenshot:(NSNotification *)notification
 {
-    
+    [MobClick event:@"ScreenShot"];
 }
 #pragma mark - 天气读取完毕代理
 - (void)weatherDataDidLoad {
