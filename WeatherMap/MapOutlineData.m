@@ -103,12 +103,14 @@
             return nil;
         }
         mapOutlineModel.polygonCoordinates = [polylineArr copy];
-  
+        NSDictionary *storeDict = @{@"center":mapOutlineModel.centerCoordinate, @"polygon":mapOutlineModel.polygonCoordinates};
+        [self storeOutLineForCity:mapOutlineModel.cityName withDict:storeDict];
+        return mapOutlineModel;
     }
     
-    NSDictionary *storeDict = @{@"center":mapOutlineModel.centerCoordinate, @"polygon":mapOutlineModel.polygonCoordinates};
-    [self storeOutLineForCity:mapOutlineModel.cityName withDict:storeDict];
-    return mapOutlineModel;
+    return nil;
+    
+
 }
 
 

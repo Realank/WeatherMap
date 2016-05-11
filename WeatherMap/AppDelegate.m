@@ -21,7 +21,7 @@
     [MobClick startWithAppkey:@"5628882967e58e6f340010c4" reportPolicy:SEND_INTERVAL   channelId:@""];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
-    [self printDeviceID];
+//    [self printDeviceID];
     return YES;
 }
 
