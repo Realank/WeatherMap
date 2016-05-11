@@ -2,7 +2,7 @@
 
 • 支持屏幕旋转
 • 支持iPad2/iPad Air/iPad Pro
-• 修复bug
+• 修复崩溃bug
 
 
 
