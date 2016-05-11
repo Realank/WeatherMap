@@ -24,6 +24,7 @@
     _cutlineName.layer.shadowOpacity = 0.9;
     _cutlineName.layer.shadowRadius = 15.0;
     _cutlineName.layer.shadowOffset = CGSizeMake(0, 0);
+    _cutlineName.layer.shouldRasterize = YES;
     //_cutlineName.textColor = cutlineModel[1];
 
     UIColor *color = cutlineModel[1];

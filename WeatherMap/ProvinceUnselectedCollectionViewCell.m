@@ -28,9 +28,11 @@
     self.titleLable.textColor = [UIColor whiteColor];
     self.titleLable.backgroundColor = color;
     self.titleLable.layer.cornerRadius = 10;
-    self.titleLable.clipsToBounds = YES;
+    self.titleLable.layer.masksToBounds = YES;
+    self.titleLable.layer.shouldRasterize = YES;
 //    self.nameLabel.textColor = graycolor;
 }
+
 
 -(void) setTitle:(NSString *)title andName:(NSString *)name {
     self.titleLable.text = title;

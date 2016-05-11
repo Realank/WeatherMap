@@ -29,13 +29,15 @@
     self.titleLable.textColor = [UIColor whiteColor];
     self.titleLable.backgroundColor = color;
     self.titleLable.layer.cornerRadius = 10;
-    self.titleLable.clipsToBounds = YES;
+    self.titleLable.layer.masksToBounds = YES;
+    self.titleLable.layer.shouldRasterize = YES;
 //    self.titleLable.backgroundColor = color;
 //    
 //    self.nameLabel.textColor = graycolor;
     
     self.dotView.layer.cornerRadius = 3;
-    self.dotView.clipsToBounds = YES;
+    self.dotView.layer.masksToBounds = YES;
+//    self.dotView.layer.shouldRasterize = YES;
 }
 
 -(void) setTitle:(NSString *)title andName:(NSString *)name {
