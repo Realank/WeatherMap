@@ -73,6 +73,16 @@
     WeatherStatusItem *mapping = [self.weatherStatus objectForKey:keycode];
     return mapping.status;
 }
+
+-(NSString *)keycodeForStatusString:(NSString*)statusString{
+    for (NSString* keycode in self.weatherStatus.allKeys) {
+        WeatherStatusItem* mapping = [self.weatherStatus objectForKey:keycode];
+        if ([mapping.status isEqualToString:statusString]) {
+            return keycode;
+        }
+    }
+    return @"99";
+}
 -(UIColor *)colorForKeycode:(NSString *)keycode{
     WeatherStatusItem *mapping = [self.weatherStatus objectForKey:keycode];
     if (mapping) {

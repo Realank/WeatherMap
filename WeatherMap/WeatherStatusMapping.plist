@@ -29,7 +29,7 @@
 	</array>
 	<key>05</key>
 	<array>
-		<string>雷阵雨+冰雹</string>
+		<string>雷阵雨并伴有冰雹</string>
 		<integer>7789307</integer>
 	</array>
 	<key>06</key>
@@ -109,42 +109,42 @@
 	</array>
 	<key>21</key>
 	<array>
-		<string>小到中雨</string>
+		<string>小雨-中雨</string>
 		<real>5885438</real>
 	</array>
 	<key>22</key>
 	<array>
-		<string>中到大雨</string>
+		<string>中雨-大雨</string>
 		<real>2473211</real>
 	</array>
 	<key>23</key>
 	<array>
-		<string>大到暴雨</string>
+		<string>大雨-暴雨</string>
 		<real>635641</real>
 	</array>
 	<key>24</key>
 	<array>
-		<string>暴雨到大暴雨</string>
+		<string>暴雨-大暴雨</string>
 		<real>435430</real>
 	</array>
 	<key>25</key>
 	<array>
-		<string>大暴雨到特大暴雨</string>
+		<string>大暴雨-特大暴雨</string>
 		<real>365003</real>
 	</array>
 	<key>26</key>
 	<array>
-		<string>小到中雪</string>
+		<string>小雪-中雪</string>
 		<real>10329501</real>
 	</array>
 	<key>27</key>
 	<array>
-		<string>中到大雪</string>
+		<string>中雪-大雪</string>
 		<real>9276813</real>
 	</array>
 	<key>28</key>
 	<array>
-		<string>大到暴雪</string>
+		<string>大雪-暴雪</string>
 		<real>7308429</real>
 	</array>
 	<key>29</key>
@@ -160,7 +160,27 @@
 	<key>31</key>
 	<array>
 		<string>强沙尘暴</string>
-		<integer>12627248</integer>
+		<real>12627248</real>
+	</array>
+	<key>32</key>
+	<array>
+		<string>飑</string>
+		<real>12627248</real>
+	</array>
+	<key>33</key>
+	<array>
+		<string>龙卷风</string>
+		<real>12627248</real>
+	</array>
+	<key>34</key>
+	<array>
+		<string>弱高吹雪</string>
+		<real>7308429</real>
+	</array>
+	<key>52</key>
+	<array>
+		<string>轻霾</string>
+		<integer>13486249</integer>
 	</array>
 	<key>53</key>
 	<array>

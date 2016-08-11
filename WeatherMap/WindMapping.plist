@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>0</key>
-	<string>无持续风向</string>
+	<string>无风向</string>
 	<key>1</key>
 	<string>东北风</string>
 	<key>2</key>
@@ -21,6 +21,6 @@
 	<key>8</key>
 	<string>北风</string>
 	<key>9</key>
-	<string>旋转风</string>
+	<string>旋转不定</string>
 </dict>
 </plist>

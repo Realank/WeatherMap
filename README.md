@@ -3,7 +3,7 @@
 
 >Show City Weather in Maps via Gaode Map SDK
 
-1. Request city weather in http://openweather.weather.com.cn
+1. Request city weather in Gaode
 
 2. Then, request city outline in map
 
@@ -23,7 +23,7 @@
 >通过高德地图sdk，显示地图中城市的天气
 
 
-1. 通过中国气象局的天气API，获取感兴趣的城市的天气
+1. 通过高德地图的天气搜索，获取感兴趣的城市的天气
 
 2. 根据获得天气的城市的名称，获取该城市的坐标轮廓
 

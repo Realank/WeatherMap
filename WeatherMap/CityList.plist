@@ -970,25 +970,5 @@
 			<string>五指山市</string>
 		</dict>
 	</dict>
-	<key>香港</key>
-	<dict>
-		<key>shortcut</key>
-		<string>港</string>
-		<key>citys</key>
-		<dict>
-			<key>101320101</key>
-			<string>香港特別行政區</string>
-		</dict>
-	</dict>
-	<key>澳门</key>
-	<dict>
-		<key>shortcut</key>
-		<string>澳</string>
-		<key>citys</key>
-		<dict>
-			<key>101330101</key>
-			<string>澳門特別行政區</string>
-		</dict>
-	</dict>
 </dict>
 </plist>

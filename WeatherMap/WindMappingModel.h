@@ -14,7 +14,9 @@
 
 +(instancetype) sharedInstance;
 -(NSString *)windDirectionForKeycode:(NSString *)keycode;
+-(NSString *)keycodeForWindDirection:(NSString *)windDirection;
 -(NSString *)windStrengthForKeycode:(NSString *)keycode;
+-(NSString *)keycodethFor_AMAP_String:(NSString *)amapString;
 -(UIColor *)colorForWindStrengthKeycode:(NSString *)keycode;
 -(NSArray *)sortedKeyCodes;
 // clue for improper use (produces compile time error)

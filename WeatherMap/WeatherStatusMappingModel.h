@@ -18,6 +18,7 @@
 @interface WeatherStatusMappingModel : NSObject
 
 -(NSString *)stringForKeycode:(NSString *)keycode;
+-(NSString *)keycodeForStatusString:(NSString*)statusString;
 -(UIColor *)colorForKeycode:(NSString *)keycode;
 -(NSArray *)sortedKeyCodes;
 +(instancetype) sharedInstance;

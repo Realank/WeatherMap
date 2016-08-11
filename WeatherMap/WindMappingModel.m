@@ -60,6 +60,20 @@
     
 }
 
+-(NSString *)keycodeForWindDirection:(NSString *)windDirection{
+    for (NSString* keycode in self.windDirection) {
+        NSString* windDirectionInPlist = [self.windDirection objectForKey:keycode];
+        NSString* windDirectionInPlistWithoutSurfix = [windDirectionInPlist copy];
+        if ([windDirectionInPlistWithoutSurfix hasSuffix:@"风"]) {
+            windDirectionInPlistWithoutSurfix = [windDirectionInPlistWithoutSurfix stringByReplacingOccurrencesOfString:@"风" withString:@""];
+        }
+        if ([windDirectionInPlistWithoutSurfix isEqualToString:windDirection]) {
+            return keycode;
+        }
+    }
+    return @"0";
+}
+
 -(NSString *)windStrengthForKeycode:(NSString *)keycode{
     
     NSUInteger strength = [keycode integerValue];
@@ -72,6 +86,23 @@
     
     return string;
 }
+
+-(NSString *)keycodethFor_AMAP_String:(NSString *)amapString{
+    
+    if ([amapString containsString:@"3"]) {
+        return @"0";
+    }
+    
+    NSInteger strength = [amapString integerValue];
+    if (strength > 3) {
+        strength -= 3;
+    }else{
+        strength = 0;
+    }
+    
+    return [NSString stringWithFormat:@"%d",strength];
+}
+
 -(UIColor *)colorForWindStrengthKeycode:(NSString *)keycode{
     return [self.windColor objectAtIndex:[keycode integerValue]];
 }
