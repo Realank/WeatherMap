@@ -1,6 +1,18 @@
 {
   "images" : [
     {
+      "size" : "20x20",
+      "idiom" : "iphone",
+      "filename" : "appIcon-41.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "20x20",
+      "idiom" : "iphone",
+      "filename" : "appIcon-60-@2x.png",
+      "scale" : "3x"
+    },
+    {
       "size" : "29x29",
       "idiom" : "iphone",
       "filename" : "Icon-29.png",
@@ -53,6 +65,17 @@
       "idiom" : "iphone",
       "filename" : "Icon60@3x.png",
       "scale" : "3x"
+    },
+    {
+      "idiom" : "ipad",
+      "size" : "20x20",
+      "scale" : "1x"
+    },
+    {
+      "size" : "20x20",
+      "idiom" : "ipad",
+      "filename" : "appIcon-42.png",
+      "scale" : "2x"
     },
     {
       "size" : "29x29",
@@ -119,6 +142,12 @@
       "idiom" : "ipad",
       "filename" : "appIcon-83_5-@2x.png",
       "scale" : "2x"
+    },
+    {
+      "size" : "1024x1024",
+      "idiom" : "ios-marketing",
+      "filename" : "CloudIcon-back.png",
+      "scale" : "1x"
     }
   ],
   "info" : {
