@@ -39,8 +39,6 @@
 
 @property (weak, nonatomic) IBOutlet UIProgressView *progress;
 
-@property (weak, nonatomic) IBOutlet UILabel *weatherDescribe;
-
 
 @end
 
@@ -52,11 +50,11 @@
     [self setupMapAndSearch];
     self.progress.hidden = YES;
     [self.view bringSubviewToFront:self.progress];
-    [self.view bringSubviewToFront:self.weatherDescribe];
     self.reachability = [Reachability reachabilityForInternetConnection];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDescribe) name:@"SettingWeatherTimeChanged" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateDescribe) name:@"SettingWeatherContentChanged" object:nil];
     [self updateDescribe];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -122,7 +120,7 @@
             break;
         }
     }
-    self.weatherDescribe.text = [time stringByAppendingString:content];
+    self.title = [time stringByAppendingString:content];
 }
 
 - (void)showHelpIfFisrUse {

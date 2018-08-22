@@ -12,11 +12,10 @@
 #import "SettingData.h"
 #import "WindMappingModel.h"
 #import "TemperatureColorModel.h"
-#define CELL_HEIGHT 50.0
+#define CELL_HEIGHT 60.0
 
 @interface CutlineTableViewController ()
 
-@property (weak, nonatomic) IBOutlet UILabel *describeLabel;
 
 @end
 
@@ -38,19 +37,19 @@
     switch ([SettingData sharedInstance].weatherContent) {
         case WEA_RAIN:
         {
-            self.describeLabel.text = @"天气";
+            self.title = @"天气图例";
             break;
         }
             
         case WEA_TEMPERATURE:
         {
-            self.describeLabel.text = @"气温";
+            self.title = @"气温图例";
             break;
         }
             
         case WEA_WIND:
         {
-            self.describeLabel.text = @"风力";
+            self.title = @"风力图例";
             break;
         }
     }
